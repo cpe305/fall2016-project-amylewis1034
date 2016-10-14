@@ -1,0 +1,2 @@
+INDEX VERSION 1.129+C:\Users\amyle\Desktop\DadsArcade\.metadata\.plugins\org.eclipse.jdt.core
+1469186093.index
