@@ -1,74 +1,94 @@
 package arcade.src.main;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public class Player {
+public class Player extends Collidable implements CollideObjectA {
+  public static final int PLAYER_WIDTH = 40;
+  public static final int PLAYER_HEIGHT = 50;
+  
+  private double x1Coord;
+  private double y1Coord;
+  private double x1Vel = 0.0;
+  private double y1Vel = 0.0;
+  private int width;
+  private int height;
 
-	private double x_coord;
-	private double y_coord;
-	private double x_vel = 0.0;
-	private double y_vel = 0.0;
-	private int width;
-	private int height;
-	
-	private BufferedImage spaceship;
-	
-	public Player(double x_coord, double y_coord, SpaceInvaders siGame) {
-		this.x_coord = x_coord;
-		this.y_coord = y_coord;
-		
-		width = siGame.getWidth();
-		height = siGame.getHeight();
-			
-		BufferedImageLoader buff_loader = new BufferedImageLoader();
-		try {
-			spaceship = buff_loader.loadImage("/spaceship.png");
-			spaceship = buff_loader.createResizedCopy(spaceship, 40, 50);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public double getXCoord() {
-		return x_coord;
-	}
-	
-	public void setXCoord(double x_coord) {
-		this.x_coord = x_coord;
-	}
-	
-	public void setXVel(double x_vel) {
-		this.x_vel = x_vel;
-	}
-	
-	public double getYCoord() {
-		return y_coord;
-	}
-	
-	public void setYCoord(double y_coord) {
-		this.y_coord = y_coord;
-	}
-	
-	public void setYVel(double y_vel) {
-		this.y_vel = y_vel;
-	}
-	
-	public void tick() {
-		x_coord += x_vel;
-		y_coord += y_vel;
-		
-		if (x_coord <= 0)
-			x_coord = 0;
-		if (x_coord >= width - 40)
-			x_coord = width - 40;
-		if (y_coord <= 0)
-			y_coord = 0;
-		if (y_coord >= height - 50)
-			y_coord = height - 50;
-	}
-	
-	public void render(Graphics graphics) {
-		graphics.drawImage(spaceship, (int)x_coord, (int)y_coord, null);
-	}
+  private BufferedImage spaceship;
+
+  public Player(double x1Coord, double y1Coord, SpaceInvaders siGame) {
+    super(x1Coord, y1Coord);
+    this.x1Coord = x1Coord;
+    this.y1Coord = y1Coord;
+
+    width = siGame.getWidth();
+    height = siGame.getHeight();
+
+    BufferedImageLoader buffLoader = new BufferedImageLoader();
+    try {
+      spaceship = buffLoader.loadImage("/spaceship.png");
+      spaceship = buffLoader.createResizedCopy(spaceship, PLAYER_WIDTH, PLAYER_HEIGHT);
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+  }
+  
+  public int getWidth() {
+    return PLAYER_WIDTH;
+  }
+  
+  public int getHeight() {
+    return PLAYER_HEIGHT;
+  }
+
+  public double getXCoord() {
+    return x1Coord;
+  }
+
+  public void setXCoord(double x1Coord) {
+    this.x1Coord = x1Coord;
+  }
+
+  public void setXVel(double x1Vel) {
+    this.x1Vel = x1Vel;
+  }
+
+  public double getYCoord() {
+    return y1Coord;
+  }
+
+  public void setYCoord(double y1Coord) {
+    this.y1Coord = y1Coord;
+  }
+
+  public void setYVel(double y1Vel) {
+    this.y1Vel = y1Vel;
+  }
+  
+  public Rectangle getRectBounds() {
+    return new Rectangle((int) x1Coord, (int) y1Coord, PLAYER_WIDTH, PLAYER_HEIGHT);
+  } 
+
+  public void tick() {
+    x1Coord += x1Vel;
+    y1Coord += y1Vel;
+
+    if (x1Coord <= 0) {
+      x1Coord = 0;
+    }
+    if (x1Coord >= width - PLAYER_WIDTH) {
+      x1Coord = width - PLAYER_WIDTH;
+    }
+    if (y1Coord <= 0) {
+      y1Coord = 0;
+    }
+    if (y1Coord >= height - PLAYER_HEIGHT) {
+      y1Coord = height - PLAYER_HEIGHT;
+    }
+  }
+
+  public void render(Graphics graphics) {
+    graphics.drawImage(spaceship, (int) x1Coord, (int) y1Coord, null);
+  }
 }

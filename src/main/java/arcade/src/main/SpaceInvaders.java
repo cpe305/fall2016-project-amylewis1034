@@ -6,200 +6,215 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 
 public class SpaceInvaders extends Canvas implements Runnable {
 
-	private static final long serialVersionUID = 1L;
-	public final String TITLE = "Space Invaders";
-	public static final int HEIGHT = 480;
-	public static final int WIDTH = 640;
-	public static final int SCALE = 2;
-	public static final int BILLION = 1000000000;
-	
-	private Thread thread;
-	private boolean is_running = false;
-	private boolean is_shooting = false;
-	private BufferedImage image_buffer = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
-	private BufferedImage space_background = null;
-	
-	private Player player;
-	private Controller controller;
-	
-	private int num_enemy = 1;
-	private int num_enemy_killed = 0;
-	
-	public int getNum_enemy() {
-		return num_enemy;
-	}
+  private static final long serialVersionUID = 1L;
+  public static final String TITLE = "Space Invaders";
+  public static final int HEIGHT = 480;
+  public static final int WIDTH = 640;
+  public static final int SCALE = 2;
+  public static final int BILLION = 1000000000;
+  public static final int BACK_POSITION = -50;
+  public static final int BACK_REWIDTH = 1400;
+  public static final int BACK_REHEIGHT = 1100;
+  public static final int X_PLAYER_POSITION = 640;
+  public static final int Y_PLAYER_POSITION = 700;
+  public static final int X_BULLET_POSITION = 19;
+  public static final int Y_BULLET_POSITION = 5;
+  public static final double TICKS = 60.0;
 
-	public void setNum_enemy(int num_enemy) {
-		this.num_enemy = num_enemy;
-	}
+  private Thread thread;
+  private boolean isRunning = false;
+  private boolean isShooting = false;
+  private BufferedImage imageBuffer = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
+  private BufferedImage spaceBackground = null;
+ 
+  private Player player;
+  private Controller controller;
 
-	public int getNum_enemy_killed() {
-		return num_enemy_killed;
-	}
+  private int numEnemy = 1;
+  private int numEnemyKilled = 0;
+  
+  public LinkedList<CollideObjectA> friendlyList;
+  public LinkedList<CollideObjectB> enemyList;
 
-	public void setNum_enemy_killed(int num_enemy_killed) {
-		this.num_enemy_killed = num_enemy_killed;
-	}
+  public int getNumEnemy() {
+    return numEnemy;
+  }
 
-	public int getWidth() {
-		return WIDTH * SCALE;
-	}
-	
-	public int getHeight() {
-		return HEIGHT * SCALE;
-	}
-	
-	public void init() {
-		requestFocus();
-		addKeyListener(new KeyInput(this));
-		
-		BufferedImageLoader buff_loader = new BufferedImageLoader();
-		try {
-			space_background = buff_loader.loadImage("/space_background.png");
-			space_background = buff_loader.createResizedCopy(space_background, 1400, 1100);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		player = new Player(640, 700, this);
-		controller = new Controller(this);
-	}
-	
-	public void keyPressed(KeyEvent event) {
-		int key_pressed = event.getKeyCode();
-		
-		if (key_pressed == KeyEvent.VK_UP) {
-			player.setYVel(-5);
-		}
-		else if (key_pressed == KeyEvent.VK_DOWN) {
-			player.setYVel(5);
-		}
-		else if (key_pressed == KeyEvent.VK_LEFT) {
-			player.setXVel(-5);
-		}
-		else if (key_pressed == KeyEvent.VK_RIGHT) {
-			player.setXVel(5);
-		}	
-		else if (key_pressed == KeyEvent.VK_SPACE && is_shooting == false) {
-			controller.addEntity(new Bullet(player.getXCoord() + 19, player.getYCoord() + 5));
-			is_shooting = true;
-		}
-	}
-	
-	public void keyReleased(KeyEvent event) {
-		int key_pressed = event.getKeyCode();
-		
-		if (key_pressed == KeyEvent.VK_UP) {
-			player.setYVel(0);
-		}
-		else if (key_pressed == KeyEvent.VK_DOWN) {
-			player.setYVel(0);
-		}
-		else if (key_pressed == KeyEvent.VK_LEFT) {
-			player.setXVel(0);
-		}
-		else if (key_pressed == KeyEvent.VK_RIGHT) {
-			player.setXVel(0);
-		}		
-		else if (key_pressed == KeyEvent.VK_SPACE) {
-			is_shooting = false;
-		}
-	}
-	
-	private synchronized void start() {
-		if (is_running)
-			return;
+  public void setNumEnemy(int numEnemy) {
+    this.numEnemy = numEnemy;
+  }
 
-		is_running = true;
-		
-		thread = new Thread(this);
-		thread.start();
-	}
-	
-	private synchronized void stop() {
-		if (is_running == false)
-			return;
-		
-		int status = 0;
-		is_running = false;
-		
-		try {
-			thread.join();
-			status = 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		System.exit(status);
-		
-	}
-	
-	private void tick() {
-		player.tick();
-		controller.tick();
-	}
-	
-	private void render() {
-		BufferStrategy b_strategy = this.getBufferStrategy();
-		if (b_strategy == null) {
-			createBufferStrategy(3);
-			return;
-		}
-		
-		Graphics graphics = b_strategy.getDrawGraphics();
-		
-		graphics.drawImage(image_buffer, 0, 0, getWidth(), getHeight(), this);
-		graphics.drawImage(space_background, -50, 0, this);
-		player.render(graphics);
-		controller.render(graphics);
-		
-		graphics.dispose();
-		b_strategy.show();
-	}
-		
-	public void run() {
-		init();
-		
-		long prev_time = System.nanoTime();
-		final double ticks = 60.0;
-		double nano_secs = BILLION / ticks;
-		double time_passed = 0;
-		
-		while (is_running) {
-			long current_time = System.nanoTime();
-			time_passed += (current_time - prev_time) / nano_secs;
-			prev_time = current_time;
-			
-			if (time_passed >= 1) {
-				time_passed--;
-				tick();
-			}
-			
-			render();
-		}
-		stop();
-	}
-	
-	public static void main(String args[]) {
-		SpaceInvaders siGame = new SpaceInvaders();
-		
-		siGame.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		siGame.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		siGame.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		
-		JFrame j_frame = new JFrame(siGame.TITLE);
-		j_frame.add(siGame);
-		j_frame.pack();
-		j_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		j_frame.setLocationRelativeTo(null);
-		j_frame.setVisible(true);
-		j_frame.setResizable(false);	
-		
-		siGame.start();
-	}
+  public int getNumEnemyKilled() {
+    return numEnemyKilled;
+  }
+
+  public void setNumEnemyKilled(int numEnemyKilled) {
+    this.numEnemyKilled = numEnemyKilled;
+  }
+
+  public String getTitle() {
+    return TITLE;
+  }
+
+  public int getWidth() {
+    return WIDTH * SCALE;
+  }
+
+  public int getHeight() {
+    return HEIGHT * SCALE;
+  }
+
+  public void init() {
+    requestFocus();
+    addKeyListener(new KeyInput(this));
+
+    BufferedImageLoader buffLoader = new BufferedImageLoader();
+    try {
+      spaceBackground = buffLoader.loadImage("/space_background.png");
+      spaceBackground = buffLoader.createResizedCopy(spaceBackground, BACK_REWIDTH, BACK_REHEIGHT);
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+
+    player = new Player(X_PLAYER_POSITION, Y_PLAYER_POSITION, this);
+    controller = new Controller(this);
+    controller.addEnemy(numEnemy);
+    
+    friendlyList = controller.getCollideObjectAList();
+    enemyList = controller.getCollideObjectBList();
+  }
+
+  public void keyPressed(KeyEvent event) {
+    int keyPressed = event.getKeyCode();
+
+    if (keyPressed == KeyEvent.VK_UP) {
+      player.setYVel(-5);
+    } else if (keyPressed == KeyEvent.VK_DOWN) {
+      player.setYVel(5);
+    } else if (keyPressed == KeyEvent.VK_LEFT) {
+      player.setXVel(-5);
+    } else if (keyPressed == KeyEvent.VK_RIGHT) {
+      player.setXVel(5);
+    } else if (keyPressed == KeyEvent.VK_SPACE && isShooting == false) {
+      controller.addCollideObject(new Bullet(player.getXCoord() + X_BULLET_POSITION,
+          player.getYCoord() + Y_BULLET_POSITION, this));
+      isShooting = true;
+    }
+  }
+
+  public void keyReleased(KeyEvent event) {
+    int keyPressed = event.getKeyCode();
+
+    if (keyPressed == KeyEvent.VK_UP) {
+      player.setYVel(0);
+    } else if (keyPressed == KeyEvent.VK_DOWN) {
+      player.setYVel(0);
+    } else if (keyPressed == KeyEvent.VK_LEFT) {
+      player.setXVel(0);
+    } else if (keyPressed == KeyEvent.VK_RIGHT) {
+      player.setXVel(0);
+    } else if (keyPressed == KeyEvent.VK_SPACE) {
+      isShooting = false;
+    }
+  }
+
+  private synchronized void start() {
+    if (isRunning) {
+      return;
+    }
+
+    isRunning = true;
+
+    thread = new Thread(this);
+    thread.start();
+  }
+
+  private synchronized void stop() {
+    if (isRunning == false) {
+      return;
+    }
+
+    int status = 0;
+    isRunning = false;
+
+    try {
+      thread.join();
+      status = 1;
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+
+    System.exit(status);
+
+  }
+
+  private void tick() {
+    player.tick();
+    controller.tick();
+  }
+
+  private void render() {
+    BufferStrategy buffStrategy = this.getBufferStrategy();
+    if (buffStrategy == null) {
+      createBufferStrategy(3);
+      return;
+    }
+
+    Graphics graphics = buffStrategy.getDrawGraphics();
+
+    graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);
+    graphics.drawImage(spaceBackground, BACK_POSITION, 0, this);
+    player.render(graphics);
+    controller.render(graphics);
+
+    graphics.dispose();
+    buffStrategy.show();
+  }
+
+  public void run() {
+    init();
+
+    long prevTime = System.nanoTime();
+    final double ticks = TICKS;
+    double nanoSecs = BILLION / ticks;
+    double timePassed = 0;
+
+    while (isRunning) {
+      long currentTime = System.nanoTime();
+      timePassed += (currentTime - prevTime) / nanoSecs;
+      prevTime = currentTime;
+
+      if (timePassed >= 1) {
+        timePassed--;
+        tick();
+      }
+
+      render();
+    }
+    stop();
+  }
+
+  public static void main(String args[]) {
+    SpaceInvaders siGame = new SpaceInvaders();
+
+    siGame.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+    siGame.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+    siGame.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+
+    JFrame titleFrame = new JFrame(siGame.getTitle());
+    titleFrame.add(siGame);
+    titleFrame.pack();
+    titleFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    titleFrame.setLocationRelativeTo(null);
+    titleFrame.setVisible(true);
+    titleFrame.setResizable(false);
+
+    siGame.start();
+  }
 }

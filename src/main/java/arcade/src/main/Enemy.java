@@ -1,49 +1,67 @@
 package arcade.src.main;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Enemy implements Entity {
-	private double x_coord;
-	private double y_coord;
-	private BufferedImage enemy;
-	private SpaceInvaders siGame;
-	
-	Random rand_num = new Random();
-	
-	public Enemy(double x_coord, double y_coord, SpaceInvaders siGame) {
-		this.x_coord = x_coord;
-		this.y_coord = y_coord;
-		this.siGame = siGame;
-		
-		BufferedImageLoader buff_loader = new BufferedImageLoader();
-		try {
-			enemy = buff_loader.loadImage("/enemy.png");
-			enemy = buff_loader.createResizedCopy(enemy, 80, 45);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public double getXCoord() {
-		return x_coord;
-	}
-	
-	public double getYCoord() {
-		return y_coord;
-	}
-	
-	public void tick() {
-		y_coord += 2;
-		
-		if (y_coord > siGame.HEIGHT * siGame.SCALE) {
-			y_coord = 0;
-			x_coord = rand_num.nextInt(siGame.WIDTH * siGame.SCALE);
-		}
-	}
-	
-	public void render(Graphics graphics) {
-		graphics.drawImage(enemy, (int)x_coord, (int)y_coord, null);
-	}
+public class Enemy extends Collidable implements CollideObjectB {
+  public static final int ENEMY_WIDTH = 80;
+  public static final int ENEMY_HEIGHT = 45;
+  public static final int RAND_VAR = 4;
+
+  private double x1Coord;
+  private double y1Coord;
+  private BufferedImage enemy;
+  private SpaceInvaders siGame;
+
+  Random randNum = new Random();
+  private int enemySpeed = (randNum.nextInt(RAND_VAR) + 1);
+
+  public Enemy(double x1Coord, double y1Coord, SpaceInvaders siGame) {
+    super(x1Coord, y1Coord);
+    this.siGame = siGame;
+
+    BufferedImageLoader buffLoader = new BufferedImageLoader();
+    try {
+      enemy = buffLoader.loadImage("/enemy.png");
+      enemy = buffLoader.createResizedCopy(enemy, ENEMY_WIDTH, ENEMY_HEIGHT);
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+  }
+
+  public int getWidth() {
+    return ENEMY_WIDTH;
+  }
+  
+  public int getHeight() {
+    return ENEMY_HEIGHT;
+  }
+  
+  public double getXCoord() {
+    return x1Coord;
+  }
+
+  public double getYCoord() {
+    return y1Coord;
+  }
+  
+  public Rectangle getRectBounds() {
+    return new Rectangle((int) x1Coord, (int) y1Coord, ENEMY_WIDTH, ENEMY_HEIGHT);
+  } 
+
+  public void tick() {
+    y1Coord += enemySpeed;
+
+    if (y1Coord > siGame.getHeight()) {
+      y1Coord = 0;
+      x1Coord = randNum.nextInt(siGame.getWidth());
+      enemySpeed = (randNum.nextInt(RAND_VAR) + 1);
+    }
+  }
+
+  public void render(Graphics graphics) {
+    graphics.drawImage(enemy, (int) x1Coord, (int) y1Coord, null);
+  }
 }
