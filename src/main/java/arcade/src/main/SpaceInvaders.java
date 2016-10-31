@@ -19,7 +19,6 @@ import javax.swing.JFrame;
  */
 
 public class SpaceInvaders extends Canvas implements Runnable {
-
   private static final long serialVersionUID = 1L;
   public static final String TITLE = "Space Invaders";
   public static final int HEIGHT = 480;
@@ -40,6 +39,7 @@ public class SpaceInvaders extends Canvas implements Runnable {
   private boolean isShooting = false;
   private BufferedImage imageBuffer = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
   private BufferedImage spaceBackground = null;
+  private StartMenu startMenu;
 
   private Player player;
   private Controller controller;
@@ -50,6 +50,13 @@ public class SpaceInvaders extends Canvas implements Runnable {
   public LinkedList<CollideObjectA> friendlyList;
   public LinkedList<CollideObjectB> enemyList;
 
+  public static enum Arcade {
+    STARTMENU,
+    SPACEINVADERS;
+  }
+
+  public static Arcade arcade = Arcade.STARTMENU;
+  
   public int getNumEnemy() {
     return numEnemy;
   }
@@ -77,14 +84,15 @@ public class SpaceInvaders extends Canvas implements Runnable {
   public int getHeight() {
     return HEIGHT * SCALE;
   }
-
+  
   /**
    * Initializes the background of space invaders game, the player, the enemies, and the
    * collide-able objects.
    */
   public void init() {
-    requestFocus();
-    addKeyListener(new KeyInput(this));
+    this.requestFocus();
+    this.addKeyListener(new KeyInput(this));
+    this.addMouseListener(new MouseClickInput());
 
     BufferedImageLoader buffLoader = new BufferedImageLoader();
     try {
@@ -97,6 +105,7 @@ public class SpaceInvaders extends Canvas implements Runnable {
     player = new Player(X_PLAYER_POSITION, Y_PLAYER_POSITION, this);
     controller = new Controller(this);
     controller.addEnemy(numEnemy);
+    startMenu = new StartMenu();
 
     friendlyList = controller.getCollideObjectAList();
     enemyList = controller.getCollideObjectBList();
@@ -109,19 +118,20 @@ public class SpaceInvaders extends Canvas implements Runnable {
    */
   public void keyPressed(KeyEvent event) {
     int keyPressed = event.getKeyCode();
-
-    if (keyPressed == KeyEvent.VK_UP) {
-      player.setYVel(-5);
-    } else if (keyPressed == KeyEvent.VK_DOWN) {
-      player.setYVel(5);
-    } else if (keyPressed == KeyEvent.VK_LEFT) {
-      player.setXVel(-5);
-    } else if (keyPressed == KeyEvent.VK_RIGHT) {
-      player.setXVel(5);
-    } else if (keyPressed == KeyEvent.VK_SPACE && isShooting == false) {
-      controller.addCollideObjectA(new Bullet(player.getXCoord() + X_BULLET_POSITION,
-          player.getYCoord() + Y_BULLET_POSITION, this));
-      isShooting = true;
+    if (arcade == Arcade.SPACEINVADERS) {
+      if (keyPressed == KeyEvent.VK_UP) {
+        player.setYVel(-5);
+      } else if (keyPressed == KeyEvent.VK_DOWN) {
+        player.setYVel(5);
+      } else if (keyPressed == KeyEvent.VK_LEFT) {
+        player.setXVel(-5);
+      } else if (keyPressed == KeyEvent.VK_RIGHT) {
+        player.setXVel(5);
+      } else if (keyPressed == KeyEvent.VK_SPACE && isShooting == false) {
+        controller.addCollideObjectA(new Bullet(player.getXCoord() + X_BULLET_POSITION,
+            player.getYCoord() + Y_BULLET_POSITION));
+        isShooting = true;
+      }
     }
   }
 
@@ -132,17 +142,18 @@ public class SpaceInvaders extends Canvas implements Runnable {
    */
   public void keyReleased(KeyEvent event) {
     int keyPressed = event.getKeyCode();
-
-    if (keyPressed == KeyEvent.VK_UP) {
-      player.setYVel(0);
-    } else if (keyPressed == KeyEvent.VK_DOWN) {
-      player.setYVel(0);
-    } else if (keyPressed == KeyEvent.VK_LEFT) {
-      player.setXVel(0);
-    } else if (keyPressed == KeyEvent.VK_RIGHT) {
-      player.setXVel(0);
-    } else if (keyPressed == KeyEvent.VK_SPACE) {
-      isShooting = false;
+    if (arcade == Arcade.SPACEINVADERS) {
+      if (keyPressed == KeyEvent.VK_UP) {
+        player.setYVel(0);
+      } else if (keyPressed == KeyEvent.VK_DOWN) {
+        player.setYVel(0);
+      } else if (keyPressed == KeyEvent.VK_LEFT) {
+        player.setXVel(0);
+      } else if (keyPressed == KeyEvent.VK_RIGHT) {
+        player.setXVel(0);
+      } else if (keyPressed == KeyEvent.VK_SPACE) {
+        isShooting = false;
+      }
     }
   }
 
@@ -177,8 +188,16 @@ public class SpaceInvaders extends Canvas implements Runnable {
   }
 
   private void tick() {
-    player.tick();
-    controller.tick();
+    if (arcade == Arcade.SPACEINVADERS) {
+      player.tick();
+      controller.tick();
+    }
+   
+    if (numEnemyKilled >= numEnemy) {
+      numEnemyKilled = 0;
+      numEnemy += 2;
+      controller.addEnemy(numEnemy);
+    }
   }
 
   private void render() {
@@ -192,8 +211,13 @@ public class SpaceInvaders extends Canvas implements Runnable {
 
     graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);
     graphics.drawImage(spaceBackground, BACK_POSITION, 0, this);
-    player.render(graphics);
-    controller.render(graphics);
+
+    if (arcade == Arcade.SPACEINVADERS) {
+      player.render(graphics);
+      controller.render(graphics);
+    } else if (arcade == Arcade.STARTMENU) {
+      startMenu.render(graphics);
+    }
 
     graphics.dispose();
     buffStrategy.show();

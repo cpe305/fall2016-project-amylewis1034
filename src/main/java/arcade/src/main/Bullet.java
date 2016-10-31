@@ -16,7 +16,6 @@ public class Bullet extends Collidable implements CollideObjectA {
   public static final int BULLET_HEIGHT = 9;
   public static final int BULLET_SPEED = 10;
 
-  private SpaceInvaders siGame;
   private double x1Coord;
   private double y1Coord;
   private BufferedImage bullet;
@@ -27,13 +26,11 @@ public class Bullet extends Collidable implements CollideObjectA {
    * 
    * @param x1Coord the x coordinate of the Bullet based on the Player
    * @param y1Coord the y coordinate of the Bullet based on the Player
-   * @param siGame a reference to the Space Invaders game
    */
-  public Bullet(double x1Coord, double y1Coord, SpaceInvaders siGame) {
+  public Bullet(double x1Coord, double y1Coord) {
     super(x1Coord, y1Coord);
     this.x1Coord = x1Coord;
     this.y1Coord = y1Coord;
-    this.siGame = siGame;
 
     BufferedImageLoader buffLoader = new BufferedImageLoader();
     try {
@@ -66,14 +63,10 @@ public class Bullet extends Collidable implements CollideObjectA {
 
   /**
    * Method that allows the bullet to move across the screen with constant velocity after being
-   * fired and calls other methods to handle a collision.
+   * fired.
    */
   public void tick() {
     y1Coord -= BULLET_SPEED;
-
-    if (CollisionPhysics.isCollision(this, siGame.enemyList)) {
-      System.out.println("COLLISION");
-    }
   }
 
   public void render(Graphics graphics) {

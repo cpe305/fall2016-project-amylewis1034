@@ -22,6 +22,7 @@ public class Enemy extends Collidable implements CollideObjectB {
   private double y1Coord;
   private BufferedImage enemy;
   private SpaceInvaders siGame;
+  private Controller controller;
 
   Random randNum = new Random();
   private int enemySpeed = (randNum.nextInt(RAND_VAR) + 1);
@@ -33,10 +34,12 @@ public class Enemy extends Collidable implements CollideObjectB {
    * @param x1Coord the random initial x position for the player
    * @param y1Coord the random initial y position for the player
    * @param siGame a reference to the Space Invaders game
+   * @param controller a reference to the controller for the game
    */
-  public Enemy(double x1Coord, double y1Coord, SpaceInvaders siGame) {
+  public Enemy(double x1Coord, double y1Coord, SpaceInvaders siGame, Controller controller) {
     super(x1Coord, y1Coord);
     this.siGame = siGame;
+    this.controller = controller;
 
     BufferedImageLoader buffLoader = new BufferedImageLoader();
     try {
@@ -78,6 +81,11 @@ public class Enemy extends Collidable implements CollideObjectB {
       y1Coord = 0;
       x1Coord = randNum.nextInt(siGame.getWidth());
       enemySpeed = (randNum.nextInt(RAND_VAR) + 1);
+    }
+    
+    if (CollisionPhysics.isCollisionB(this, siGame.friendlyList)) {
+      controller.removeCollideObjectB(this);
+      siGame.setNumEnemyKilled(siGame.getNumEnemyKilled() + 1); 
     }
   }
 
