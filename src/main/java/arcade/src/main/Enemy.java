@@ -5,6 +5,14 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+/**
+ * Class to create enemies for the game, Space Invaders. The number of enemies increases as the
+ * Player advances in the game.
+ * 
+ * @author Amy Lewis.
+ * @see Enemy
+ * @version 10/30/16
+ */
 public class Enemy extends Collidable implements CollideObjectB {
   public static final int ENEMY_WIDTH = 80;
   public static final int ENEMY_HEIGHT = 45;
@@ -18,6 +26,14 @@ public class Enemy extends Collidable implements CollideObjectB {
   Random randNum = new Random();
   private int enemySpeed = (randNum.nextInt(RAND_VAR) + 1);
 
+  /**
+   * Constructor for Enemy class that loads an image for an enemy and puts it in a random initial
+   * position.
+   * 
+   * @param x1Coord the random initial x position for the player
+   * @param y1Coord the random initial y position for the player
+   * @param siGame a reference to the Space Invaders game
+   */
   public Enemy(double x1Coord, double y1Coord, SpaceInvaders siGame) {
     super(x1Coord, y1Coord);
     this.siGame = siGame;
@@ -34,11 +50,11 @@ public class Enemy extends Collidable implements CollideObjectB {
   public int getWidth() {
     return ENEMY_WIDTH;
   }
-  
+
   public int getHeight() {
     return ENEMY_HEIGHT;
   }
-  
+
   public double getXCoord() {
     return x1Coord;
   }
@@ -46,11 +62,15 @@ public class Enemy extends Collidable implements CollideObjectB {
   public double getYCoord() {
     return y1Coord;
   }
-  
+
   public Rectangle getRectBounds() {
     return new Rectangle((int) x1Coord, (int) y1Coord, ENEMY_WIDTH, ENEMY_HEIGHT);
-  } 
+  }
 
+  /**
+   * Method that gives each enemy a random speed and x coordinate. It also resets the enemy at the
+   * top of the screen with a new speed and position if that enemy was not killed by the Player.
+   */
   public void tick() {
     y1Coord += enemySpeed;
 

@@ -4,22 +4,37 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+/**
+ * Class to create a bullet shot by the Player for the game, Space Invaders.
+ * 
+ * @author Amy Lewis.
+ * @see Bullet
+ * @version 10/30/16
+ */
 public class Bullet extends Collidable implements CollideObjectA {
   public static final int BULLET_WIDTH = 4;
   public static final int BULLET_HEIGHT = 9;
   public static final int BULLET_SPEED = 10;
-  
+
   private SpaceInvaders siGame;
   private double x1Coord;
   private double y1Coord;
   private BufferedImage bullet;
 
+  /**
+   * Constructor for Bullet class that initializes the image for each bullet and puts it in the
+   * correct position based on the position of the Player.
+   * 
+   * @param x1Coord the x coordinate of the Bullet based on the Player
+   * @param y1Coord the y coordinate of the Bullet based on the Player
+   * @param siGame a reference to the Space Invaders game
+   */
   public Bullet(double x1Coord, double y1Coord, SpaceInvaders siGame) {
     super(x1Coord, y1Coord);
     this.x1Coord = x1Coord;
     this.y1Coord = y1Coord;
-    this.siGame = siGame; 
-    
+    this.siGame = siGame;
+
     BufferedImageLoader buffLoader = new BufferedImageLoader();
     try {
       bullet = buffLoader.loadImage("/bullet.png");
@@ -28,11 +43,11 @@ public class Bullet extends Collidable implements CollideObjectA {
       ex.printStackTrace();
     }
   }
-  
+
   public int getWidth() {
     return BULLET_WIDTH;
   }
-  
+
   public int getHeight() {
     return BULLET_HEIGHT;
   }
@@ -47,12 +62,16 @@ public class Bullet extends Collidable implements CollideObjectA {
 
   public Rectangle getRectBounds() {
     return new Rectangle((int) x1Coord, (int) y1Coord, BULLET_WIDTH, BULLET_HEIGHT);
-  } 
-  
+  }
+
+  /**
+   * Method that allows the bullet to move across the screen with constant velocity after being
+   * fired and calls other methods to handle a collision.
+   */
   public void tick() {
     y1Coord -= BULLET_SPEED;
-    
-    if (CollisionPhysics.Collision(this, siGame.enemyList)) {
+
+    if (CollisionPhysics.isCollision(this, siGame.enemyList)) {
       System.out.println("COLLISION");
     }
   }

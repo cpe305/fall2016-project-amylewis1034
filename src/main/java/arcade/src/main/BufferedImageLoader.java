@@ -5,10 +5,23 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Class that loads images for the game, Space Invaders.
+ * 
+ * @author Amy Lewis.
+ * @see BufferedImageLoader
+ * @version 10/30/16
+ */
 public class BufferedImageLoader {
 
   private BufferedImage bufferedImage;
 
+  /**
+   * Method to load images from the resource folder.
+   * 
+   * @param path the location of the image in the resource folder
+   * @return the image from the resource folder
+   */
   public BufferedImage loadImage(String path) {
     try {
       bufferedImage = ImageIO.read(getClass().getResource(path));
@@ -18,6 +31,14 @@ public class BufferedImageLoader {
     return bufferedImage;
   }
 
+  /**
+   * Method to resize the image so it fits in the scene.
+   * 
+   * @param originalImage the image before it is resized
+   * @param scaledWidth the desired width
+   * @param scaledHeight the desired height
+   * @return the image after being resized
+   */
   public BufferedImage createResizedCopy(BufferedImage originalImage, int scaledWidth,
       int scaledHeight) {
     BufferedImage scaledImage =
