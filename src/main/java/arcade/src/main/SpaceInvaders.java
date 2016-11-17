@@ -1,8 +1,11 @@
 package arcade.src.main;
 
+import arcade.src.main.ArcadeConcreteSubject.Arcade;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
@@ -19,7 +22,7 @@ import javax.swing.JFrame;
  * @version 10/30/16
  */
 
-public class SpaceInvaders extends Canvas implements Runnable {
+public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   private static final long serialVersionUID = 1L;
   public static final String TITLE = "Space Invaders";
   public static final int HEIGHT = 480;
@@ -42,19 +45,29 @@ public class SpaceInvaders extends Canvas implements Runnable {
   private BufferedImage spaceBackground = null;
   private StartMenu startMenu;
   private EndGameMenu endGameMenu;
+  private Arcade state;
 
   private Player player;
   private Controller controller;
 
   private int numEnemy = 1;
   private int numEnemyKilled = 0;
-  private int health = 50;
+  private int health = 200;
+  private int score = 0;
 
+  public static ArcadeConcreteSubject subject;
+  
   public LinkedList<CollideObjectA> friendlyList;
   public LinkedList<CollideObjectB> enemyList;
 
-  public static Arcade arcade = Arcade.STARTMENU;
+  public static ArcadeConcreteSubject getSubject() {
+    return subject;
+  }
   
+  public void update() {
+    state = subject.getState();
+  }
+
   public int getNumEnemy() {
     return numEnemy;
   }
@@ -82,15 +95,23 @@ public class SpaceInvaders extends Canvas implements Runnable {
   public int getHeight() {
     return HEIGHT * SCALE;
   }
-  
+
   public int getHealth() {
     return health;
   }
-  
+
   public void setHealth(int health) {
     this.health = health;
   }
-   
+
+  public int getSpaceScore() {
+    return score;
+  }
+
+  public void setSpaceScore(int score) {
+    this.score = score;
+  }
+
   /**
    * Initializes the background of space invaders game, the player, the enemies, and the
    * collide-able objects.
@@ -113,6 +134,9 @@ public class SpaceInvaders extends Canvas implements Runnable {
     controller.addEnemy(numEnemy);
     startMenu = new StartMenu();
     endGameMenu = new EndGameMenu();
+    subject = new ArcadeConcreteSubject();
+    subject.registerObservers(this);
+    state = Arcade.STARTMENU;
 
     controller.addCollideObjectA(player);
     friendlyList = controller.getCollideObjectAList();
@@ -126,7 +150,7 @@ public class SpaceInvaders extends Canvas implements Runnable {
    */
   public void keyPressed(KeyEvent event) {
     int keyPressed = event.getKeyCode();
-    if (arcade == Arcade.SPACEINVADERS) {
+    if (state == Arcade.SPACEINVADERS) {
       if (keyPressed == KeyEvent.VK_UP) {
         player.setYVel(-5);
       } else if (keyPressed == KeyEvent.VK_DOWN) {
@@ -150,7 +174,7 @@ public class SpaceInvaders extends Canvas implements Runnable {
    */
   public void keyReleased(KeyEvent event) {
     int keyPressed = event.getKeyCode();
-    if (arcade == Arcade.SPACEINVADERS) {
+    if (state == Arcade.SPACEINVADERS) {
       if (keyPressed == KeyEvent.VK_UP) {
         player.setYVel(0);
       } else if (keyPressed == KeyEvent.VK_DOWN) {
@@ -196,10 +220,10 @@ public class SpaceInvaders extends Canvas implements Runnable {
   }
 
   private void tick() {
-    if (arcade == Arcade.SPACEINVADERS) {
+    if (state == Arcade.SPACEINVADERS) {
       controller.tick();
       player.tick();
-      
+
       if (numEnemyKilled >= numEnemy) {
         numEnemyKilled = 0;
         numEnemy++;
@@ -220,21 +244,26 @@ public class SpaceInvaders extends Canvas implements Runnable {
     graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);
     graphics.drawImage(spaceBackground, BACK_POSITION, 0, this);
 
-    if (arcade == Arcade.SPACEINVADERS) {
+    if (state == Arcade.SPACEINVADERS) {
       graphics.setColor(Color.GRAY);
       graphics.fillRect(5, 5, 200, 50);
-      
+
       graphics.setColor(Color.GREEN);
       graphics.fillRect(5, 5, health, 50);
-      
+
       graphics.setColor(Color.WHITE);
       graphics.drawRect(5, 5, 200, 50);
-      
+
+      Font fnt = new Font("arial", Font.BOLD, 50);
+      graphics.setFont(fnt);
+      graphics.setColor(Color.YELLOW);
+      graphics.drawString(((Integer) score).toString(), SpaceInvaders.WIDTH * 2 - 100, 60);
+
       player.render(graphics);
       controller.render(graphics);
-    } else if (arcade == Arcade.STARTMENU) {
+    } else if (state == Arcade.STARTMENU) {
       startMenu.render(graphics);
-    } else if (arcade == Arcade.ENDGAMEMENU) {
+    } else if (state == Arcade.ENDGAMEMENU) {
       endGameMenu.render(graphics);
     }
 

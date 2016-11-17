@@ -1,5 +1,7 @@
 package arcade.src.main;
 
+import arcade.src.main.ArcadeConcreteSubject.Arcade;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -12,7 +14,7 @@ import java.awt.event.MouseListener;
  */
 public class MouseClickInput implements MouseListener {
 
-  private static final int xButtonPosition = SpaceInvaders.WIDTH / 2 + 120;
+  private static final int xButtonPosition = SpaceInvaders.WIDTH / 2;
   private static final int yButtonPosition = 150;
   private static final int buttonWidth = 100;
   private static final int buttonHeight = 50;
@@ -30,16 +32,12 @@ public class MouseClickInput implements MouseListener {
   public void mousePressed(MouseEvent moEvent) {
     int mouseX = moEvent.getX();
     int mouseY = moEvent.getY();
-    /*
-     * public Rectangle playSpaceButton = new Rectangle(xButtonPosition, yButtonPosition,
-     * buttonWidth, buttonHeight); public Rectangle helpButton = new Rectangle(xButtonPosition,
-     * yButtonPosition + buttonWidth, buttonWidth, buttonHeight); public Rectangle exitButton = new
-     * Rectangle(xButtonPosition, yButtonPosition + 2 * buttonWidth, buttonWidth, buttonHeight);
-     */
-    if (SpaceInvaders.arcade == Arcade.STARTMENU) {
-      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 4) {
+
+    if (SpaceInvaders.getSubject().getState() == Arcade.STARTMENU) {
+      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 3) {
         if (mouseY >= yButtonPosition && mouseY <= yButtonPosition + buttonHeight) {
-          SpaceInvaders.arcade = Arcade.SPACEINVADERS;
+          SpaceInvaders.getSubject().setState(Arcade.SPACEINVADERS);
+          SpaceInvaders.getSubject().notifyObservers();
         }
       }
 
@@ -49,16 +47,18 @@ public class MouseClickInput implements MouseListener {
           System.exit(1);
         }
       }
-    } else if (SpaceInvaders.arcade == Arcade.ENDGAMEMENU) {
+    } else if (SpaceInvaders.getSubject().getState() == Arcade.ENDGAMEMENU) {
       if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 2) {
         if (mouseY >= yButtonPosition && mouseY <= yButtonPosition + buttonHeight) {
-          SpaceInvaders.arcade = Arcade.SPACEINVADERS;
+          SpaceInvaders.getSubject().setState(Arcade.SPACEINVADERS);
+          SpaceInvaders.getSubject().notifyObservers();
         }
       }
       if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 3) {
         if (mouseY >= yButtonPosition + buttonHeight * 2
             && mouseY <= yButtonPosition + buttonHeight * 3) {
-          SpaceInvaders.arcade = Arcade.STARTMENU;
+          SpaceInvaders.getSubject().setState(Arcade.STARTMENU);
+          SpaceInvaders.getSubject().notifyObservers();
         }
       }
       if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth) {

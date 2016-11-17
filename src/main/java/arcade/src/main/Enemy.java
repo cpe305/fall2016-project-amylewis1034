@@ -1,5 +1,7 @@
 package arcade.src.main;
 
+import arcade.src.main.ArcadeConcreteSubject.Arcade;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -90,13 +92,15 @@ public class Enemy extends Collidable implements CollideObjectB {
           controller.removeCollideObjectB(this); 
           siGame.setHealth(siGame.getHealth() - 10);
           if (siGame.getHealth() == 0) {
-            SpaceInvaders.arcade = Arcade.ENDGAMEMENU;
+            SpaceInvaders.getSubject().setState(Arcade.ENDGAMEMENU);
+            SpaceInvaders.getSubject().notifyObservers();
           }
           siGame.setNumEnemyKilled(siGame.getNumEnemyKilled() + 1);
         } else {
           controller.removeCollideObjectB(this);
           controller.removeCollideObjectA(tmpObjA);
-          siGame.setNumEnemyKilled(siGame.getNumEnemyKilled() + 1); 
+          siGame.setNumEnemyKilled(siGame.getNumEnemyKilled() + 1);
+          siGame.setSpaceScore(siGame.getSpaceScore() + 1);
         }
       }
     }
