@@ -17,13 +17,12 @@ public class Enemy extends Collidable implements CollideObjectB {
   public static final int ENEMY_WIDTH = 80;
   public static final int ENEMY_HEIGHT = 45;
   public static final int RAND_VAR = 4;
+  public static final int ENEMY_POSITION = -10;
 
-  private double x1Coord;
-  private double y1Coord;
   private BufferedImage enemy;
   private SpaceInvaders siGame;
   private Controller controller;
-
+  
   Random randNum = new Random();
   private int enemySpeed = (randNum.nextInt(RAND_VAR) + 1);
 
@@ -79,13 +78,27 @@ public class Enemy extends Collidable implements CollideObjectB {
 
     if (y1Coord > siGame.getHeight()) {
       y1Coord = 0;
-      x1Coord = randNum.nextInt(siGame.getWidth());
+      x1Coord = randNum.nextInt(siGame.getWidth() - ENEMY_WIDTH);
       enemySpeed = (randNum.nextInt(RAND_VAR) + 1);
     }
     
-    if (CollisionPhysics.isCollisionB(this, siGame.friendlyList)) {
-      controller.removeCollideObjectB(this);
-      siGame.setNumEnemyKilled(siGame.getNumEnemyKilled() + 1); 
+    for (int i = 0; i < siGame.friendlyList.size(); i++) {
+      CollideObjectA tmpObjA = siGame.friendlyList.get(i);
+
+      if (CollisionPhysics.isCollision(tmpObjA, this)) {
+        if (tmpObjA instanceof Player) {
+          controller.removeCollideObjectB(this); 
+          siGame.setHealth(siGame.getHealth() - 10);
+          if (siGame.getHealth() == 0) {
+            SpaceInvaders.arcade = Arcade.ENDGAMEMENU;
+          }
+          siGame.setNumEnemyKilled(siGame.getNumEnemyKilled() + 1);
+        } else {
+          controller.removeCollideObjectB(this);
+          controller.removeCollideObjectA(tmpObjA);
+          siGame.setNumEnemyKilled(siGame.getNumEnemyKilled() + 1); 
+        }
+      }
     }
   }
 

@@ -36,19 +36,38 @@ public class MouseClickInput implements MouseListener {
      * yButtonPosition + buttonWidth, buttonWidth, buttonHeight); public Rectangle exitButton = new
      * Rectangle(xButtonPosition, yButtonPosition + 2 * buttonWidth, buttonWidth, buttonHeight);
      */
+    if (SpaceInvaders.arcade == Arcade.STARTMENU) {
+      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 4) {
+        if (mouseY >= yButtonPosition && mouseY <= yButtonPosition + buttonHeight) {
+          SpaceInvaders.arcade = Arcade.SPACEINVADERS;
+        }
+      }
 
-    if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 4) {
-      if (mouseY >= yButtonPosition && mouseY <= yButtonPosition + buttonHeight) {
-        SpaceInvaders.arcade = SpaceInvaders.Arcade.SPACEINVADERS;
+      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth) {
+        if (mouseY >= yButtonPosition + buttonHeight * 4
+            && mouseY <= yButtonPosition + buttonHeight * 5) {
+          System.exit(1);
+        }
+      }
+    } else if (SpaceInvaders.arcade == Arcade.ENDGAMEMENU) {
+      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 2) {
+        if (mouseY >= yButtonPosition && mouseY <= yButtonPosition + buttonHeight) {
+          SpaceInvaders.arcade = Arcade.SPACEINVADERS;
+        }
+      }
+      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 3) {
+        if (mouseY >= yButtonPosition + buttonHeight * 2
+            && mouseY <= yButtonPosition + buttonHeight * 3) {
+          SpaceInvaders.arcade = Arcade.STARTMENU;
+        }
+      }
+      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth) {
+        if (mouseY >= yButtonPosition + buttonHeight * 4
+            && mouseY <= yButtonPosition + buttonHeight * 5) {
+          System.exit(1);
+        }
       }
     }
-    
-    if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth) {
-      if (mouseY >= yButtonPosition + buttonHeight * 3 && mouseY <= yButtonPosition + buttonHeight * 4) {
-        System.exit(1);
-      }
-    }
-
   }
 
   public void mouseReleased(MouseEvent moEvent) {

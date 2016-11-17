@@ -16,8 +16,6 @@ public class Bullet extends Collidable implements CollideObjectA {
   public static final int BULLET_HEIGHT = 9;
   public static final int BULLET_SPEED = 10;
 
-  private double x1Coord;
-  private double y1Coord;
   private BufferedImage bullet;
 
   /**
@@ -29,8 +27,6 @@ public class Bullet extends Collidable implements CollideObjectA {
    */
   public Bullet(double x1Coord, double y1Coord) {
     super(x1Coord, y1Coord);
-    this.x1Coord = x1Coord;
-    this.y1Coord = y1Coord;
 
     BufferedImageLoader buffLoader = new BufferedImageLoader();
     try {

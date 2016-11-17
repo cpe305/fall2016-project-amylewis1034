@@ -1,6 +1,7 @@
 package arcade.src.main;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -40,20 +41,17 @@ public class SpaceInvaders extends Canvas implements Runnable {
   private BufferedImage imageBuffer = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
   private BufferedImage spaceBackground = null;
   private StartMenu startMenu;
+  private EndGameMenu endGameMenu;
 
   private Player player;
   private Controller controller;
 
   private int numEnemy = 1;
   private int numEnemyKilled = 0;
+  private int health = 50;
 
   public LinkedList<CollideObjectA> friendlyList;
   public LinkedList<CollideObjectB> enemyList;
-
-  public static enum Arcade {
-    STARTMENU,
-    SPACEINVADERS;
-  }
 
   public static Arcade arcade = Arcade.STARTMENU;
   
@@ -85,6 +83,14 @@ public class SpaceInvaders extends Canvas implements Runnable {
     return HEIGHT * SCALE;
   }
   
+  public int getHealth() {
+    return health;
+  }
+  
+  public void setHealth(int health) {
+    this.health = health;
+  }
+   
   /**
    * Initializes the background of space invaders game, the player, the enemies, and the
    * collide-able objects.
@@ -106,7 +112,9 @@ public class SpaceInvaders extends Canvas implements Runnable {
     controller = new Controller(this);
     controller.addEnemy(numEnemy);
     startMenu = new StartMenu();
+    endGameMenu = new EndGameMenu();
 
+    controller.addCollideObjectA(player);
     friendlyList = controller.getCollideObjectAList();
     enemyList = controller.getCollideObjectBList();
   }
@@ -189,14 +197,14 @@ public class SpaceInvaders extends Canvas implements Runnable {
 
   private void tick() {
     if (arcade == Arcade.SPACEINVADERS) {
-      player.tick();
       controller.tick();
-    }
-   
-    if (numEnemyKilled >= numEnemy) {
-      numEnemyKilled = 0;
-      numEnemy += 2;
-      controller.addEnemy(numEnemy);
+      player.tick();
+      
+      if (numEnemyKilled >= numEnemy) {
+        numEnemyKilled = 0;
+        numEnemy++;
+        controller.addEnemy(numEnemy);
+      }
     }
   }
 
@@ -213,10 +221,21 @@ public class SpaceInvaders extends Canvas implements Runnable {
     graphics.drawImage(spaceBackground, BACK_POSITION, 0, this);
 
     if (arcade == Arcade.SPACEINVADERS) {
+      graphics.setColor(Color.GRAY);
+      graphics.fillRect(5, 5, 200, 50);
+      
+      graphics.setColor(Color.GREEN);
+      graphics.fillRect(5, 5, health, 50);
+      
+      graphics.setColor(Color.WHITE);
+      graphics.drawRect(5, 5, 200, 50);
+      
       player.render(graphics);
       controller.render(graphics);
     } else if (arcade == Arcade.STARTMENU) {
       startMenu.render(graphics);
+    } else if (arcade == Arcade.ENDGAMEMENU) {
+      endGameMenu.render(graphics);
     }
 
     graphics.dispose();

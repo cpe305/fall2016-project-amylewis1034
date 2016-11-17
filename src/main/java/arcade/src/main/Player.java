@@ -15,12 +15,9 @@ public class Player extends Collidable implements CollideObjectA {
   public static final int PLAYER_WIDTH = 40;
   public static final int PLAYER_HEIGHT = 50;
 
-  private double x1Coord;
-  private double y1Coord;
   private double x1Vel = 0.0;
   private double y1Vel = 0.0;
-  private int width;
-  private int height;
+  private SpaceInvaders siGame;
 
   private BufferedImage spaceship;
 
@@ -34,11 +31,8 @@ public class Player extends Collidable implements CollideObjectA {
    */
   public Player(double x1Coord, double y1Coord, SpaceInvaders siGame) {
     super(x1Coord, y1Coord);
-    this.x1Coord = x1Coord;
-    this.y1Coord = y1Coord;
 
-    width = siGame.getWidth();
-    height = siGame.getHeight();
+    this.siGame = siGame;
 
     BufferedImageLoader buffLoader = new BufferedImageLoader();
     try {
@@ -96,14 +90,14 @@ public class Player extends Collidable implements CollideObjectA {
     if (x1Coord <= 0) {
       x1Coord = 0;
     }
-    if (x1Coord >= width - PLAYER_WIDTH) {
-      x1Coord = width - PLAYER_WIDTH;
+    if (x1Coord >= siGame.getWidth() - PLAYER_WIDTH) {
+      x1Coord = siGame.getWidth() - PLAYER_WIDTH;
     }
     if (y1Coord <= 0) {
       y1Coord = 0;
     }
-    if (y1Coord >= height - PLAYER_HEIGHT) {
-      y1Coord = height - PLAYER_HEIGHT;
+    if (y1Coord >= siGame.getHeight() - PLAYER_HEIGHT) {
+      y1Coord = siGame.getHeight() - PLAYER_HEIGHT;
     }
   }
 

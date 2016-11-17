@@ -2,6 +2,7 @@ package arcade.src.main;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
@@ -25,7 +26,7 @@ public class BufferedImageLoader {
   public BufferedImage loadImage(String path) {
     try {
       bufferedImage = ImageIO.read(getClass().getResource(path));
-    } catch (Exception ex) {
+    } catch (IOException ex) {
       ex.printStackTrace();
     }
     return bufferedImage;

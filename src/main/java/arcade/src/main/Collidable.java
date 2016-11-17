@@ -15,6 +15,12 @@ public class Collidable {
   public double x1Coord;
   public double y1Coord;
 
+  /**
+   * Constructor for Collidable class that initializes the initial position.
+   * 
+   * @param x1Coord the random initial x position for the collide-able object
+   * @param y1Coord the random initial y position for the collide-able object
+   */
   public Collidable(double x1Coord, double y1Coord) {
     this.x1Coord = x1Coord;
     this.y1Coord = y1Coord;

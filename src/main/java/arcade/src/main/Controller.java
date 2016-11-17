@@ -73,7 +73,8 @@ public class Controller {
    */
   public void addEnemy(int numEnemy) {
     for (int i = 0; i < numEnemy; i++) {
-      addCollideObjectB(new Enemy(randNum.nextInt(siGame.getWidth() - ENEMY_WIDTH), ENEMY_POSITION,
+      int x1Coord = randNum.nextInt(siGame.getWidth() - ENEMY_WIDTH);
+      addCollideObjectB(new Enemy(x1Coord, ENEMY_POSITION,
           siGame, this));
     }
   }
