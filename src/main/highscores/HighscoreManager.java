@@ -1,8 +1,13 @@
 package highscores;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Class that managers high scores for the arcade and outputs the top 10.
@@ -12,40 +17,91 @@ import java.util.ArrayList;
  */
 public class HighscoreManager {
 
-  // private ArrayList<Score> scores;
+  private ArrayList<Score> scores;
 
-  // private static final String HS_FILE = "scores.dat";
+  private static final String HS_FILE = "scores.dat";
 
   ObjectOutputStream outStream = null;
   ObjectInputStream inStream = null;
 
   public HighscoreManager() {
-    // scores = new ArrayList<Score>();
+    scores = new ArrayList<Score>();
   }
 
   public ArrayList<Score> getScores() {
-    // TODO load and return scores
-    return null;
+    loadScoreFile();
+    sort();
+    return scores;
   }
 
   public void sort() {
-    // TODO sort scores, probably make private
+    ScoreComparator comparator = new ScoreComparator();
+    Collections.sort(scores, comparator);
   }
 
   public void addScore(String name, int score) {
-    // TODO add scores to list
+    loadScoreFile();
+    scores.add(new Score(name, score));
+    updateScoreFile();
   }
 
+  @SuppressWarnings("unchecked")
   public void loadScoreFile() {
-    // TODO try and catch to load file
+    try {
+      inStream = new ObjectInputStream(new FileInputStream(HS_FILE));
+      scores = (ArrayList<Score>) inStream.readObject();
+    } catch (ClassNotFoundException e) {
+      System.out.println("Class Not Found Error: " + e.getMessage());
+    } catch (FileNotFoundException e) {
+      System.out.println("File Not Found Error: " + e.getMessage());
+    } catch (IOException e) {
+      System.out.println("IO Error: " + e.getMessage());
+    } finally {
+      try {
+        if (outStream != null) {
+          outStream.flush();
+          outStream.close();
+        }
+      } catch (IOException e) {
+        System.out.println("IO Error: " + e.getMessage());
+      }
+    }
   }
 
   public void updateScoreFile() {
-    // TODO instead of reading file it writes arraylist to file
+    try {
+      outStream = new ObjectOutputStream(new FileOutputStream(HS_FILE));
+      outStream.writeObject(scores);
+    } catch (FileNotFoundException e) {
+      System.out.println("File Not Found Error: " + e.getMessage());
+    } catch (IOException e) {
+      System.out.println("IO Error: " + e.getMessage());
+    } finally {
+      try {
+        if (outStream != null) {
+          outStream.flush();
+          outStream.close();
+        }
+      } catch (IOException e) {
+        System.out.println("[Update] Error: " + e.getMessage());
+      }
+    }
   }
 
   public String getHighscoreName() {
-    // TODO return top 10 player high scores
-    return null;
+    String highscore = "";
+    final int maxNumScores = 10;
+
+        ArrayList<Score> scores;
+        scores = getScores();
+
+        int numScores = scores.size();
+        if (numScores > maxNumScores) {
+          numScores = maxNumScores;
+        }
+       for (int i = 0; i < numScores; i++) {
+            highscore += (i + 1) + ".\t" + scores.get(i).getScoreName() + "\t\t" + scores.get(i).getScore() + "\n";
+        }
+        return highscore;
   }
 }
