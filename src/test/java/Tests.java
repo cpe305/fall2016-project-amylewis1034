@@ -1,13 +1,12 @@
-import static org.junit.Assert.*;
-
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import arcade.src.main.Bullet;
+import org.junit.Test;
 
 public class Tests {
   
   @Test
-  public void BulletWidthTest() {
+  public void bulletWidthTest() {
     Bullet bullet = new Bullet(10, 10);
     int bulletWidth = 4;  
     int width = bullet.getWidth();
@@ -16,7 +15,7 @@ public class Tests {
   }
 
   @Test
-  public void BulletHeightTest() {
+  public void bulletHeightTest() {
     Bullet bullet = new Bullet(10, 10);
     int bulletHeight = 9;
     int height = bullet.getHeight();
@@ -25,11 +24,11 @@ public class Tests {
   }
   
   @Test
-  public void BulletSpeedTest() {
+  public void bulletSpeedTest() {
     Bullet bullet = new Bullet(10, 10);
     int bulletSpeed = 10;
-    int yPosAfterSpeed = (int)bullet.getYCoord() - bulletSpeed;
+    int ypSpeed = (int)bullet.getYCoord() - bulletSpeed;
     
-    assertEquals(yPosAfterSpeed, 0);
+    assertEquals(ypSpeed, 0);
   }
 }
