@@ -45,6 +45,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   private BufferedImage spaceBackground = null;
   private StartMenu startMenu;
   private EndGameMenu endGameMenu;
+  private HighScoreMenu highScoreMenu;
   private Arcade state;
 
   private Player player;
@@ -132,11 +133,16 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     player = new Player(X_PLAYER_POSITION, Y_PLAYER_POSITION, this);
     controller = new Controller(this);
     controller.addEnemy(numEnemy);
-    startMenu = new StartMenu();
-    endGameMenu = new EndGameMenu();
     subject = new ArcadeConcreteSubject();
-    subject.registerObservers(this);
     state = Arcade.STARTMENU;
+    subject.setState(state);
+    startMenu = new StartMenu(subject);
+    endGameMenu = new EndGameMenu(subject);
+    highScoreMenu = new HighScoreMenu(subject);
+    subject.registerObservers(this);
+    subject.registerObservers(startMenu);
+    subject.registerObservers(endGameMenu);
+    subject.registerObservers(highScoreMenu);
 
     controller.addCollideObjectA(player);
     friendlyList = controller.getCollideObjectAList();
@@ -263,6 +269,8 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
       controller.render(graphics);
     } else if (state == Arcade.STARTMENU) {
       startMenu.render(graphics);
+    } else if (state == Arcade.HIGHSCORES) {
+      highScoreMenu.render(graphics);
     } else if (state == Arcade.ENDGAMEMENU) {
       endGameMenu.render(graphics);
     }

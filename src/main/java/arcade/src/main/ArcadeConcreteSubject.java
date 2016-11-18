@@ -6,6 +6,7 @@ public class ArcadeConcreteSubject extends ArcadeSubject {
   public enum Arcade {
     STARTMENU,
     SPACEINVADERS,
+    HIGHSCORES,
     ENDGAMEMENU;
   }
 
