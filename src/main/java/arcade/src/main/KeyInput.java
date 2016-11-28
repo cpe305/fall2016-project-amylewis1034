@@ -12,17 +12,29 @@ import java.awt.event.KeyEvent;
  */
 
 public class KeyInput extends KeyAdapter {
-  SpaceInvaders siGame;
+  SpaceInvaders siGame = null;
+  SnakeGrid snakeGame = null;
 
   public KeyInput(SpaceInvaders siGame) {
     this.siGame = siGame;
   }
+  
+  public KeyInput(SnakeGrid snakeGame) {
+    this.snakeGame = snakeGame;
+  }
 
   public void keyPressed(KeyEvent event) {
-    siGame.keyPressed(event);
+    if (siGame != null) {
+      siGame.keyPressed(event);
+    }
+    if (snakeGame != null) {
+      snakeGame.keyPressed(event);
+    }
   }
 
   public void keyReleased(KeyEvent event) {
-    siGame.keyReleased(event);
+    if (siGame != null) {
+      siGame.keyReleased(event);
+    }
   }
 }

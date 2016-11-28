@@ -1,11 +1,15 @@
 package arcade.src.main;
 
-import arcade.src.main.ArcadeConcreteSubject.Arcade;
-
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Random;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+
+import arcade.src.main.ArcadeConcreteSubject.Arcade;
 
 /**
  * Class to create enemies for the game, Space Invaders. The number of enemies increases as the
@@ -84,7 +88,7 @@ public class Enemy extends Collidable implements CollideObjectB {
       enemySpeed = (randNum.nextInt(RAND_VAR) + 1);
     }
     
-    for (int i = 0; i < siGame.friendlyList.size(); i++) {
+    for (int i = 0; i < siGame.friendlyList.size(); i++) { 
       CollideObjectA tmpObjA = siGame.friendlyList.get(i);
 
       if (CollisionPhysics.isCollision(tmpObjA, this)) {
@@ -92,15 +96,24 @@ public class Enemy extends Collidable implements CollideObjectB {
           controller.removeCollideObjectB(this); 
           siGame.setHealth(siGame.getHealth() - 10);
           if (siGame.getHealth() == 0) {
-            SpaceInvaders.getSubject().setState(Arcade.ENDGAMEMENU);
+            ArrayList<Score> highscores = siGame.getHighscoreManager().getHighscores();
+            if (highscores.size() < 5 || siGame.getSpaceScore() > highscores.get(4).getScore()) {
+             
+              String name = JOptionPane.showInputDialog("Congratulations! You set a new highscore! Please enter your name.");
+              siGame.getHighscoreManager().addScore(name, siGame.getSpaceScore());
+            }
+            SpaceInvaders.getSubject().setState(Arcade.ENDSPACEGAMEMENU);
             SpaceInvaders.getSubject().notifyObservers();
+            siGame.enemyList.clear();  
+            siGame.newGame();
+          } else {
+            siGame.setNumEnemyKilled(siGame.getNumEnemyKilled() + 1);
           }
-          siGame.setNumEnemyKilled(siGame.getNumEnemyKilled() + 1);
         } else {
           controller.removeCollideObjectB(this);
           controller.removeCollideObjectA(tmpObjA);
-          siGame.setNumEnemyKilled(siGame.getNumEnemyKilled() + 1);
           siGame.setSpaceScore(siGame.getSpaceScore() + 1);
+          siGame.setNumEnemyKilled(siGame.getNumEnemyKilled() + 1);
         }
       }
     }

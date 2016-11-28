@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
  * @author Amy Lewis.
  * @see BufferedImageLoader
  * @version 10/30/16
+ *
  */
 public class BufferedImageLoader {
 

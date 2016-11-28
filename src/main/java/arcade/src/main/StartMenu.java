@@ -17,8 +17,8 @@ import java.awt.Rectangle;
  */
 public class StartMenu implements ArcadeObserver {
 
-  private static final int xButtonPosition = SpaceInvaders.WIDTH / 2;
-  private static final int yButtonPosition = 150;
+  private static final int xButtonPosition = SpaceInvaders.WIDTH + 100;
+  private static final int yButtonPosition = 950;
   private static final int buttonWidth = 100;
   private static final int buttonHeight = 50;
   private ArcadeConcreteSubject subject;
@@ -26,12 +26,14 @@ public class StartMenu implements ArcadeObserver {
 
   public Rectangle playSpaceButton =
       new Rectangle(xButtonPosition, yButtonPosition, buttonWidth * 3, buttonHeight);
+  public Rectangle playSnakeButton =
+      new Rectangle(xButtonPosition, yButtonPosition + buttonWidth, buttonWidth * 2, buttonHeight);
   public Rectangle helpButton =
-      new Rectangle(xButtonPosition, yButtonPosition + buttonWidth, buttonWidth, buttonHeight);
+      new Rectangle(xButtonPosition, yButtonPosition + 2 * buttonWidth, buttonWidth, buttonHeight);
   public Rectangle highScoreButton = new Rectangle(xButtonPosition,
-      yButtonPosition + 2 * buttonWidth, buttonWidth * 2, buttonHeight);
+      yButtonPosition + 3 * buttonWidth, buttonWidth * 2, buttonHeight);
   public Rectangle exitButton =
-      new Rectangle(xButtonPosition, yButtonPosition + 3 * buttonWidth, buttonWidth, buttonHeight);
+      new Rectangle(xButtonPosition, yButtonPosition + 4 * buttonWidth, buttonWidth, buttonHeight);
 
   public StartMenu(ArcadeConcreteSubject subject) {
     this.subject = subject;
@@ -48,12 +50,14 @@ public class StartMenu implements ArcadeObserver {
       Font fnt = new Font("arial", Font.BOLD, 50);
       graphics.setFont(fnt);
       graphics.setColor(Color.white);
-      graphics.drawString("Dad's Arcade", SpaceInvaders.WIDTH / 2, 100);
+      graphics.drawString("Dad's Arcade", xButtonPosition, 850);
 
       Font fntButton = new Font("arial", Font.BOLD, 30);
       graphics.setFont(fntButton);
       graphics.drawString("Play Space Invaders", playSpaceButton.x + 5, playSpaceButton.y + 35);
       ((Graphics2D) graphics).draw(playSpaceButton);
+      graphics.drawString("Play Snake", playSnakeButton.x + 5, playSnakeButton.y + 35);
+      ((Graphics2D) graphics).draw(playSnakeButton);
       graphics.drawString("Help", helpButton.x + 20, helpButton.y + 35);
       ((Graphics2D) graphics).draw(helpButton);
       graphics.drawString("High Scores", highScoreButton.x + 10, highScoreButton.y + 35);
