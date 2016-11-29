@@ -117,7 +117,7 @@ public class MouseClickInput implements MouseListener {
       if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth) {
         if (mouseY >= yButtonPosition + buttonHeight * 8
             && mouseY <= yButtonPosition + buttonHeight * 9) {
-          System.exit(1);
+          System.exit(1); //NOSONAR
         }
       }
     }
