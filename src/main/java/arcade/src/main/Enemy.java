@@ -1,15 +1,15 @@
 package arcade.src.main;
 
+import arcade.src.main.ArcadeConcreteSubject.Arcade;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-
-import arcade.src.main.ArcadeConcreteSubject.Arcade;
 
 /**
  * Class to create enemies for the game, Space Invaders. The number of enemies increases as the
@@ -24,11 +24,12 @@ public class Enemy extends Collidable implements CollideObjectB {
   public static final int ENEMY_HEIGHT = 45;
   public static final int RAND_VAR = 4;
   public static final int ENEMY_POSITION = -10;
+  private static final Logger logger = Logger.getLogger(SpaceInvaders.class.toString());
 
   private BufferedImage enemy;
   private SpaceInvaders siGame;
   private Controller controller;
-  
+
   Random randNum = new Random();
   private int enemySpeed = (randNum.nextInt(RAND_VAR) + 1);
 
@@ -51,7 +52,7 @@ public class Enemy extends Collidable implements CollideObjectB {
       enemy = buffLoader.loadImage("/enemy.png");
       enemy = buffLoader.createResizedCopy(enemy, ENEMY_WIDTH, ENEMY_HEIGHT);
     } catch (Exception ex) {
-      ex.printStackTrace();
+      logger.warning(ex.toString());
     }
   }
 
@@ -87,24 +88,25 @@ public class Enemy extends Collidable implements CollideObjectB {
       x1Coord = randNum.nextInt(siGame.getWidth() - ENEMY_WIDTH);
       enemySpeed = (randNum.nextInt(RAND_VAR) + 1);
     }
-    
-    for (int i = 0; i < siGame.friendlyList.size(); i++) { 
+
+    for (int i = 0; i < siGame.friendlyList.size(); i++) {
       CollideObjectA tmpObjA = siGame.friendlyList.get(i);
 
       if (CollisionPhysics.isCollision(tmpObjA, this)) {
         if (tmpObjA instanceof Player) {
-          controller.removeCollideObjectB(this); 
+          controller.removeCollideObjectB(this);
           siGame.setHealth(siGame.getHealth() - 10);
           if (siGame.getHealth() == 0) {
             ArrayList<Score> highscores = siGame.getHighscoreManager().getHighscores();
             if (highscores.size() < 5 || siGame.getSpaceScore() > highscores.get(4).getScore()) {
-             
-              String name = JOptionPane.showInputDialog("Congratulations! You set a new highscore! Please enter your name.");
+
+              String name = JOptionPane.showInputDialog(
+                  "Congratulations! You set a new highscore! Please enter your name.");
               siGame.getHighscoreManager().addScore(name, siGame.getSpaceScore());
             }
             SpaceInvaders.getSubject().setState(Arcade.ENDSPACEGAMEMENU);
             SpaceInvaders.getSubject().notifyObservers();
-            siGame.enemyList.clear();  
+            siGame.enemyList.clear();
             siGame.newGame();
           } else {
             siGame.setNumEnemyKilled(siGame.getNumEnemyKilled() + 1);

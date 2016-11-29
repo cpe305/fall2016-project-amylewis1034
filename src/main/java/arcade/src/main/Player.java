@@ -3,6 +3,7 @@ package arcade.src.main;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.logging.Logger;
 
 /**
  * Class to create a player for the game, Space Invaders.
@@ -12,6 +13,7 @@ import java.awt.image.BufferedImage;
  * @version 10/30/16
  */
 public class Player extends Collidable implements CollideObjectA {
+  private static final Logger logger = Logger.getLogger(SpaceInvaders.class.toString());
   public static final int PLAYER_WIDTH = 40;
   public static final int PLAYER_HEIGHT = 50;
 
@@ -39,7 +41,7 @@ public class Player extends Collidable implements CollideObjectA {
       spaceship = buffLoader.loadImage("/spaceship.png");
       spaceship = buffLoader.createResizedCopy(spaceship, PLAYER_WIDTH, PLAYER_HEIGHT);
     } catch (Exception ex) {
-      ex.printStackTrace();
+      logger.warning(ex.toString());
     }
   }
 

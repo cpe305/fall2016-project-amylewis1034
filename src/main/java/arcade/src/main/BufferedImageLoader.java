@@ -2,7 +2,7 @@ package arcade.src.main;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
  *
  */
 public class BufferedImageLoader {
-
+  private static final Logger logger = Logger.getLogger(SpaceInvaders.class.toString());
   private BufferedImage bufferedImage;
 
   /**
@@ -27,8 +27,8 @@ public class BufferedImageLoader {
   public BufferedImage loadImage(String path) {
     try {
       bufferedImage = ImageIO.read(getClass().getResource(path));
-    } catch (IOException ex) {
-      ex.printStackTrace();
+    } catch (Exception ex) {
+      logger.warning(ex.toString());
     }
     return bufferedImage;
   }

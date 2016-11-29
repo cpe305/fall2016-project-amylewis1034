@@ -3,6 +3,7 @@ package arcade.src.main;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.logging.Logger;
 
 /**
  * Class to create a bullet shot by the Player for the game, Space Invaders.
@@ -12,6 +13,7 @@ import java.awt.image.BufferedImage;
  * @version 10/30/16
  */
 public class Bullet extends Collidable implements CollideObjectA {
+  private static final Logger logger = Logger.getLogger(SpaceInvaders.class.toString());
   public static final int BULLET_WIDTH = 4;
   public static final int BULLET_HEIGHT = 9;
   public static final int BULLET_SPEED = 10;
@@ -33,7 +35,7 @@ public class Bullet extends Collidable implements CollideObjectA {
       bullet = buffLoader.loadImage("/bullet.png");
       bullet = buffLoader.createResizedCopy(bullet, BULLET_WIDTH, BULLET_HEIGHT);
     } catch (Exception ex) {
-      ex.printStackTrace();
+      logger.warning(ex.toString());
     }
   }
 

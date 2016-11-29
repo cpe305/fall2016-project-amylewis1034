@@ -1,5 +1,7 @@
 package arcade.src.main;
 
+import arcade.src.main.ArcadeConcreteSubject.Arcade;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,8 +15,6 @@ import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
-import arcade.src.main.ArcadeConcreteSubject.Arcade;
-
 /**
  * Class that runs the game, Space Invaders.
  * 
@@ -24,8 +24,8 @@ import arcade.src.main.ArcadeConcreteSubject.Arcade;
  */
 
 public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
-  private static final Logger logger = Logger.getLogger(SpaceInvaders.class.toString());
   private static final long serialVersionUID = 1L;
+  private static final Logger logger = Logger.getLogger(SpaceInvaders.class.toString());
   public static final String TITLE = "Dad's Arcade";
   public static final int WIDTH = 1000;
   public static final int HEIGHT = 800;
@@ -124,6 +124,9 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     return hsManager;
   }
 
+  /**
+   * Any time there is a new game, these default values should be reset.
+   */
   public void newGame() {
     numEnemy = 1;
     numEnemyKilled = 0;
@@ -256,7 +259,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
       thread.join();
       status = 1;
     } catch (Exception ex) {
-      ex.printStackTrace();
+      logger.warning(ex.toString());
     }
 
     System.exit(status);

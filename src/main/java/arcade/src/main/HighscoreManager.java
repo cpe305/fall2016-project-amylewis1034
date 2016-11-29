@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Logger;
 
 /**
  * Class that managers high scores for the arcade and outputs the top 5.
@@ -16,9 +17,8 @@ import java.util.Collections;
  * @version 10/31/16
  */
 public class HighscoreManager {
-
+  private static final Logger logger = Logger.getLogger(SpaceInvaders.class.toString());
   private ArrayList<Score> scores;
-
   private static final String HS_FILE = "highscores.dat";
 
   ObjectOutputStream outStream = null;
@@ -66,10 +66,13 @@ public class HighscoreManager {
       scores = (ArrayList<Score>) inStream.readObject();
     } catch (ClassNotFoundException ex) {
       System.out.println("Class Not Found Error: " + ex.getMessage());
+      logger.warning(ex.toString());
     } catch (FileNotFoundException ex) {
       System.out.println("File Not Found Error: " + ex.getMessage());
+      logger.warning(ex.toString());
     } catch (IOException ex) {
       System.out.println("IO Error: " + ex.getMessage());
+      logger.warning(ex.toString());
     } finally {
       try {
         if (outStream != null) {
@@ -78,6 +81,7 @@ public class HighscoreManager {
         }
       } catch (IOException ex) {
         System.out.println("IO Error: " + ex.getMessage());
+        logger.warning(ex.toString());
       }
     }
   }
@@ -91,8 +95,10 @@ public class HighscoreManager {
       outStream.writeObject(scores);
     } catch (FileNotFoundException ex) {
       System.out.println("File Not Found Error: " + ex.getMessage());
+      logger.warning(ex.toString());
     } catch (IOException ex) {
       System.out.println("IO Error: " + ex.getMessage());
+      logger.warning(ex.toString());
     } finally {
       try {
         if (outStream != null) {
@@ -101,6 +107,7 @@ public class HighscoreManager {
         }
       } catch (IOException ex) {
         System.out.println("[Update] Error: " + ex.getMessage());
+        logger.warning(ex.toString());
       }
     }
   }
@@ -109,7 +116,7 @@ public class HighscoreManager {
    * Method that returns a String of all of the high scores and the names of the users
    * holding those scores.
    * 
-   * @return ArrayList<String> of users and high scores
+   * @return a list of users and high scores
    */
   public ArrayList<String> getHighscoreName() {
     String highscore = "";

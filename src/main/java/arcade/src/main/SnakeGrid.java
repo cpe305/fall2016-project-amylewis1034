@@ -1,5 +1,7 @@
 package arcade.src.main;
 
+import arcade.src.main.ArcadeConcreteSubject.Arcade;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,14 +15,12 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import arcade.src.main.ArcadeConcreteSubject.Arcade;
-
 public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver {
+  private static final long serialVersionUID = 1L;
   private static final int GRID_WIDTH = 1200;
   private static final int GRID_HEIGHT = 1200;
   private static final int POINT_SIZE = 40;
   private static final int TOTAL_POINTS = GRID_WIDTH * GRID_HEIGHT / (POINT_SIZE * POINT_SIZE);
-  private static final int RAND_POINT_POS = 40;
   private static final int DELAY = 140;
   private static final int INITIAL_POSITIONS = 80;
 
@@ -32,22 +32,27 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   private boolean isRunning = false;
   private Timer timer;
 
-  private int xApplePosition;
-  private int yApplePosition;
-  private int[] xPositions = new int[TOTAL_POINTS];
-  private int[] yPositions = new int[TOTAL_POINTS];
+  private int xposApple;
+  private int yposApple;
+  private int[] xposTotal = new int[TOTAL_POINTS];
+  private int[] yposTotal = new int[TOTAL_POINTS];
 
   private boolean goingUp = false;
   private boolean goingDown = false;
   private boolean goingLeft = false;
   private boolean goingRight = true;
-  
+
   private Arcade state;
   private ArcadeConcreteSubject subject;
-  
-  public Rectangle mapGrid =
-      new Rectangle(0, 0, GRID_WIDTH, GRID_HEIGHT);
 
+  public Rectangle mapGrid = new Rectangle(0, 0, GRID_WIDTH, GRID_HEIGHT);
+
+  /**
+   * Constructor for Snake game.
+   * 
+   * @param subject is a reference to the subject for the observer Snake
+   * @param siGame is a reference to Space Invaders to add a Key Listener
+   */
   public SnakeGrid(ArcadeConcreteSubject subject, SpaceInvaders siGame) {
     this.subject = subject;
     state = subject.getState();
@@ -55,15 +60,14 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
     loadImages();
     init();
   }
-  
-  private ArcadeConcreteSubject getSubject() {
-    return subject;
-  }
-  
+
   public void setSubject(ArcadeConcreteSubject subject) {
     this.subject = subject;
   }
-  
+
+  /**
+   * Updates observer if the state has been changed.
+   */
   public void update() {
     state = subject.getState();
     if (state == Arcade.SNAKE) {
@@ -87,11 +91,11 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
 
   private void init() {
     points = 3;
-    int i = 0;
+    int iter = 0;
 
-    while (i < points) {
-      xPositions[i] = INITIAL_POSITIONS - i * 10;
-      yPositions[i++] = INITIAL_POSITIONS;
+    while (iter < points) {
+      xposTotal[iter] = INITIAL_POSITIONS - iter * 10;
+      yposTotal[iter++] = INITIAL_POSITIONS;
     }
 
     timer = new Timer(DELAY, this);
@@ -101,7 +105,7 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   }
 
   private void foundApple() {
-    if (xPositions[0] == xApplePosition && yPositions[0] == yApplePosition) {
+    if (xposTotal[0] == xposApple && yposTotal[0] == yposApple) {
       points++;
       appleLocator();
     }
@@ -109,62 +113,71 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
 
   private void moveSnake() {
     for (int i = points; i > 0; i--) {
-      xPositions[i] = xPositions[i - 1];
-      yPositions[i] = yPositions[i - 1];
+      xposTotal[i] = xposTotal[i - 1];
+      yposTotal[i] = yposTotal[i - 1];
     }
 
     if (goingUp) {
-      yPositions[0] -= POINT_SIZE;
+      yposTotal[0] -= POINT_SIZE;
     } else if (goingDown) {
-      yPositions[0] += POINT_SIZE;
+      yposTotal[0] += POINT_SIZE;
     } else if (goingLeft) {
-      xPositions[0] -= POINT_SIZE;
+      xposTotal[0] -= POINT_SIZE;
     } else if (goingRight) {
-      xPositions[0] += POINT_SIZE;
+      xposTotal[0] += POINT_SIZE;
     }
   }
 
   private void collisionDetection() {
     for (int i = points; i > 0; i--) {
-      if (xPositions[0] == xPositions[i] && yPositions[0] == yPositions[i]) {
+      if (xposTotal[0] == xposTotal[i] && yposTotal[0] == yposTotal[i]) {
         isRunning = false;
       }
     }
 
-    if ((xPositions[0] >= GRID_WIDTH) || (xPositions[0] < 0) || (yPositions[0] >= GRID_HEIGHT)
-        || (yPositions[0] < 0)) {
+    if ((xposTotal[0] >= GRID_WIDTH) || (xposTotal[0] < 0) || (yposTotal[0] >= GRID_HEIGHT)
+        || (yposTotal[0] < 0)) {
       isRunning = false;
     }
   }
 
   private void appleLocator() {
-    xApplePosition = (int)(Math.random() * GRID_WIDTH / POINT_SIZE) * POINT_SIZE;
-    yApplePosition = (int)(Math.random() * GRID_HEIGHT / POINT_SIZE) * POINT_SIZE;
+    xposApple = (int) (Math.random() * GRID_WIDTH / POINT_SIZE) * POINT_SIZE;
+    yposApple = (int) (Math.random() * GRID_HEIGHT / POINT_SIZE) * POINT_SIZE;
   }
 
+  /**
+   * Draws the images for Snake.
+   * 
+   * @param graphics is a reference to the Java graphics class
+   */
   public void render(Graphics graphics) {
     if (isRunning) {
       graphics.setColor(Color.BLACK);
-      
-      graphics.drawImage(apple, xApplePosition, yApplePosition, this);
+
+      graphics.drawImage(apple, xposApple, yposApple, this);
 
       ((Graphics2D) graphics).draw(mapGrid);
-      
+
       for (int i = 0; i < points; i++) {
         if (i == 0) {
-          graphics.drawImage(head, xPositions[i], yPositions[i], this);
+          graphics.drawImage(head, xposTotal[i], yposTotal[i], this);
         } else {
-          graphics.drawImage(body, xPositions[i], yPositions[i], this);
+          graphics.drawImage(body, xposTotal[i], yposTotal[i], this);
         }
       }
-      
+
 
       Toolkit.getDefaultToolkit().sync();
     } else {
-     //  Snake.getSubject().setState(Arcade.ENDSNAKEMENU);
+      subject.setState(Arcade.ENDSNAKEMENU);
     }
   }
 
+  /**
+   * If Snake is running the apple should be randomly placed, collision detection should be
+   * activated, and the snake should be able to move.
+   */
   public void actionPerformed(ActionEvent event) {
     if (isRunning) {
       foundApple();
