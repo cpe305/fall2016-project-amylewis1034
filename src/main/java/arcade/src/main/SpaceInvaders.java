@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
@@ -23,6 +24,7 @@ import arcade.src.main.ArcadeConcreteSubject.Arcade;
  */
 
 public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
+  private static final Logger logger = Logger.getLogger(SpaceInvaders.class.toString());
   private static final long serialVersionUID = 1L;
   public static final String TITLE = "Dad's Arcade";
   public static final int WIDTH = 1000;
@@ -43,7 +45,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   private boolean isShooting = false;
   private BufferedImage imageBuffer = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
   private BufferedImage spaceBackground = null;
-  private BufferedImage arcadeBackground = null;  
+  private BufferedImage arcadeBackground = null;
   private BufferedImage snakeBackground = null;
   private StartMenu startMenu;
   private SnakeGrid snakegrid;
@@ -117,7 +119,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   public void setSpaceScore(int score) {
     this.score = score;
   }
-  
+
   public HighscoreManager getHighscoreManager() {
     return hsManager;
   }
@@ -150,11 +152,13 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
       spaceBackground = buffLoader.loadImage("/space_background.png");
       spaceBackground = buffLoader.createResizedCopy(spaceBackground, BACK_REWIDTH, BACK_REHEIGHT);
       arcadeBackground = buffLoader.loadImage("/arcade.png");
-      arcadeBackground = buffLoader.createResizedCopy(arcadeBackground, BACK_REWIDTH, BACK_REHEIGHT);
+      arcadeBackground =
+          buffLoader.createResizedCopy(arcadeBackground, BACK_REWIDTH, BACK_REHEIGHT);
       snakeBackground = buffLoader.loadImage("/snake_background.png");
-      snakeBackground = buffLoader.createResizedCopy(snakeBackground, BACK_REWIDTH - 450, BACK_REHEIGHT);
+      snakeBackground =
+          buffLoader.createResizedCopy(snakeBackground, BACK_REWIDTH - 450, BACK_REHEIGHT);
     } catch (Exception ex) {
-      ex.printStackTrace();
+      logger.warning(ex.toString());
     }
 
     player = new Player(X_PLAYER_POSITION, Y_PLAYER_POSITION, this);
@@ -162,7 +166,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     controller = new Controller(this);
 
     newGame();
-    
+
     subject = new ArcadeConcreteSubject();
     state = Arcade.STARTMENU;
     subject.setState(state);
@@ -303,7 +307,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
       controller.render(graphics);
     } else if (state == Arcade.SNAKE) {
       graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);
-      graphics.drawImage(snakeBackground, BACK_POSITION, 0, this);      
+      graphics.drawImage(snakeBackground, BACK_POSITION, 0, this);
       snakegrid.render(graphics);
     } else if (state == Arcade.STARTMENU) {
       graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);
