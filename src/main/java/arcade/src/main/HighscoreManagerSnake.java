@@ -124,7 +124,7 @@ public class HighscoreManagerSnake {
    * @return a list of users and high scores
    */
   public ArrayList<String> getHighscoreName() {
-    String highscore = "";
+    String highscore = " ";
     ArrayList<String> output = new ArrayList<String>();
     final int maxNumScores = 5;
 
