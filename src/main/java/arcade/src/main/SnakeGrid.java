@@ -31,15 +31,15 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   private static final int INITIAL_POSITIONS = 80;
   private static final int SCORE_POSITION = 300;
 
-  private BufferedImage apple = null;
-  private BufferedImage head = null;
-  private BufferedImage body = null;
+  private transient BufferedImage apple = null;
+  private transient BufferedImage head = null;
+  private transient BufferedImage body = null;
 
   private int score;
   private int points;
   private boolean isRunning = false;
   private Timer timer;
-  private HighscoreManagerSnake hsManager;
+  private transient HighscoreManagerSnake hsManager;
 
   private int xposApple;
   private int yposApple;
@@ -105,7 +105,7 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
       body = buffLoader.loadImage("/snake_body.png");
       body = buffLoader.createResizedCopy(body, POINT_SIZE, POINT_SIZE);
     } catch (Exception ex) {
-      LOGGER.warning(ex.toString());
+      LOGGER.log(null, "Could not load images", ex);
     }
   }
 
