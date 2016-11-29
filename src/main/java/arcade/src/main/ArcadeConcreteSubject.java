@@ -2,7 +2,17 @@ package arcade.src.main;
 
 import java.util.ArrayList;
 
+/**
+ * Class that creates the concrete subject that can be observed in the Arcade.
+ * 
+ * @author Amy Lewis.
+ * @version 11/28/16
+ */
 public class ArcadeConcreteSubject extends ArcadeSubject {
+  
+  /**
+   * enum that controls the state of the subject
+   */
   public enum Arcade {
     STARTMENU, 
     SPACEINVADERS, 
@@ -16,14 +26,25 @@ public class ArcadeConcreteSubject extends ArcadeSubject {
 
   public ArrayList<ArcadeObserver> observers = new ArrayList<ArcadeObserver>();
 
+  /**
+   * Adds observers to observer list
+   */
+  @Override
   public void registerObservers(ArcadeObserver observer) {
     observers.add(observer);
   }
 
+  /**
+   * Removes observers from observer list
+   */
+  @Override
   public void unRegisterObservers(ArcadeObserver observer) {
     observers.remove(observer);
   }
 
+  /**
+   * @return the state of the subject
+   */
   public Arcade getState() {
     return state;
   }
@@ -39,6 +60,7 @@ public class ArcadeConcreteSubject extends ArcadeSubject {
   /**
    * Method that updates all observers of the subject.
    */
+  @Override
   public void notifyObservers() {
     for (int i = 0; i < observers.size(); i++) {
       observers.get(i).update();
