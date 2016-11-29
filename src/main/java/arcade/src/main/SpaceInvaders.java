@@ -220,13 +220,9 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   public void keyReleased(KeyEvent event) {
     int keyPressed = event.getKeyCode();
     if (state == Arcade.SPACEINVADERS) {
-      if (keyPressed == KeyEvent.VK_UP) {
+      if (keyPressed == KeyEvent.VK_UP || keyPressed == KeyEvent.VK_DOWN) {
         player.setYVel(0);
-      } else if (keyPressed == KeyEvent.VK_DOWN) {
-        player.setYVel(0);
-      } else if (keyPressed == KeyEvent.VK_LEFT) {
-        player.setXVel(0);
-      } else if (keyPressed == KeyEvent.VK_RIGHT) {
+      } else if (keyPressed == KeyEvent.VK_LEFT || keyPressed == KeyEvent.VK_RIGHT) {
         player.setXVel(0);
       } else if (keyPressed == KeyEvent.VK_SPACE) {
         isShooting = false;
