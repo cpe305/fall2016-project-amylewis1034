@@ -86,6 +86,26 @@ public class MouseClickInput implements MouseListener {
           System.exit(1);
         }
       }
+    } else if (SpaceInvaders.getSubject().getState() == Arcade.ENDSNAKEMENU) {
+      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 2) {
+        if (mouseY >= yButtonPosition && mouseY <= yButtonPosition + buttonHeight) {
+          SpaceInvaders.getSubject().setState(Arcade.SNAKE);
+          SpaceInvaders.getSubject().notifyObservers();
+        }
+      }
+      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 3) {
+        if (mouseY >= yButtonPosition + buttonHeight * 2
+            && mouseY <= yButtonPosition + buttonHeight * 3) {
+          SpaceInvaders.getSubject().setState(Arcade.STARTMENU);
+          SpaceInvaders.getSubject().notifyObservers();
+        }
+      }
+      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth) {
+        if (mouseY >= yButtonPosition + buttonHeight * 4
+            && mouseY <= yButtonPosition + buttonHeight * 5) {
+          System.exit(1);
+        }
+      }
     } else if (SpaceInvaders.getSubject().getState() == Arcade.HIGHSCORES) {
       if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 3) {
         if (mouseY >= yButtonPosition + buttonHeight * 6

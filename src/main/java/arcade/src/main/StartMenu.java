@@ -47,10 +47,10 @@ public class StartMenu implements ArcadeObserver {
    */
   public void render(Graphics graphics) {
     if (state == Arcade.STARTMENU) {
-      Font fnt = new Font("arial", Font.BOLD, 50);
+      Font fnt = new Font("arial", Font.BOLD, 200);
       graphics.setFont(fnt);
       graphics.setColor(Color.white);
-      graphics.drawString("Dad's Arcade", xButtonPosition, 850);
+      graphics.drawString("Dad's Arcade", SpaceInvaders.WIDTH / 2, 200);
 
       Font fntButton = new Font("arial", Font.BOLD, 30);
       graphics.setFont(fntButton);

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ArcadeConcreteSubject extends ArcadeSubject {
   
   /**
-   * enum that controls the state of the subject
+   * enum that controls the state of the subject.
    */
   public enum Arcade {
     STARTMENU, 
@@ -27,7 +27,7 @@ public class ArcadeConcreteSubject extends ArcadeSubject {
   public ArrayList<ArcadeObserver> observers = new ArrayList<ArcadeObserver>();
 
   /**
-   * Adds observers to observer list
+   * Adds observers to observer list.
    */
   @Override
   public void registerObservers(ArcadeObserver observer) {
@@ -35,7 +35,7 @@ public class ArcadeConcreteSubject extends ArcadeSubject {
   }
 
   /**
-   * Removes observers from observer list
+   * Removes observers from observer list.
    */
   @Override
   public void unRegisterObservers(ArcadeObserver observer) {
@@ -43,6 +43,8 @@ public class ArcadeConcreteSubject extends ArcadeSubject {
   }
 
   /**
+   * Method to return the state of the subject.
+   * 
    * @return the state of the subject
    */
   public Arcade getState() {

@@ -24,8 +24,10 @@ public class HighScoreMenu implements ArcadeObserver {
   private static final int buttonHeight = 50;
   private ArcadeConcreteSubject subject;
   private Arcade state;
-  private HighscoreManager hsManager;
-  private ArrayList<String> highscores;
+  private HighscoreManagerSpace hsManagerSpace;
+  private ArrayList<String> highscoresSpace;
+  private HighscoreManagerSnake hsManagerSnake;
+  private ArrayList<String> highscoresSnake;
 
   private Rectangle startMenuButton =
       new Rectangle(xButtonPosition, yButtonPosition + buttonWidth, buttonWidth * 3, buttonHeight);
@@ -40,7 +42,9 @@ public class HighScoreMenu implements ArcadeObserver {
   public HighScoreMenu(ArcadeConcreteSubject subject) {
     this.subject = subject;
     state = subject.getState();
-    hsManager = new HighscoreManager();
+    hsManagerSnake = new HighscoreManagerSnake();
+    hsManagerSpace = new HighscoreManagerSpace();
+    
   }
 
   /**
@@ -50,17 +54,25 @@ public class HighScoreMenu implements ArcadeObserver {
    */
   public void render(Graphics graphics) {
     if (state == Arcade.HIGHSCORES) {
-      Font fnt = new Font("arial", Font.BOLD, 50);
+      Font fnt = new Font("arial", Font.BOLD, 200);
       graphics.setFont(fnt);
       graphics.setColor(Color.white);
-      graphics.drawString("High Scores", SpaceInvaders.WIDTH / 2, 100);
+      graphics.drawString("High Scores", SpaceInvaders.WIDTH / 2, 200);
 
       Font fntButton = new Font("arial", Font.BOLD, 30);
       graphics.setFont(fntButton);
-      graphics.drawString("Name    Score", SpaceInvaders.WIDTH / 2 + 50, 180);
-      for (int i = 0; i < highscores.size(); i++) {
-        graphics.drawString(highscores.get(i), SpaceInvaders.WIDTH / 2, 220 + i * 40);
+      graphics.drawString("Space Invaders", xButtonPosition + buttonWidth, 680);
+      graphics.drawString("Name    Score", xButtonPosition + buttonWidth, 720);
+      for (int i = 0; i < highscoresSpace.size(); i++) {
+        graphics.drawString(highscoresSpace.get(i), xButtonPosition + 50, 760 + i * 40);
       }
+      
+      graphics.drawString("Snake", xButtonPosition  + buttonWidth, 960);
+      graphics.drawString("Name    Score", xButtonPosition  + buttonWidth, 1000);
+      for (int j = 0; j < highscoresSnake.size(); j++) {
+        graphics.drawString(highscoresSnake.get(j), xButtonPosition + 50, 1040 + j * 40);
+      }  
+      
       graphics.drawString("Go To Start Menu", startMenuButton.x + 10, startMenuButton.y + 35);
       ((Graphics2D) graphics).draw(startMenuButton);
       graphics.drawString("Exit", exitButton.x + 15, exitButton.y + 35);
@@ -74,7 +86,8 @@ public class HighScoreMenu implements ArcadeObserver {
   public void update() {
     state = subject.getState();
     if (state == Arcade.HIGHSCORES) {
-      highscores = hsManager.getHighscoreName();
+      highscoresSpace = hsManagerSpace.getHighscoreName();
+      highscoresSnake = hsManagerSnake.getHighscoreName();
     }
   }
 }

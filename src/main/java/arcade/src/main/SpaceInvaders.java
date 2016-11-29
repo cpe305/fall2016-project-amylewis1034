@@ -47,11 +47,11 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   private BufferedImage snakeBackground = null;
   private StartMenu startMenu;
   private SnakeGrid snakegrid;
-  private EndSpaceGameMenu endGameMenu;
+  private EndSpaceGameMenu endSpaceGameMenu;
   private EndSnakeMenu endSnakeMenu;
   private HighScoreMenu highScoreMenu;
   private Arcade state;
-  private HighscoreManager hsManager;
+  private HighscoreManagerSpace hsManager;
 
   private Player player;
   private Controller controller;
@@ -118,7 +118,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     this.score = score;
   }
 
-  public HighscoreManager getHighscoreManager() {
+  public HighscoreManagerSpace getHighscoreManagerSpace() {
     return hsManager;
   }
 
@@ -163,7 +163,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     }
 
     player = new Player(X_PLAYER_POSITION, Y_PLAYER_POSITION, this);
-    hsManager = new HighscoreManager();
+    hsManager = new HighscoreManagerSpace();
     controller = new Controller(this);
 
     newGame();
@@ -173,13 +173,13 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     subject.setState(state);
     startMenu = new StartMenu(subject);
     snakegrid = new SnakeGrid(subject, this);
-    endGameMenu = new EndSpaceGameMenu(subject);
+    endSpaceGameMenu = new EndSpaceGameMenu(subject);
     endSnakeMenu = new EndSnakeMenu(subject);
     highScoreMenu = new HighScoreMenu(subject);
     subject.registerObservers(this);
     subject.registerObservers(startMenu);
     subject.registerObservers(snakegrid);
-    subject.registerObservers(endGameMenu);
+    subject.registerObservers(endSpaceGameMenu);
     subject.registerObservers(endSnakeMenu);
     subject.registerObservers(highScoreMenu);
 
@@ -321,11 +321,11 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     } else if (state == Arcade.ENDSPACEGAMEMENU) {
       graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);
       graphics.drawImage(spaceBackground, BACK_POSITION, 0, this);
-      endGameMenu.render(graphics);
+      endSpaceGameMenu.render(graphics);
     } else if (state == Arcade.ENDSNAKEMENU) {
       graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);
       graphics.drawImage(snakeBackground, BACK_POSITION, 0, this);
-      endGameMenu.render(graphics);
+      endSnakeMenu.render(graphics);
     }
 
     graphics.dispose();
