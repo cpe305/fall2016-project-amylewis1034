@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,6 +22,7 @@ import javax.swing.Timer;
 
 public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver {
   private static final long serialVersionUID = 1L;
+  private static final Logger LOGGER = Logger.getLogger(SpaceInvaders.class.toString());
   private static final int GRID_WIDTH = 1200;
   private static final int GRID_HEIGHT = 1200;
   private static final int POINT_SIZE = 40;
@@ -28,9 +31,9 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   private static final int INITIAL_POSITIONS = 80;
   private static final int SCORE_POSITION = 300;
 
-  private BufferedImage apple;
-  private BufferedImage head;
-  private BufferedImage body;
+  private BufferedImage apple = null;
+  private BufferedImage head = null;
+  private BufferedImage body = null;
 
   private int score;
   private int points;
@@ -49,10 +52,12 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   private boolean goingRight;
 
   private Arcade state;
-  private ArcadeConcreteSubject subject;
+  private ArcadeConcreteSubject subject = null;
 
   public Rectangle mapGrid = new Rectangle(0, 0, GRID_WIDTH, GRID_HEIGHT);
 
+  Random randNum = new Random();
+  
   /**
    * Constructor for Snake game.
    * 
@@ -100,7 +105,7 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
       body = buffLoader.loadImage("/snake_body.png");
       body = buffLoader.createResizedCopy(body, POINT_SIZE, POINT_SIZE);
     } catch (Exception ex) {
-      ex.printStackTrace();
+      LOGGER.warning(ex.toString());
     }
   }
 
@@ -167,8 +172,8 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   }
 
   private void appleLocator() {
-    xposApple = (int) (Math.random() * GRID_WIDTH / POINT_SIZE) * POINT_SIZE;
-    yposApple = (int) (Math.random() * GRID_HEIGHT / POINT_SIZE) * POINT_SIZE;
+    xposApple = (randNum.nextInt() * GRID_WIDTH / POINT_SIZE) * POINT_SIZE;
+    yposApple = (randNum.nextInt() * GRID_HEIGHT / POINT_SIZE) * POINT_SIZE;
   }
 
   /**

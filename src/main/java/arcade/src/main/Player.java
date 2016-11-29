@@ -93,13 +93,13 @@ public class Player extends Collidable implements CollideObjectA {
       x1Coord = 0;
     }
     if (x1Coord >= siGame.getWidth() - PLAYER_WIDTH) {
-      x1Coord = siGame.getWidth() - PLAYER_WIDTH;
+      x1Coord = (double) siGame.getWidth() - PLAYER_WIDTH;
     }
     if (y1Coord <= 0) {
       y1Coord = 0;
     }
     if (y1Coord >= siGame.getHeight() - PLAYER_HEIGHT) {
-      y1Coord = siGame.getHeight() - PLAYER_HEIGHT;
+      y1Coord = (double) siGame.getHeight() - PLAYER_HEIGHT;
     }
   }
 
