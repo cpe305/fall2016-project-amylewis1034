@@ -28,7 +28,7 @@ public class BufferedImageLoader {
     try {
       bufferedImage = ImageIO.read(getClass().getResource(path));
     } catch (Exception ex) {
-      LOGGER.warning(ex.toString());
+      LOGGER.log(null, "Could not load image.", ex);
     }
     return bufferedImage;
   }

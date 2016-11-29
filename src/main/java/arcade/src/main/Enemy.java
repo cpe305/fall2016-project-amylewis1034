@@ -52,7 +52,7 @@ public class Enemy extends Collidable implements CollideObjectB {
       enemy = buffLoader.loadImage("/enemy.png");
       enemy = buffLoader.createResizedCopy(enemy, ENEMY_WIDTH, ENEMY_HEIGHT);
     } catch (Exception ex) {
-      LOGGER.warning(ex.toString());
+      LOGGER.log(null, "Could not load image.", ex);
     }
   }
 

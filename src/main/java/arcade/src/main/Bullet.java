@@ -35,7 +35,7 @@ public class Bullet extends Collidable implements CollideObjectA {
       bullet = buffLoader.loadImage("/bullet.png");
       bullet = buffLoader.createResizedCopy(bullet, BULLET_WIDTH, BULLET_HEIGHT);
     } catch (Exception ex) {
-      LOGGER.warning(ex.toString());
+      LOGGER.log(null, "Could not load image.", ex);
     }
   }
 

@@ -52,7 +52,7 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   private boolean goingRight;
 
   private Arcade state;
-  private ArcadeConcreteSubject subject = null;
+  private ArcadeConcreteSubject subject; //NOSONAR
 
   public Rectangle mapGrid = new Rectangle(0, 0, GRID_WIDTH, GRID_HEIGHT);
 
@@ -105,7 +105,7 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
       body = buffLoader.loadImage("/snake_body.png");
       body = buffLoader.createResizedCopy(body, POINT_SIZE, POINT_SIZE);
     } catch (Exception ex) {
-      LOGGER.log(null, "Could not load images", ex);
+      LOGGER.log(null, "Could not load images.", ex);
     }
   }
 

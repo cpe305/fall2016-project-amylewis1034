@@ -71,22 +71,18 @@ public class HighscoreManagerSpace {
       inStream = new ObjectInputStream(new FileInputStream(HS_FILE_SPACE));
       scores = (ArrayList<Score>) inStream.readObject();
     } catch (ClassNotFoundException ex) {
-      System.out.println("Class Not Found Error: " + ex.getMessage());
-      LOGGER.warning(ex.toString());
+      LOGGER.log(null, "Class Not Found Error: " + ex.getMessage(), ex);
     } catch (FileNotFoundException ex) {
-      System.out.println("File Not Found Error: " + ex.getMessage());
-      LOGGER.warning(ex.toString());
+      LOGGER.log(null, "File Not Found Error: " + ex.getMessage(), ex);
     } catch (IOException ex) {
-      System.out.println("IO Error: " + ex.getMessage());
-      LOGGER.warning(ex.toString());
+      LOGGER.log(null, "IO Error: " + ex.getMessage(), ex);
     } finally {
       try {
         if (inStream != null) {
           inStream.close();
         }
       } catch (IOException ex) {
-        System.out.println("IO Error: " + ex.getMessage());
-        LOGGER.warning(ex.toString());
+        LOGGER.log(null, "IO Error: " + ex.getMessage(), ex);
       }
     }
   }
@@ -99,11 +95,9 @@ public class HighscoreManagerSpace {
       outStream = new ObjectOutputStream(new FileOutputStream(HS_FILE_SPACE));
       outStream.writeObject(scores);
     } catch (FileNotFoundException ex) {
-      System.out.println("File Not Found Error: " + ex.getMessage());
-      LOGGER.warning(ex.toString());
+      LOGGER.log(null, "File Not Found Error: " + ex.getMessage(), ex);
     } catch (IOException ex) {
-      System.out.println("IO Error: " + ex.getMessage());
-      LOGGER.warning(ex.toString());
+      LOGGER.log(null, "IO Error: " + ex.getMessage(), ex);
     } finally {
       try {
         if (outStream != null) {
@@ -111,8 +105,7 @@ public class HighscoreManagerSpace {
           outStream.close();
         }
       } catch (IOException ex) {
-        System.out.println("[Update] Error: " + ex.getMessage());
-        LOGGER.warning(ex.toString());
+        LOGGER.log(null, "IO Error: " + ex.getMessage(), ex);
       }
     }
   }

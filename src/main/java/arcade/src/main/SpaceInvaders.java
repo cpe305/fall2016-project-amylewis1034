@@ -38,23 +38,25 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   public static final int Y_BULLET_POSITION = 5;
   public static final double TICKS = 60.0;
 
-  private Thread thread;
+  private transient Thread thread;
+  private transient BufferedImage imageBuffer =
+      new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
+  private transient BufferedImage spaceBackground = null;
+  private transient BufferedImage arcadeBackground = null;
+  private transient BufferedImage snakeBackground = null;
+  private transient StartMenu startMenu;
+  private transient EndSpaceGameMenu endSpaceGameMenu;
+  private transient EndSnakeMenu endSnakeMenu;
+  private transient HighScoreMenu highScoreMenu;
+  private transient HighscoreManagerSpace hsManager;
+  private transient Player player;
+
   private boolean isRunning = false;
   private boolean isShooting = false;
-  private BufferedImage imageBuffer = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
-  private BufferedImage spaceBackground = null;
-  private BufferedImage arcadeBackground = null;
-  private BufferedImage snakeBackground = null;
-  private StartMenu startMenu;
-  private SnakeGrid snakegrid;
-  private EndSpaceGameMenu endSpaceGameMenu;
-  private EndSnakeMenu endSnakeMenu;
-  private HighScoreMenu highScoreMenu;
-  private Arcade state;
-  private HighscoreManagerSpace hsManager;
-
-  private Player player;
   private Controller controller;
+  private SnakeGrid snakegrid;
+  private Arcade state;
+
 
   private int numEnemy;
   private int numEnemyKilled;
@@ -159,7 +161,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
       snakeBackground =
           buffLoader.createResizedCopy(snakeBackground, BACK_REWIDTH - 450, BACK_REHEIGHT);
     } catch (Exception ex) {
-      LOGGER.warning(ex.toString());
+      LOGGER.log(null, "Could not load images.", ex);
     }
 
     player = new Player(X_PLAYER_POSITION, Y_PLAYER_POSITION, this);
@@ -253,10 +255,10 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
       thread.join();
       status = 1;
     } catch (Exception ex) {
-      LOGGER.warning(ex.toString());
+      LOGGER.log(null, "Could not join thread.", ex);
     }
 
-    System.exit(status);
+    System.exit(status); // NOSONAR
 
   }
 

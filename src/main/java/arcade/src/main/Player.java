@@ -41,7 +41,7 @@ public class Player extends Collidable implements CollideObjectA {
       spaceship = buffLoader.loadImage("/spaceship.png");
       spaceship = buffLoader.createResizedCopy(spaceship, PLAYER_WIDTH, PLAYER_HEIGHT);
     } catch (Exception ex) {
-      LOGGER.warning(ex.toString());
+      LOGGER.log(null, "Could not load image.", ex);
     }
   }
 
