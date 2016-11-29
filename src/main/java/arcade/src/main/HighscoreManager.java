@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * Class that managers high scores for the arcade and outputs the top 5.
  * 
  * @author Amy Lewis.
- * @version 10/31/16
+ * @version 11/28/16
  */
 public class HighscoreManager {
   private static final Logger logger = Logger.getLogger(SpaceInvaders.class.toString());
@@ -24,6 +24,9 @@ public class HighscoreManager {
   ObjectOutputStream outStream = null;
   ObjectInputStream inStream = null;
 
+  /**
+   * Constructor that initializes the score list.
+   */
   public HighscoreManager() {
     scores = new ArrayList<Score>();
   }
@@ -39,6 +42,9 @@ public class HighscoreManager {
     return scores;
   }
 
+  /**
+   * Method to sort the scores in order of highest to lowest.
+   */
   public void sort() {
     ScoreComparator comparator = new ScoreComparator();
     Collections.sort(scores, comparator);
@@ -75,9 +81,8 @@ public class HighscoreManager {
       logger.warning(ex.toString());
     } finally {
       try {
-        if (outStream != null) {
-          outStream.flush();
-          outStream.close();
+        if (inStream != null) {
+          inStream.close();
         }
       } catch (IOException ex) {
         System.out.println("IO Error: " + ex.getMessage());
@@ -113,8 +118,8 @@ public class HighscoreManager {
   }
 
   /**
-   * Method that returns a String of all of the high scores and the names of the users
-   * holding those scores.
+   * Method that returns a String of all of the high scores and the names of the users holding those
+   * scores.
    * 
    * @return a list of users and high scores
    */

@@ -19,10 +19,8 @@ import javax.swing.JFrame;
  * Class that runs the game, Space Invaders.
  * 
  * @author Amy Lewis.
- * @see SpaceInvaders
- * @version 10/30/16
+ * @version 11/28/16
  */
-
 public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   private static final long serialVersionUID = 1L;
   private static final Logger logger = Logger.getLogger(SpaceInvaders.class.toString());
