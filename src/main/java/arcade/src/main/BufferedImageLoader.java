@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
  *
  */
 public class BufferedImageLoader {
-  private static final Logger logger = Logger.getLogger(SpaceInvaders.class.toString());
+  private static final Logger LOGGER = Logger.getLogger(BufferedImageLoader.class.toString());
   private BufferedImage bufferedImage;
 
   /**
@@ -28,7 +28,7 @@ public class BufferedImageLoader {
     try {
       bufferedImage = ImageIO.read(getClass().getResource(path));
     } catch (Exception ex) {
-      logger.warning(ex.toString());
+      LOGGER.warning(ex.toString());
     }
     return bufferedImage;
   }

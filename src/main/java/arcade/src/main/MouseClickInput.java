@@ -14,10 +14,10 @@ import java.awt.event.MouseListener;
  */
 public class MouseClickInput implements MouseListener {
 
-  private static final int xButtonPosition = SpaceInvaders.WIDTH + 100;
-  private static final int yButtonPosition = 950;
-  private static final int buttonWidth = 100;
-  private static final int buttonHeight = 50;
+  private static final int X_BUTTON_POS = SpaceInvaders.WIDTH + 100;
+  private static final int Y_BUTTON_POS = 950;
+  private static final int BUTTON_WIDTH = 100;
+  private static final int BUTTON_HEIGHT = 50;
 
   public void mouseClicked(MouseEvent moEvent) {
     // TODO Auto-generated method stub
@@ -34,89 +34,89 @@ public class MouseClickInput implements MouseListener {
     int mouseY = moEvent.getY();
 
     if (SpaceInvaders.getSubject().getState() == Arcade.STARTMENU) {
-      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 3) {
-        if (mouseY >= yButtonPosition && mouseY <= yButtonPosition + buttonHeight) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 3) {
+        if (mouseY >= Y_BUTTON_POS && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT) {
           SpaceInvaders.getSubject().setState(Arcade.SPACEINVADERS);
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
-      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 2) {
-        if (mouseY >= yButtonPosition + buttonHeight * 2
-            && mouseY <= yButtonPosition + buttonHeight * 3) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 2) {
+        if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 2
+            && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 3) {
           SpaceInvaders.getSubject().setState(Arcade.SNAKE);
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
-      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth) {
-        if (mouseY >= yButtonPosition + buttonHeight * 4
-            && mouseY <= yButtonPosition + buttonHeight * 5) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH) {
+        if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 4
+            && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 5) {
           // add help stuff
         }
       }
-      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 2) {
-        if (mouseY >= yButtonPosition + buttonHeight * 6
-            && mouseY <= yButtonPosition + buttonHeight * 7) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 2) {
+        if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 6
+            && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 7) {
           SpaceInvaders.getSubject().setState(Arcade.HIGHSCORES);
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
-      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth) {
-        if (mouseY >= yButtonPosition + buttonHeight * 8
-            && mouseY <= yButtonPosition + buttonHeight * 9) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH) {
+        if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 8
+            && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 9) {
           System.exit(1); //NOSONAR
         }
       }
     } else if (SpaceInvaders.getSubject().getState() == Arcade.ENDSPACEGAMEMENU) {
-      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 2) {
-        if (mouseY >= yButtonPosition && mouseY <= yButtonPosition + buttonHeight) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 2) {
+        if (mouseY >= Y_BUTTON_POS && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT) {
           SpaceInvaders.getSubject().setState(Arcade.SPACEINVADERS);
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
-      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 3) {
-        if (mouseY >= yButtonPosition + buttonHeight * 2
-            && mouseY <= yButtonPosition + buttonHeight * 3) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 3) {
+        if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 2
+            && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 3) {
           SpaceInvaders.getSubject().setState(Arcade.STARTMENU);
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
-      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth) {
-        if (mouseY >= yButtonPosition + buttonHeight * 4
-            && mouseY <= yButtonPosition + buttonHeight * 5) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH) {
+        if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 4
+            && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 5) {
           System.exit(1); //NOSONAR
         }
       }
     } else if (SpaceInvaders.getSubject().getState() == Arcade.ENDSNAKEMENU) {
-      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 2) {
-        if (mouseY >= yButtonPosition && mouseY <= yButtonPosition + buttonHeight) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 2) {
+        if (mouseY >= Y_BUTTON_POS && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT) {
           SpaceInvaders.getSubject().setState(Arcade.SNAKE);
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
-      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 3) {
-        if (mouseY >= yButtonPosition + buttonHeight * 2
-            && mouseY <= yButtonPosition + buttonHeight * 3) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 3) {
+        if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 2
+            && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 3) {
           SpaceInvaders.getSubject().setState(Arcade.STARTMENU);
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
-      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth) {
-        if (mouseY >= yButtonPosition + buttonHeight * 4
-            && mouseY <= yButtonPosition + buttonHeight * 5) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH) {
+        if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 4
+            && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 5) {
           System.exit(1); //NOSONAR
         }
       }
     } else if (SpaceInvaders.getSubject().getState() == Arcade.HIGHSCORES) {
-      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth * 3) {
-        if (mouseY >= yButtonPosition + buttonHeight * 6
-            && mouseY <= yButtonPosition + buttonHeight * 7) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 3) {
+        if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 6
+            && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 7) {
           SpaceInvaders.getSubject().setState(Arcade.STARTMENU);
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
-      if (mouseX >= xButtonPosition && mouseX <= xButtonPosition + buttonWidth) {
-        if (mouseY >= yButtonPosition + buttonHeight * 8
-            && mouseY <= yButtonPosition + buttonHeight * 9) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH) {
+        if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 8
+            && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 9) {
           System.exit(1); //NOSONAR
         }
       }

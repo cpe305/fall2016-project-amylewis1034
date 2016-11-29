@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  * @version 10/30/16
  */
 public class Bullet extends Collidable implements CollideObjectA {
-  private static final Logger logger = Logger.getLogger(SpaceInvaders.class.toString());
+  private static final Logger LOGGER = Logger.getLogger(Bullet.class.toString());
   public static final int BULLET_WIDTH = 4;
   public static final int BULLET_HEIGHT = 9;
   public static final int BULLET_SPEED = 10;
@@ -35,7 +35,7 @@ public class Bullet extends Collidable implements CollideObjectA {
       bullet = buffLoader.loadImage("/bullet.png");
       bullet = buffLoader.createResizedCopy(bullet, BULLET_WIDTH, BULLET_HEIGHT);
     } catch (Exception ex) {
-      logger.warning(ex.toString());
+      LOGGER.warning(ex.toString());
     }
   }
 

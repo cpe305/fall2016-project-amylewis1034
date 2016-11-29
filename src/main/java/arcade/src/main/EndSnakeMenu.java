@@ -16,19 +16,19 @@ import java.awt.Rectangle;
  */
 public class EndSnakeMenu implements ArcadeObserver {
 
-  private static final int xButtonPosition = SpaceInvaders.WIDTH + 100;
-  private static final int yButtonPosition = 950;
-  private static final int buttonWidth = 100;
-  private static final int buttonHeight = 50;
+  private static final int X_BUTTON_POS = SpaceInvaders.WIDTH + 100;
+  private static final int Y_BUTTON_POS = 950;
+  private static final int BUTTON_WIDTH = 100;
+  private static final int BUTTON_HEIGHT = 50;
   private ArcadeConcreteSubject subject;
   private Arcade state;
 
   private Rectangle playAgainButton =
-      new Rectangle(xButtonPosition, yButtonPosition, buttonWidth * 2, buttonHeight);
+      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
   private Rectangle startMenuButton =
-      new Rectangle(xButtonPosition, yButtonPosition + buttonWidth, buttonWidth * 3, buttonHeight);
+      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + BUTTON_WIDTH, BUTTON_WIDTH * 3, BUTTON_HEIGHT);
   private Rectangle exitButton =
-      new Rectangle(xButtonPosition, yButtonPosition + 2 * buttonWidth, buttonWidth, buttonHeight);
+      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + 2 * BUTTON_WIDTH, BUTTON_WIDTH, BUTTON_HEIGHT);
 
   public EndSnakeMenu(ArcadeConcreteSubject subject) {
     this.subject = subject;
@@ -45,7 +45,7 @@ public class EndSnakeMenu implements ArcadeObserver {
       Font fnt = new Font("arial", Font.BOLD, 150);
       graphics.setFont(fnt);
       graphics.setColor(Color.white);
-      graphics.drawString("Game Over", 500, buttonWidth * 3);
+      graphics.drawString("Game Over", 500, BUTTON_WIDTH * 3);
       Font fntButton = new Font("arial", Font.BOLD, 30);
       graphics.setFont(fntButton);
       graphics.drawString("Play Again", playAgainButton.x + 15, playAgainButton.y + 35);

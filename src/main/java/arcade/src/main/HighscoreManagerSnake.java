@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @version 11/28/16
  */
 public class HighscoreManagerSnake {
-  private static final Logger logger = Logger.getLogger(HighscoreManagerSnake.class.toString());
+  private static final Logger LOGGER = Logger.getLogger(HighscoreManagerSnake.class.toString());
   private ArrayList<Score> scores;
   private static final String HS_FILE_SNAKE = "highscoresSnake.dat";
 
@@ -72,13 +72,13 @@ public class HighscoreManagerSnake {
       scores = (ArrayList<Score>) inStream.readObject();
     } catch (ClassNotFoundException ex) {
       System.out.println("Class Not Found Error: " + ex.getMessage());
-      logger.warning(ex.toString());
+      LOGGER.warning(ex.toString());
     } catch (FileNotFoundException ex) {
       System.out.println("File Not Found Error: " + ex.getMessage());
-      logger.warning(ex.toString());
+      LOGGER.warning(ex.toString());
     } catch (IOException ex) {
       System.out.println("IO Error: " + ex.getMessage());
-      logger.warning(ex.toString());
+      LOGGER.warning(ex.toString());
     } finally {
       try {
         if (inStream != null) {
@@ -86,7 +86,7 @@ public class HighscoreManagerSnake {
         }
       } catch (IOException ex) {
         System.out.println("IO Error: " + ex.getMessage());
-        logger.warning(ex.toString());
+        LOGGER.warning(ex.toString());
       }
     }
   }
@@ -100,10 +100,10 @@ public class HighscoreManagerSnake {
       outStream.writeObject(scores);
     } catch (FileNotFoundException ex) {
       System.out.println("File Not Found Error: " + ex.getMessage());
-      logger.warning(ex.toString());
+      LOGGER.warning(ex.toString());
     } catch (IOException ex) {
       System.out.println("IO Error: " + ex.getMessage());
-      logger.warning(ex.toString());
+      LOGGER.warning(ex.toString());
     } finally {
       try {
         if (outStream != null) {
@@ -112,7 +112,7 @@ public class HighscoreManagerSnake {
         }
       } catch (IOException ex) {
         System.out.println("[Update] Error: " + ex.getMessage());
-        logger.warning(ex.toString());
+        LOGGER.warning(ex.toString());
       }
     }
   }
@@ -124,7 +124,7 @@ public class HighscoreManagerSnake {
    * @return a list of users and high scores
    */
   public ArrayList<String> getHighscoreName() {
-    String highscore = " ";
+    String highscore;
     ArrayList<String> output = new ArrayList<String>();
     final int maxNumScores = 5;
 

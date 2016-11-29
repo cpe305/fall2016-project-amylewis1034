@@ -24,7 +24,7 @@ public class Enemy extends Collidable implements CollideObjectB {
   public static final int ENEMY_HEIGHT = 45;
   public static final int RAND_VAR = 4;
   public static final int ENEMY_POSITION = -10;
-  private static final Logger logger = Logger.getLogger(SpaceInvaders.class.toString());
+  private static final Logger LOGGER = Logger.getLogger(Enemy.class.toString());
 
   private BufferedImage enemy;
   private SpaceInvaders siGame;
@@ -52,7 +52,7 @@ public class Enemy extends Collidable implements CollideObjectB {
       enemy = buffLoader.loadImage("/enemy.png");
       enemy = buffLoader.createResizedCopy(enemy, ENEMY_WIDTH, ENEMY_HEIGHT);
     } catch (Exception ex) {
-      logger.warning(ex.toString());
+      LOGGER.warning(ex.toString());
     }
   }
 

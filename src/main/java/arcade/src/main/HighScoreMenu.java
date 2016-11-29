@@ -18,10 +18,10 @@ import java.util.ArrayList;
  */
 public class HighScoreMenu implements ArcadeObserver {
 
-  private static final int xButtonPosition = SpaceInvaders.WIDTH + 100;
-  private static final int yButtonPosition = 1150;
-  private static final int buttonWidth = 100;
-  private static final int buttonHeight = 50;
+  private static final int X_BUTTON_POS = SpaceInvaders.WIDTH + 100;
+  private static final int Y_BUTTON_POS = 1150;
+  private static final int BUTTON_WIDTH = 100;
+  private static final int BUTTON_HEIGHT = 50;
   private ArcadeConcreteSubject subject;
   private Arcade state;
   private HighscoreManagerSpace hsManagerSpace;
@@ -30,9 +30,9 @@ public class HighScoreMenu implements ArcadeObserver {
   private ArrayList<String> highscoresSnake;
 
   private Rectangle startMenuButton =
-      new Rectangle(xButtonPosition, yButtonPosition + buttonWidth, buttonWidth * 3, buttonHeight);
+      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + BUTTON_WIDTH, BUTTON_WIDTH * 3, BUTTON_HEIGHT);
   private Rectangle exitButton =
-      new Rectangle(xButtonPosition, yButtonPosition + 2 * buttonWidth, buttonWidth, buttonHeight);
+      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + 2 * BUTTON_WIDTH, BUTTON_WIDTH, BUTTON_HEIGHT);
 
   /**
    * Constructor for Highscore Menu that creates a new Highscore manager.
@@ -61,16 +61,16 @@ public class HighScoreMenu implements ArcadeObserver {
 
       Font fntButton = new Font("arial", Font.BOLD, 30);
       graphics.setFont(fntButton);
-      graphics.drawString("Space Invaders", xButtonPosition + buttonWidth, 680);
-      graphics.drawString("Name    Score", xButtonPosition + buttonWidth, 720);
+      graphics.drawString("Space Invaders", X_BUTTON_POS + BUTTON_WIDTH, 680);
+      graphics.drawString("Name    Score", X_BUTTON_POS + BUTTON_WIDTH, 720);
       for (int i = 0; i < highscoresSpace.size(); i++) {
-        graphics.drawString(highscoresSpace.get(i), xButtonPosition + 50, 760 + i * 40);
+        graphics.drawString(highscoresSpace.get(i), X_BUTTON_POS + 50, 760 + i * 40);
       }
       
-      graphics.drawString("Snake", xButtonPosition  + buttonWidth, 960);
-      graphics.drawString("Name    Score", xButtonPosition  + buttonWidth, 1000);
+      graphics.drawString("Snake", X_BUTTON_POS  + BUTTON_WIDTH, 960);
+      graphics.drawString("Name    Score", X_BUTTON_POS  + BUTTON_WIDTH, 1000);
       for (int j = 0; j < highscoresSnake.size(); j++) {
-        graphics.drawString(highscoresSnake.get(j), xButtonPosition + 50, 1040 + j * 40);
+        graphics.drawString(highscoresSnake.get(j), X_BUTTON_POS + 50, 1040 + j * 40);
       }  
       
       graphics.drawString("Go To Start Menu", startMenuButton.x + 10, startMenuButton.y + 35);

@@ -23,7 +23,7 @@ import javax.swing.JFrame;
  */
 public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   private static final long serialVersionUID = 1L;
-  private static final Logger logger = Logger.getLogger(SpaceInvaders.class.toString());
+  private static final Logger LOGGER = Logger.getLogger(SpaceInvaders.class.toString());
   public static final String TITLE = "Dad's Arcade";
   public static final int WIDTH = 1000;
   public static final int HEIGHT = 800;
@@ -159,7 +159,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
       snakeBackground =
           buffLoader.createResizedCopy(snakeBackground, BACK_REWIDTH - 450, BACK_REHEIGHT);
     } catch (Exception ex) {
-      logger.warning(ex.toString());
+      LOGGER.warning(ex.toString());
     }
 
     player = new Player(X_PLAYER_POSITION, Y_PLAYER_POSITION, this);
@@ -257,7 +257,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
       thread.join();
       status = 1;
     } catch (Exception ex) {
-      logger.warning(ex.toString());
+      LOGGER.warning(ex.toString());
     }
 
     System.exit(status);
