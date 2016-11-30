@@ -137,7 +137,7 @@ public class Tests {
   }
 
   @Test
-  public void observersTest() {
+  public void observersRegisterTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     ArrayList<ArcadeObserver> observers = new ArrayList<ArcadeObserver>();
     Arcade state = subject.getState();
@@ -149,6 +149,21 @@ public class Tests {
       subject.unRegisterObservers(siGame);
     }
 
+    assertEquals(observers.size(), 0);
+  }
+  
+  @Test
+  public void observersUnregisterTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    ArrayList<ArcadeObserver> observers = new ArrayList<ArcadeObserver>();
+    SpaceInvaders siGame = new SpaceInvaders();
+
+    subject.registerObservers(siGame);
+    if (observers.size() > 1) {
+      subject.notifyObservers();
+    }
+    subject.unRegisterObservers(siGame);
+    
     assertEquals(observers.size(), 0);
   }
 
@@ -234,7 +249,7 @@ public class Tests {
   }
   
   @Test
-  public void scoreCompareTest() {
+  public void scoreCompare1Test() {
     ScoreComparator sc = new ScoreComparator();
     Score score1 = new Score("Amy", 10);
     Score score2 = new Score("Hanna", 20);
@@ -242,6 +257,28 @@ public class Tests {
     int compared = sc.compare(score1, score2);   
     
     assertEquals(compared, 1);
+  }
+  
+  @Test
+  public void scoreCompare2Test() {
+    ScoreComparator sc = new ScoreComparator();
+    Score score1 = new Score("Amy", 10);
+    Score score2 = new Score("Hanna", 10);
+    
+    int compared = sc.compare(score1, score2);   
+    
+    assertEquals(compared, 0);
+  }
+  
+  @Test
+  public void scoreCompare3Test() {
+    ScoreComparator sc = new ScoreComparator();
+    Score score1 = new Score("Amy", 10);
+    Score score2 = new Score("Hanna", 1);
+    
+    int compared = sc.compare(score1, score2);   
+    
+    assertEquals(compared, -1);
   }
   
   /*
