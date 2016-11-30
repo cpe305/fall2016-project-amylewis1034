@@ -26,6 +26,10 @@ public class ArcadeConcreteSubject extends ArcadeSubject {
 
   private ArrayList<ArcadeObserver> observers = new ArrayList<ArcadeObserver>();
 
+  public ArrayList<ArcadeObserver> getObservers() {
+    return observers;
+  }
+  
   /**
    * Adds observers to observer list.
    */
