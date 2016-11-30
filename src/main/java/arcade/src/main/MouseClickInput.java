@@ -119,16 +119,16 @@ public class MouseClickInput implements MouseListener {
       // Buttons for Highscore Menu
       // Go back to Start Menu Button
       if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 3) {
-        if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 6
-            && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 7) {
+        if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 8
+            && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 9) {
           SpaceInvaders.getSubject().setState(Arcade.STARTMENU);
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
       // Exit Button
       if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH) {
-        if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 8
-            && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 9) {
+        if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 10
+            && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 11) {
           System.exit(1); // NOSONAR
         }
       }

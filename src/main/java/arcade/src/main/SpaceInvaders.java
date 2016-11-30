@@ -47,7 +47,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   private transient StartMenu startMenu;
   private transient EndSpaceGameMenu endSpaceGameMenu;
   private transient EndSnakeMenu endSnakeMenu;
-  private transient HighScoreMenu highScoreMenu;
+  private transient HighscoreMenu highScoreMenu;
   private transient HighscoreManagerSpace hsManager;
   private transient Player player;
   private transient Controller controller;
@@ -176,7 +176,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     snakegrid = new SnakeGrid(subject, this);
     endSpaceGameMenu = new EndSpaceGameMenu(subject);
     endSnakeMenu = new EndSnakeMenu(subject);
-    highScoreMenu = new HighScoreMenu(subject);
+    highScoreMenu = new HighscoreMenu(subject);
     subject.registerObservers(this);
     subject.registerObservers(startMenu);
     subject.registerObservers(snakegrid);
