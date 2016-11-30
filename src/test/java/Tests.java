@@ -17,6 +17,7 @@ import arcade.src.main.Controller;
 import arcade.src.main.Enemy;
 import arcade.src.main.EnemyCollideObjects;
 import arcade.src.main.FriendlyCollideObjects;
+import arcade.src.main.HighscoreMenu;
 import arcade.src.main.Player;
 import arcade.src.main.Score;
 import arcade.src.main.ScoreComparator;
@@ -155,14 +156,13 @@ public class Tests {
   @Test
   public void observersUnregisterTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
-    ArrayList<ArcadeObserver> observers = subject.getObservers();
-    SpaceInvaders siGame = new SpaceInvaders();
+    ArrayList<ArcadeObserver> observers = new ArrayList<ArcadeObserver>();
+    HighscoreMenu hsMenu = new HighscoreMenu(subject);
 
-    subject.registerObservers(siGame);
-    if (observers.size() > 1) {
-      subject.notifyObservers();
-    }
-    subject.unRegisterObservers(siGame);
+    subject.registerObservers(hsMenu);
+    subject.setState(Arcade.HIGHSCORES);
+    subject.notifyObservers();
+    subject.unRegisterObservers(hsMenu);
     
     assertEquals(observers.size(), 0);
   }
