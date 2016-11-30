@@ -52,7 +52,8 @@ public class EndSnakeMenu implements ArcadeObserver {
       ((Graphics2D) graphics).draw(startMenuButton);
       graphics.drawString("Exit", exitButton.x + 15, exitButton.y + 35);
       ((Graphics2D) graphics).draw(exitButton);
-      graphics.drawString("Play Snake Again", playSnakeAgainButton.x + 15, playSnakeAgainButton.y + 35);
+      graphics.drawString("Play Snake Again", playSnakeAgainButton.x + 15,
+          playSnakeAgainButton.y + 35);
       ((Graphics2D) graphics).draw(playSnakeAgainButton);
     }
   }
