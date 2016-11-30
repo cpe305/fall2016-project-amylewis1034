@@ -53,7 +53,7 @@ public class Controller {
    * 
    * @param objEnemy an enemy collide-able object
    */
-  public void addCollideObjectB(EnemyCollideObjects objEnemy) {
+  public void addEnemyCollideObject(EnemyCollideObjects objEnemy) {
     enemyList.add(objEnemy);
   }
 
@@ -75,7 +75,7 @@ public class Controller {
   public void addEnemy(int numEnemy) {
     for (int i = 0; i < numEnemy; i++) {
       int x1Coord = randNum.nextInt(siGame.getWidth() - ENEMY_WIDTH);
-      addCollideObjectB(new Enemy(x1Coord, ENEMY_POSITION, siGame, this));
+      addEnemyCollideObject(new Enemy(x1Coord, ENEMY_POSITION, siGame, this));
     }
   }
 
