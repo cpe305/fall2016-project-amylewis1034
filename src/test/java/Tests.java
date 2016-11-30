@@ -127,7 +127,7 @@ public class Tests {
     controller.removeEnemyCollideObject(enemy);
     
     LinkedList<EnemyCollideObjects> enemyList2 = controller.getEnemyCollideObjectList();
-    
+     
     assertEquals(enemyList2.size(), 1);
   }
 }
