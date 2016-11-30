@@ -172,8 +172,8 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   }
 
   private void appleLocator() {
-    xposApple = (randNum.nextInt() * GRID_WIDTH / POINT_SIZE) * POINT_SIZE;
-    yposApple = (randNum.nextInt() * GRID_HEIGHT / POINT_SIZE) * POINT_SIZE;
+    xposApple = (int) (Math.random() * GRID_WIDTH / POINT_SIZE) * POINT_SIZE; //NOSONAR
+    yposApple = (int) (Math.random() * GRID_HEIGHT / POINT_SIZE) * POINT_SIZE; //NOSONAR
   }
 
   /**

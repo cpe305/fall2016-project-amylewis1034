@@ -50,10 +50,10 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   private transient HighScoreMenu highScoreMenu;
   private transient HighscoreManagerSpace hsManager;
   private transient Player player;
+  private transient Controller controller;
 
   private boolean isRunning = false;
   private boolean isShooting = false;
-  private Controller controller;
   private SnakeGrid snakegrid;
   private Arcade state;
 

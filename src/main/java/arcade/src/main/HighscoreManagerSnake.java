@@ -68,7 +68,7 @@ public class HighscoreManagerSnake {
   @SuppressWarnings("unchecked")
   public void loadScoreFile() {
     try {
-      inStream = new ObjectInputStream(new FileInputStream(HS_FILE_SNAKE));
+      inStream = new ObjectInputStream(new FileInputStream(HS_FILE_SNAKE)); //NOSONAR
       scores = (ArrayList<Score>) inStream.readObject();
     } catch (ClassNotFoundException ex) {
       LOGGER.log(null, "Class Not Found Error: " + ex.getMessage(), ex);
@@ -92,7 +92,7 @@ public class HighscoreManagerSnake {
    */
   public void updateScoreFile() {
     try {
-      outStream = new ObjectOutputStream(new FileOutputStream(HS_FILE_SNAKE));
+      outStream = new ObjectOutputStream(new FileOutputStream(HS_FILE_SNAKE)); //NOSONAR
       outStream.writeObject(scores);
     } catch (FileNotFoundException ex) {
       LOGGER.log(null, "File Not Found Error: " + ex.getMessage(), ex);

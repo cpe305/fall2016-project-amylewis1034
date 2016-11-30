@@ -68,7 +68,7 @@ public class HighscoreManagerSpace {
   @SuppressWarnings("unchecked")
   public void loadScoreFile() {
     try {
-      inStream = new ObjectInputStream(new FileInputStream(HS_FILE_SPACE));
+      inStream = new ObjectInputStream(new FileInputStream(HS_FILE_SPACE)); //NOSONAR
       scores = (ArrayList<Score>) inStream.readObject();
     } catch (ClassNotFoundException ex) {
       LOGGER.log(null, "Class Not Found Error: " + ex.getMessage(), ex);
@@ -92,7 +92,7 @@ public class HighscoreManagerSpace {
    */
   public void updateScoreFile() {
     try {
-      outStream = new ObjectOutputStream(new FileOutputStream(HS_FILE_SPACE));
+      outStream = new ObjectOutputStream(new FileOutputStream(HS_FILE_SPACE)); //NOSONAR
       outStream.writeObject(scores);
     } catch (FileNotFoundException ex) {
       LOGGER.log(null, "File Not Found Error: " + ex.getMessage(), ex);
