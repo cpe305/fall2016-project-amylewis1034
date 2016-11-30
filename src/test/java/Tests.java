@@ -161,7 +161,6 @@ public class Tests {
 
     subject.registerObservers(hsMenu);
     subject.setState(Arcade.HIGHSCORES);
-    subject.notifyObservers();
     subject.unRegisterObservers(hsMenu);
     
     assertEquals(observers.size(), 0);
