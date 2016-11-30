@@ -12,8 +12,8 @@ import java.awt.Rectangle;
 
 public class Collidable {
 
-  public double x1Coord;
-  public double y1Coord;
+  public double x1Coord; //NOSONAR
+  public double y1Coord; //NOSONAR
 
   /**
    * Constructor for Collidable class that initializes the initial position.

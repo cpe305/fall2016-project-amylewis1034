@@ -24,7 +24,7 @@ public class ArcadeConcreteSubject extends ArcadeSubject {
 
   private Arcade state = Arcade.STARTMENU;
 
-  public ArrayList<ArcadeObserver> observers = new ArrayList<ArcadeObserver>();
+  private ArrayList<ArcadeObserver> observers = new ArrayList<ArcadeObserver>();
 
   /**
    * Adds observers to observer list.

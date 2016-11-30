@@ -63,10 +63,10 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   private int health;
   private int score;
 
-  public static ArcadeConcreteSubject subject;
+  public static ArcadeConcreteSubject subject; //NOSONAR
 
-  public LinkedList<CollideObjectA> friendlyList;
-  public LinkedList<CollideObjectB> enemyList;
+  public LinkedList<CollideObjectA> friendlyList; //NOSONAR
+  public LinkedList<CollideObjectB> enemyList; //NOSONAR
 
   public static ArcadeConcreteSubject getSubject() {
     return subject;

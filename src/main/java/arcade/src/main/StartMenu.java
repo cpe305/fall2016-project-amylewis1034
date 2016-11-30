@@ -24,15 +24,15 @@ public class StartMenu implements ArcadeObserver {
   private ArcadeConcreteSubject subject;
   private Arcade state;
 
-  public Rectangle playSpaceButton =
+  private Rectangle playSpaceButton =
       new Rectangle(X_BUTTON_POS, Y_BUTTON_POS, BUTTON_WIDTH * 3, BUTTON_HEIGHT);
-  public Rectangle playSnakeButton =
+  private Rectangle playSnakeButton =
       new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + BUTTON_WIDTH, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
-  public Rectangle helpButton =
+  private Rectangle helpButton =
       new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + 2 * BUTTON_WIDTH, BUTTON_WIDTH, BUTTON_HEIGHT);
-  public Rectangle highScoreButton =
+  private Rectangle highScoreButton =
       new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + 3 * BUTTON_WIDTH, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
-  public Rectangle exitButton =
+  private Rectangle exitButton =
       new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + 4 * BUTTON_WIDTH, BUTTON_WIDTH, BUTTON_HEIGHT);
 
   public StartMenu(ArcadeConcreteSubject subject) {

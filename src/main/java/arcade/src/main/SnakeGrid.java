@@ -54,7 +54,7 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   private Arcade state;
   private ArcadeConcreteSubject subject; //NOSONAR
 
-  public Rectangle mapGrid = new Rectangle(0, 0, GRID_WIDTH, GRID_HEIGHT);
+  private Rectangle mapGrid = new Rectangle(0, 0, GRID_WIDTH, GRID_HEIGHT);
 
   Random randNum = new Random();
   

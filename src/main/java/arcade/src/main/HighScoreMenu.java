@@ -56,15 +56,15 @@ public class HighScoreMenu implements ArcadeObserver {
     if (state == Arcade.HIGHSCORES) {
       Font fnt = new Font("arial", Font.BOLD, 200);
       graphics.setFont(fnt);
-      graphics.setColor(Color.white);
+      graphics.setColor(Color.ORANGE);
       graphics.drawString("High Scores", SpaceInvaders.WIDTH / 2, 200);
 
       Font fntButton = new Font("arial", Font.BOLD, 30);
       graphics.setFont(fntButton);
-      graphics.drawString("Space Invaders", X_BUTTON_POS + BUTTON_WIDTH, 680);
-      graphics.drawString("Name    Score", X_BUTTON_POS + BUTTON_WIDTH, 720);
+      graphics.drawString("Space Invaders", X_BUTTON_POS + BUTTON_WIDTH, 660);
+      graphics.drawString("Name    Score", X_BUTTON_POS + BUTTON_WIDTH, 700);
       for (int i = 0; i < highscoresSpace.size(); i++) {
-        graphics.drawString(highscoresSpace.get(i), X_BUTTON_POS + 50, 760 + i * 40);
+        graphics.drawString(highscoresSpace.get(i), X_BUTTON_POS + 50, 740 + i * 40);
       }
       
       graphics.drawString("Snake", X_BUTTON_POS  + BUTTON_WIDTH, 960);
