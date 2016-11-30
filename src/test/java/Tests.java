@@ -134,11 +134,19 @@ public class Tests {
 
     assertEquals(enemyList2.size(), 1);
   }
-
+/*
   @Test
   public void hsManagerSnakeTest() {
     HighscoreManagerSnake hsSnake = new HighscoreManagerSnake();
     ManageHighscores hsManage = hsSnake.getManageHighscores();
+
+    hsManage.loadScoreFile();
+    ArrayList<Score> scores = hsManage.getHighscores();
+    ScoreComparator comparator = new ScoreComparator();
+    scores.sort(comparator);
+    hsManage.addScore("Amy", 0);
+    hsManage.sort();
+    hsManage.updateScoreFile();
     
     assertEquals(hsManage.getHighscoreName().size(), 5);
   }
@@ -148,6 +156,14 @@ public class Tests {
     HighscoreManagerSpace hsSpace = new HighscoreManagerSpace();
     ManageHighscores hsManage = hsSpace.getManageHighscores();
     
+    hsManage.loadScoreFile();
+    ArrayList<Score> scores = hsManage.getHighscores();
+    ScoreComparator comparator = new ScoreComparator();
+    scores.sort(comparator);
+    hsManage.addScore("Amy", 0);
+    hsManage.sort();
+    hsManage.updateScoreFile();
+    
     assertEquals(hsManage.getHighscoreName().size(), 5);
-  }
+  } */
 }
