@@ -155,7 +155,7 @@ public class Tests {
   @Test
   public void observersUnregisterTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
-    ArrayList<ArcadeObserver> observers = new ArrayList<ArcadeObserver>();
+    ArrayList<ArcadeObserver> observers = subject.getObservers();
     SpaceInvaders siGame = new SpaceInvaders();
 
     subject.registerObservers(siGame);
