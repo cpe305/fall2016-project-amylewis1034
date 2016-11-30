@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  * @see Enemy
  * @version 10/30/16
  */
-public class Enemy extends Collidable implements CollideObjectB {
+public class Enemy extends Collidable implements EnemyCollideObjects {
   public static final int ENEMY_WIDTH = 80;
   public static final int ENEMY_HEIGHT = 45;
   public static final int RAND_VAR = 4;
@@ -90,11 +90,11 @@ public class Enemy extends Collidable implements CollideObjectB {
     }
 
     for (int i = 0; i < siGame.friendlyList.size(); i++) {
-      CollideObjectA tmpObjA = siGame.friendlyList.get(i);
+      FriendlyCollideObjects tmpObjFriendly = siGame.friendlyList.get(i);
 
-      if (CollisionPhysics.isCollision(tmpObjA, this)) {
-        if (tmpObjA instanceof Player) {
-          controller.removeCollideObjectB(this);
+      if (CollisionPhysics.isCollision(tmpObjFriendly, this)) {
+        if (tmpObjFriendly instanceof Player) {
+          controller.removeEnemyCollideObject(this);
           siGame.setHealth(siGame.getHealth() - 10);
           if (siGame.getHealth() == 0) {
             ArrayList<Score> highscores =
@@ -114,8 +114,8 @@ public class Enemy extends Collidable implements CollideObjectB {
             siGame.setNumEnemyKilled(siGame.getNumEnemyKilled() + 1);
           }
         } else {
-          controller.removeCollideObjectB(this);
-          controller.removeCollideObjectA(tmpObjA);
+          controller.removeEnemyCollideObject(this);
+          controller.removeFriendlyCollideObject(tmpObjFriendly);
           siGame.setSpaceScore(siGame.getSpaceScore() + 1);
           siGame.setNumEnemyKilled(siGame.getNumEnemyKilled() + 1);
         }

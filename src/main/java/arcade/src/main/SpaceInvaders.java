@@ -65,8 +65,8 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
 
   public static ArcadeConcreteSubject subject; //NOSONAR
 
-  public LinkedList<CollideObjectA> friendlyList; //NOSONAR
-  public LinkedList<CollideObjectB> enemyList; //NOSONAR
+  public LinkedList<FriendlyCollideObjects> friendlyList; //NOSONAR
+  public LinkedList<EnemyCollideObjects> enemyList; //NOSONAR
 
   public static ArcadeConcreteSubject getSubject() {
     return subject;
@@ -185,9 +185,9 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     subject.registerObservers(endSnakeMenu);
     subject.registerObservers(highScoreMenu);
 
-    controller.addCollideObjectA(player);
-    friendlyList = controller.getCollideObjectAList();
-    enemyList = controller.getCollideObjectBList();
+    controller.addFriendlyCollideObject(player);
+    friendlyList = controller.getFriendlyCollideObjectList();
+    enemyList = controller.getEnemyCollideObjectList();
   }
 
   /**
@@ -207,7 +207,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
       } else if (keyPressed == KeyEvent.VK_RIGHT) {
         player.setXVel(3);
       } else if (keyPressed == KeyEvent.VK_SPACE && isShooting == false) {
-        controller.addCollideObjectA(new Bullet(player.getXCoord() + X_BULLET_POSITION,
+        controller.addFriendlyCollideObject(new Bullet(player.getXCoord() + X_BULLET_POSITION,
             player.getYCoord() + Y_BULLET_POSITION));
         isShooting = true;
       }

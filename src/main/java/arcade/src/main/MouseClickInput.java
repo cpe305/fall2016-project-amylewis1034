@@ -19,11 +19,6 @@ public class MouseClickInput implements MouseListener {
   private static final int BUTTON_WIDTH = 100;
   private static final int BUTTON_HEIGHT = 50;
 
-  public void mouseClicked(MouseEvent moEvent) {
-    // TODO Auto-generated method stub
-
-  }
-
   /**
    * Takes the user's inputed button click and processes that command.
    * 
@@ -34,12 +29,15 @@ public class MouseClickInput implements MouseListener {
     int mouseY = moEvent.getY();
 
     if (SpaceInvaders.getSubject().getState() == Arcade.STARTMENU) {
+      // Buttons for Start Menu
+      // Play Space Invaders Buttons
       if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 3) {
         if (mouseY >= Y_BUTTON_POS && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT) {
           SpaceInvaders.getSubject().setState(Arcade.SPACEINVADERS);
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
+      // Play Snake Button
       if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 2) {
         if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 2
             && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 3) {
@@ -47,12 +45,14 @@ public class MouseClickInput implements MouseListener {
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
+      // Help Button
       if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH) {
         if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 4
             && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 5) {
           // add help stuff
         }
       }
+      // Highscores Button
       if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 2) {
         if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 6
             && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 7) {
@@ -60,19 +60,23 @@ public class MouseClickInput implements MouseListener {
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
+      // Exit Button
       if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH) {
         if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 8
             && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 9) {
-          System.exit(1); //NOSONAR
+          System.exit(1); // NOSONAR
         }
       }
     } else if (SpaceInvaders.getSubject().getState() == Arcade.ENDSPACEGAMEMENU) {
+      // Buttons for End Space Invaders Menu
+      // Play Space Invaders Again Button
       if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 3) {
         if (mouseY >= Y_BUTTON_POS && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT) {
           SpaceInvaders.getSubject().setState(Arcade.SPACEINVADERS);
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
+      // Go back to Start Menu Button
       if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 3) {
         if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 2
             && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 3) {
@@ -80,19 +84,23 @@ public class MouseClickInput implements MouseListener {
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
+      // Exit Button
       if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH) {
         if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 4
             && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 5) {
-          System.exit(1); //NOSONAR
+          System.exit(1); // NOSONAR
         }
       }
     } else if (SpaceInvaders.getSubject().getState() == Arcade.ENDSNAKEMENU) {
+      // Buttons for End Snake Menu
+      // Play Snake Again Button
       if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 3) {
         if (mouseY >= Y_BUTTON_POS && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT) {
           SpaceInvaders.getSubject().setState(Arcade.SNAKE);
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
+      // Go back to Start Menu Button
       if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 3) {
         if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 2
             && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 3) {
@@ -100,13 +108,16 @@ public class MouseClickInput implements MouseListener {
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
+      // Exit Button
       if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH) {
         if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 4
             && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 5) {
-          System.exit(1); //NOSONAR
+          System.exit(1); // NOSONAR
         }
       }
     } else if (SpaceInvaders.getSubject().getState() == Arcade.HIGHSCORES) {
+      // Buttons for Highscore Menu
+      // Go back to Start Menu Button
       if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 3) {
         if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 6
             && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 7) {
@@ -114,28 +125,22 @@ public class MouseClickInput implements MouseListener {
           SpaceInvaders.getSubject().notifyObservers();
         }
       }
+      // Exit Button
       if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH) {
         if (mouseY >= Y_BUTTON_POS + BUTTON_HEIGHT * 8
             && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT * 9) {
-          System.exit(1); //NOSONAR
+          System.exit(1); // NOSONAR
         }
       }
     }
   }
 
-  public void mouseReleased(MouseEvent moEvent) {
-    // TODO Auto-generated method stub
+  public void mouseClicked(MouseEvent moEvent) {}
 
-  }
+  public void mouseReleased(MouseEvent moEvent) {}
 
-  public void mouseEntered(MouseEvent moEvent) {
-    // TODO Auto-generated method stub
+  public void mouseEntered(MouseEvent moEvent) {}
 
-  }
-
-  public void mouseExited(MouseEvent moEvent) {
-    // TODO Auto-generated method stub
-
-  }
+  public void mouseExited(MouseEvent moEvent) {}
 
 }

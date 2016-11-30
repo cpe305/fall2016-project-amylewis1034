@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * @see Bullet
  * @version 10/30/16
  */
-public class Bullet extends Collidable implements CollideObjectA {
+public class Bullet extends Collidable implements FriendlyCollideObjects {
   private static final Logger LOGGER = Logger.getLogger(Bullet.class.toString());
   public static final int BULLET_WIDTH = 4;
   public static final int BULLET_HEIGHT = 9;

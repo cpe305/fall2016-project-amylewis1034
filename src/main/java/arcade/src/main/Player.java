@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * @see Player
  * @version 10/30/16
  */
-public class Player extends Collidable implements CollideObjectA {
+public class Player extends Collidable implements FriendlyCollideObjects {
   private static final Logger LOGGER = Logger.getLogger(Player.class.toString());
   public static final int PLAYER_WIDTH = 40;
   public static final int PLAYER_HEIGHT = 50;

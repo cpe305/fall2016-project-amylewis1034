@@ -14,12 +14,13 @@ public class CollisionPhysics {
    * The method that calculates when a collision between friendly and a list of enemy objects
    * occurs.
    * 
-   * @param collideObjA a friendly collide-able object
-   * @param collideObjB a enemy collide-able object
+   * @param collideObjFriendly a friendly collide-able object
+   * @param collideObjEnemy a enemy collide-able object
    * @return true if there was a friendly/enemy collision, false otherwise
    */
-  public static boolean isCollision(CollideObjectA collideObjA, CollideObjectB collideObjB) {
-    if (collideObjA.getRectBounds().intersects(collideObjB.getRectBounds())) {
+  public static boolean isCollision(FriendlyCollideObjects collideObjFriendly,
+      EnemyCollideObjects collideObjEnemy) {
+    if (collideObjFriendly.getRectBounds().intersects(collideObjEnemy.getRectBounds())) {
       return true;
     }
     return false;

@@ -16,12 +16,13 @@ public class Controller {
   public static final int ENEMY_WIDTH = 80;
   public static final int ENEMY_POSITION = -10;
 
-  private LinkedList<CollideObjectA> friendlyList = new LinkedList<CollideObjectA>();
-  private LinkedList<CollideObjectB> enemyList = new LinkedList<CollideObjectB>();
+  private LinkedList<FriendlyCollideObjects> friendlyList =
+      new LinkedList<FriendlyCollideObjects>();
+  private LinkedList<EnemyCollideObjects> enemyList = new LinkedList<EnemyCollideObjects>();
 
   SpaceInvaders siGame;
-  CollideObjectA friendObj;
-  CollideObjectB enemyObj;
+  FriendlyCollideObjects friendObj;
+  EnemyCollideObjects enemyObj;
 
   Random randNum = new Random();
 
@@ -32,37 +33,37 @@ public class Controller {
   /**
    * Adds a collide-able object to the friendly list.
    * 
-   * @param objA a friendly collide-able object
+   * @param objFriendly a friendly collide-able object
    */
-  public void addCollideObjectA(CollideObjectA objA) {
-    friendlyList.add(objA);
+  public void addFriendlyCollideObject(FriendlyCollideObjects objFriendly) {
+    friendlyList.add(objFriendly);
   }
 
   /**
    * Removes a collide-able object from the friendly list.
    * 
-   * @param objA a friendly collide-able object
+   * @param objFriendly a friendly collide-able object
    */
-  public void removeCollideObjectA(CollideObjectA objA) {
-    friendlyList.remove(objA);
+  public void removeFriendlyCollideObject(FriendlyCollideObjects objFriendly) {
+    friendlyList.remove(objFriendly);
   }
 
   /**
    * Adds a collide-able object to the enemy list.
    * 
-   * @param objB an enemy collide-able object
+   * @param objEnemy an enemy collide-able object
    */
-  public void addCollideObjectB(CollideObjectB objB) {
-    enemyList.add(objB);
+  public void addCollideObjectB(EnemyCollideObjects objEnemy) {
+    enemyList.add(objEnemy);
   }
 
   /**
    * Removes a collide-able object from the enemy list.
    * 
-   * @param objB an enemy collide-able object
+   * @param objEnemy an enemy collide-able object
    */
-  public void removeCollideObjectB(CollideObjectB objB) {
-    enemyList.remove(objB);
+  public void removeEnemyCollideObject(EnemyCollideObjects objEnemy) {
+    enemyList.remove(objEnemy);
   }
 
   /**
@@ -74,16 +75,15 @@ public class Controller {
   public void addEnemy(int numEnemy) {
     for (int i = 0; i < numEnemy; i++) {
       int x1Coord = randNum.nextInt(siGame.getWidth() - ENEMY_WIDTH);
-      addCollideObjectB(new Enemy(x1Coord, ENEMY_POSITION,
-          siGame, this));
+      addCollideObjectB(new Enemy(x1Coord, ENEMY_POSITION, siGame, this));
     }
   }
 
-  public LinkedList<CollideObjectA> getCollideObjectAList() {
+  public LinkedList<FriendlyCollideObjects> getFriendlyCollideObjectList() {
     return friendlyList;
   }
 
-  public LinkedList<CollideObjectB> getCollideObjectBList() {
+  public LinkedList<EnemyCollideObjects> getEnemyCollideObjectList() {
     return enemyList;
   }
 
@@ -92,13 +92,13 @@ public class Controller {
    * object in the enemy list.
    */
   public void tick() {
-    // CollideObjectA
+    // FriendlyCollideObject
     for (int i = 0; i < friendlyList.size(); i++) {
       friendObj = friendlyList.get(i);
       friendObj.tick();
     }
 
-    // CollideObjectB
+    // EnemyCollideObject
     for (int j = 0; j < enemyList.size(); j++) {
       enemyObj = enemyList.get(j);
       enemyObj.tick();
@@ -112,13 +112,13 @@ public class Controller {
    * @param graphics is a reference to the Java graphics class
    */
   public void render(Graphics graphics) {
-    // CollideObjectA
+    // FriendlyCollideObject
     for (int i = 0; i < friendlyList.size(); i++) {
       friendObj = friendlyList.get(i);
       friendObj.render(graphics);
     }
 
-    // CollideObjectB
+    // EnemyCollideObject
     for (int j = 0; j < enemyList.size(); j++) {
       enemyObj = enemyList.get(j);
       enemyObj.render(graphics);
