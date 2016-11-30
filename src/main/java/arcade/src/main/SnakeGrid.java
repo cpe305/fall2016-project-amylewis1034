@@ -52,12 +52,12 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   private boolean goingRight;
 
   private Arcade state;
-  private ArcadeConcreteSubject subject; //NOSONAR
+  private ArcadeConcreteSubject subject; // NOSONAR
 
   private Rectangle mapGrid = new Rectangle(0, 0, GRID_WIDTH, GRID_HEIGHT);
 
   Random randNum = new Random();
-  
+
   /**
    * Constructor for Snake game.
    * 
@@ -172,8 +172,8 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   }
 
   private void appleLocator() {
-    xposApple = (int) (Math.random() * GRID_WIDTH / POINT_SIZE) * POINT_SIZE; //NOSONAR
-    yposApple = (int) (Math.random() * GRID_HEIGHT / POINT_SIZE) * POINT_SIZE; //NOSONAR
+    xposApple = (int) (Math.random() * GRID_WIDTH / POINT_SIZE) * POINT_SIZE; // NOSONAR
+    yposApple = (int) (Math.random() * GRID_HEIGHT / POINT_SIZE) * POINT_SIZE; // NOSONAR
   }
 
   /**
@@ -182,47 +182,47 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
    * @param graphics is a reference to the Java graphics class
    */
   public void render(Graphics graphics) {
-    if (state == Arcade.SNAKE) {
-      if (isRunning) {
-        graphics.setColor(Color.BLACK);
+    if (isRunning) {
+      graphics.setColor(Color.BLACK);
 
-        graphics.drawImage(apple, xposApple, yposApple, this);
+      graphics.drawImage(apple, xposApple, yposApple, this);
 
-        ((Graphics2D) graphics).draw(mapGrid);
+      ((Graphics2D) graphics).draw(mapGrid);
 
-        for (int i = 0; i < score; i++) {
-          if (i == 0) {
-            graphics.drawImage(head, xposTotal[i], yposTotal[i], this);
-          } else {
-            graphics.drawImage(body, xposTotal[i], yposTotal[i], this);
-          }
+      for (int i = 0; i < score; i++) {
+        if (i == 0) {
+          graphics.drawImage(head, xposTotal[i], yposTotal[i], this);
+        } else {
+          graphics.drawImage(body, xposTotal[i], yposTotal[i], this);
         }
-
-        Font fnt = new Font("arial", Font.BOLD, 50);
-        graphics.setFont(fnt);
-        graphics.setColor(Color.YELLOW);
-        points = score - 3;
-        graphics.drawString("Score: ", SpaceInvaders.WIDTH * 2 - SCORE_POSITION, 60);
-        graphics.drawString(((Integer) points).toString(), SpaceInvaders.WIDTH * 2 - 100, 60);
-
-        Toolkit.getDefaultToolkit().sync();
-      } else {
-        ArrayList<Score> highscores = hsManager.getManageHighscores().getHighscores();
-        if (highscores.size() < 5 || score > highscores.get(4).getScore()) {
-
-          String name = JOptionPane
-              .showInputDialog("Congratulations! You set a new highscore! Please enter your name.");
-          hsManager.getManageHighscores().addScore(name, score);
-        }
-        subject.setState(Arcade.ENDSNAKEMENU);
-        subject.notifyObservers();
       }
+
+      Font fnt = new Font("arial", Font.BOLD, 50);
+      graphics.setFont(fnt);
+      graphics.setColor(Color.YELLOW);
+      points = score - 3;
+      graphics.drawString("Score: ", SpaceInvaders.WIDTH * 2 - SCORE_POSITION, 60);
+      graphics.drawString(((Integer) points).toString(), SpaceInvaders.WIDTH * 2 - 100, 60);
+
+      Toolkit.getDefaultToolkit().sync();
+    } else {
+      ArrayList<Score> highscores = hsManager.getManageHighscores().getHighscores();
+      if (highscores.size() < 5 || score > highscores.get(4).getScore()) {
+
+        String name = JOptionPane
+            .showInputDialog("Congratulations! You set a new highscore! Please enter your name.");
+        hsManager.getManageHighscores().addScore(name, score);
+      }
+      subject.setState(Arcade.ENDSNAKEMENU);
+      subject.notifyObservers();
     }
   }
 
   /**
    * If Snake is running the apple should be randomly placed, collision detection should be
    * activated, and the snake should be able to move.
+   * 
+   * @param event is the action performed by the class
    */
   public void actionPerformed(ActionEvent event) {
     if (isRunning) {

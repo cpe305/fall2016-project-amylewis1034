@@ -1,10 +1,7 @@
 package arcade.src.main;
 
-import arcade.src.main.ArcadeConcreteSubject.Arcade;
-
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -13,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
-import javax.swing.JFrame;
+import arcade.src.main.ArcadeConcreteSubject.Arcade;
 
 /**
  * Class that runs the game, Space Invaders.
@@ -231,7 +228,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     }
   }
 
-  private synchronized void start() {
+  public synchronized void start() {
     if (isRunning) {
       return;
     }
@@ -353,28 +350,5 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
       render();
     }
     stop();
-  }
-
-  /**
-   * The method that drives the entire game.
-   * 
-   * @param args holds any input from the command line
-   */
-  public static void main(String[] args) {
-    SpaceInvaders siGame = new SpaceInvaders();
-
-    siGame.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-    siGame.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-    siGame.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-
-    JFrame titleFrame = new JFrame(siGame.getTitle());
-    titleFrame.add(siGame);
-    titleFrame.pack();
-    titleFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    titleFrame.setLocationRelativeTo(null);
-    titleFrame.setVisible(true);
-    titleFrame.setResizable(false);
-
-    siGame.start();
   }
 }
