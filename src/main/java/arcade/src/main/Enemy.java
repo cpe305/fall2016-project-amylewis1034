@@ -97,12 +97,14 @@ public class Enemy extends Collidable implements CollideObjectB {
           controller.removeCollideObjectB(this);
           siGame.setHealth(siGame.getHealth() - 10);
           if (siGame.getHealth() == 0) {
-            ArrayList<Score> highscores = siGame.getHighscoreManagerSpace().getHighscores();
+            ArrayList<Score> highscores =
+                siGame.getHighscoreManagerSpace().getManageHighscores().getHighscores();
             if (highscores.size() < 5 || siGame.getSpaceScore() > highscores.get(4).getScore()) {
 
               String name = JOptionPane.showInputDialog(
                   "Congratulations! You set a new highscore! Please enter your name.");
-              siGame.getHighscoreManagerSpace().addScore(name, siGame.getSpaceScore());
+              siGame.getHighscoreManagerSpace().getManageHighscores().addScore(name,
+                  siGame.getSpaceScore());
             }
             SpaceInvaders.getSubject().setState(Arcade.ENDSPACEGAMEMENU);
             SpaceInvaders.getSubject().notifyObservers();

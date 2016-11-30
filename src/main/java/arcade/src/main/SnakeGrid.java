@@ -207,12 +207,12 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
 
         Toolkit.getDefaultToolkit().sync();
       } else {
-        ArrayList<Score> highscores = hsManager.getHighscores();
+        ArrayList<Score> highscores = hsManager.getManageHighscores().getHighscores();
         if (highscores.size() < 5 || score > highscores.get(4).getScore()) {
 
           String name = JOptionPane
               .showInputDialog("Congratulations! You set a new highscore! Please enter your name.");
-          hsManager.addScore(name, score);
+          hsManager.getManageHighscores().addScore(name, score);
         }
         subject.setState(Arcade.ENDSNAKEMENU);
         subject.notifyObservers();

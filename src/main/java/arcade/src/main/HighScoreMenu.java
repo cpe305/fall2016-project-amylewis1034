@@ -86,8 +86,8 @@ public class HighScoreMenu implements ArcadeObserver {
   public void update() {
     state = subject.getState();
     if (state == Arcade.HIGHSCORES) {
-      highscoresSpace = hsManagerSpace.getHighscoreName();
-      highscoresSnake = hsManagerSnake.getHighscoreName();
+      highscoresSpace = hsManagerSpace.getManageHighscores().getHighscoreName();
+      highscoresSnake = hsManagerSnake.getManageHighscores().getHighscoreName();
     }
   }
 }
