@@ -67,7 +67,7 @@ public class MouseClickInput implements MouseListener {
         }
       }
     } else if (SpaceInvaders.getSubject().getState() == Arcade.ENDSPACEGAMEMENU) {
-      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 2) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 3) {
         if (mouseY >= Y_BUTTON_POS && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT) {
           SpaceInvaders.getSubject().setState(Arcade.SPACEINVADERS);
           SpaceInvaders.getSubject().notifyObservers();
@@ -87,7 +87,7 @@ public class MouseClickInput implements MouseListener {
         }
       }
     } else if (SpaceInvaders.getSubject().getState() == Arcade.ENDSNAKEMENU) {
-      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 2) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 3) {
         if (mouseY >= Y_BUTTON_POS && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT) {
           SpaceInvaders.getSubject().setState(Arcade.SNAKE);
           SpaceInvaders.getSubject().notifyObservers();

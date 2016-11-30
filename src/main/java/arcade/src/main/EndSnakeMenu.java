@@ -23,8 +23,8 @@ public class EndSnakeMenu implements ArcadeObserver {
   private ArcadeConcreteSubject subject;
   private Arcade state;
 
-  private Rectangle playAgainButton =
-      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
+  private Rectangle playSnakeAgainButton =
+      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS, BUTTON_WIDTH * 3, BUTTON_HEIGHT);
   private Rectangle startMenuButton =
       new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + BUTTON_WIDTH, BUTTON_WIDTH * 3, BUTTON_HEIGHT);
   private Rectangle exitButton =
@@ -48,12 +48,12 @@ public class EndSnakeMenu implements ArcadeObserver {
       graphics.drawString("Game Over", 500, BUTTON_WIDTH * 3);
       Font fntButton = new Font("arial", Font.BOLD, 30);
       graphics.setFont(fntButton);
-      graphics.drawString("Play Again", playAgainButton.x + 15, playAgainButton.y + 35);
-      ((Graphics2D) graphics).draw(playAgainButton);
       graphics.drawString("Go To Start Menu", startMenuButton.x + 10, startMenuButton.y + 35);
       ((Graphics2D) graphics).draw(startMenuButton);
       graphics.drawString("Exit", exitButton.x + 15, exitButton.y + 35);
       ((Graphics2D) graphics).draw(exitButton);
+      graphics.drawString("Play Snake Again", playSnakeAgainButton.x + 15, playSnakeAgainButton.y + 35);
+      ((Graphics2D) graphics).draw(playSnakeAgainButton);
     }
   }
 
