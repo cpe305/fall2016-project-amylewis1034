@@ -16,11 +16,7 @@ import arcade.src.main.Controller;
 import arcade.src.main.Enemy;
 import arcade.src.main.EnemyCollideObjects;
 import arcade.src.main.FriendlyCollideObjects;
-import arcade.src.main.HighscoreManagerSnake;
-import arcade.src.main.HighscoreManagerSpace;
-import arcade.src.main.ManageHighscores;
-import arcade.src.main.Score;
-import arcade.src.main.ScoreComparator;
+import arcade.src.main.Player;
 import arcade.src.main.SpaceInvaders;
 
 public class Tests {
@@ -51,9 +47,9 @@ public class Tests {
 
     assertEquals(ypSpeed, 0);
   }
-
+  
   @Test
-  public void rectangleBoundsTest() {
+  public void rectangleBoundsBulletTest() {
     Bullet bullet = new Bullet(10, 10);
     int xCoord = (int) bullet.getXCoord();
     int yCoord = (int) bullet.getYCoord();
@@ -62,6 +58,66 @@ public class Tests {
     Rectangle rect2 = bullet.getRectBounds(10, 20);
 
     assertEquals(rect, rect2);
+  }
+
+  @Test
+  public void playerWidthTest() {
+    SpaceInvaders siGame = new SpaceInvaders();
+    Player player = new Player(10, 10, siGame);
+    int playerWidth = 40;
+    int width = player.getWidth();
+
+    assertEquals(width, playerWidth);
+  }
+
+  @Test
+  public void playerHeightTest() {
+    SpaceInvaders siGame = new SpaceInvaders();
+    Player player = new Player(10, 10, siGame);
+    int playerHeight = 50;
+    int width = player.getHeight();
+
+    assertEquals(width, playerHeight);
+  }
+
+  @Test
+  public void playerXCoordTest() {
+    SpaceInvaders siGame = new SpaceInvaders();
+    Player player = new Player(10, 10, siGame);
+    player.setXCoord(12);
+
+    assertEquals((int) player.getXCoord(), 12);
+  }
+
+  @Test
+  public void playerYCoordTest() {
+    SpaceInvaders siGame = new SpaceInvaders();
+    Player player = new Player(10, 10, siGame);
+    player.setYCoord(12);
+
+    assertEquals((int) player.getYCoord(), 12);
+  }
+
+  @Test
+  public void playerXVelTest() {
+    SpaceInvaders siGame = new SpaceInvaders();
+    Player player = new Player(10, 10, siGame);
+    double x1Vel = 0.0;
+    
+    player.setXVel(12);
+
+    assertEquals((int) x1Vel, 0);
+  }
+
+  @Test
+  public void playerYVelTest() {
+    SpaceInvaders siGame = new SpaceInvaders();
+    Player player = new Player(10, 10, siGame);
+    double y1Vel = 0.0;
+    
+    player.setYCoord(12);
+
+    assertEquals((int) y1Vel, 0);
   }
 
   @Test
@@ -134,36 +190,23 @@ public class Tests {
 
     assertEquals(enemyList2.size(), 1);
   }
-/*
-  @Test
-  public void hsManagerSnakeTest() {
-    HighscoreManagerSnake hsSnake = new HighscoreManagerSnake();
-    ManageHighscores hsManage = hsSnake.getManageHighscores();
-
-    hsManage.loadScoreFile();
-    ArrayList<Score> scores = hsManage.getHighscores();
-    ScoreComparator comparator = new ScoreComparator();
-    scores.sort(comparator);
-    hsManage.addScore("Amy", 0);
-    hsManage.sort();
-    hsManage.updateScoreFile();
-    
-    assertEquals(hsManage.getHighscoreName().size(), 5);
-  }
-  
-  @Test
-  public void hsManagerSpaceTest() {
-    HighscoreManagerSpace hsSpace = new HighscoreManagerSpace();
-    ManageHighscores hsManage = hsSpace.getManageHighscores();
-    
-    hsManage.loadScoreFile();
-    ArrayList<Score> scores = hsManage.getHighscores();
-    ScoreComparator comparator = new ScoreComparator();
-    scores.sort(comparator);
-    hsManage.addScore("Amy", 0);
-    hsManage.sort();
-    hsManage.updateScoreFile();
-    
-    assertEquals(hsManage.getHighscoreName().size(), 5);
-  } */
+  /*
+   * @Test public void hsManagerSnakeTest() { HighscoreManagerSnake hsSnake = new
+   * HighscoreManagerSnake(); ManageHighscores hsManage = hsSnake.getManageHighscores();
+   * 
+   * hsManage.loadScoreFile(); ArrayList<Score> scores = hsManage.getHighscores(); ScoreComparator
+   * comparator = new ScoreComparator(); scores.sort(comparator); hsManage.addScore("Amy", 0);
+   * hsManage.sort(); hsManage.updateScoreFile();
+   * 
+   * assertEquals(hsManage.getHighscoreName().size(), 5); }
+   * 
+   * @Test public void hsManagerSpaceTest() { HighscoreManagerSpace hsSpace = new
+   * HighscoreManagerSpace(); ManageHighscores hsManage = hsSpace.getManageHighscores();
+   * 
+   * hsManage.loadScoreFile(); ArrayList<Score> scores = hsManage.getHighscores(); ScoreComparator
+   * comparator = new ScoreComparator(); scores.sort(comparator); hsManage.addScore("Amy", 0);
+   * hsManage.sort(); hsManage.updateScoreFile();
+   * 
+   * assertEquals(hsManage.getHighscoreName().size(), 5); }
+   */
 }
