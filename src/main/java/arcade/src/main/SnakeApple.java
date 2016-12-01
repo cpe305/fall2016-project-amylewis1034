@@ -31,10 +31,10 @@ public class SnakeApple {
    * Method that randomly places the apple within the game.
    */
   public void appleLocator() {
-    xposApple = (int) (Math.random() * snake.getGridWidth()
-        / snake.getPointSize()) * snake.getPointSize(); // NOSONAR
-    yposApple = (int) (Math.random() * snake.getGridHeight()
-        / snake.getPointSize()) * snake.getPointSize(); // NOSONAR
+    xposApple = (int) (Math.random() * snake.getGridWidth() // NOSONAR
+        / snake.getPointSize()) * snake.getPointSize();
+    yposApple = (int) (Math.random() * snake.getGridHeight() // NOSONAR
+        / snake.getPointSize()) * snake.getPointSize();
   }
 
   /**

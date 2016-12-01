@@ -40,8 +40,8 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   private boolean isRunning = false;
   private Timer timer;
   private transient HighscoreManagerSnake hsManager;
-  private SnakeApple snakeApple;
-  private Snake snake;
+  private transient SnakeApple snakeApple;
+  private transient Snake snake;
 
   private int[] xposTotal = new int[TOTAL_POINTS];
   private int[] yposTotal = new int[TOTAL_POINTS];
