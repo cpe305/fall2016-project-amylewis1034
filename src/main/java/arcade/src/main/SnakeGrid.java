@@ -41,6 +41,7 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   private Timer timer;
   private transient HighscoreManagerSnake hsManager;
   private SnakeApple snakeApple;
+  private Snake snake;
 
   private int[] xposTotal = new int[TOTAL_POINTS];
   private int[] yposTotal = new int[TOTAL_POINTS];
@@ -74,16 +75,9 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   public void setSubject(ArcadeConcreteSubject subject) {
     this.subject = subject;
   }
-
-  /**
-   * Updates observer if the state has been changed.
-   */
-  public void update() {
-    state = subject.getState();
-    if (state == Arcade.SNAKE) {
-      isRunning = true;
-      newGame();
-    }
+  
+  public void setRunning(boolean isRunning) {
+    this.isRunning = isRunning;
   }
 
   public int getSnakeScore() {
@@ -113,6 +107,22 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   public int getPointSize() {
     return POINT_SIZE;
   }
+  
+  public boolean isGoingUp() {
+    return goingUp;
+  }
+  
+  public boolean isGoingDown() {
+    return goingDown;
+  }
+  
+  public boolean isGoingRight() {
+    return goingRight;
+  }
+  
+  public boolean isGoingLeft() {
+    return goingLeft;
+  }
 
   private void loadImages() {
     BufferedImageLoader buffLoader = new BufferedImageLoader();
@@ -135,6 +145,7 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
     goingRight = true;
     score = 3;
     snakeApple = new SnakeApple(this);
+    snake = new Snake(this);
 
     int iter = 0;
 
@@ -152,36 +163,6 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
     hsManager = new HighscoreManagerSnake();
     timer = new Timer(DELAY, this);
     timer.start();
-  }
-
-  private void moveSnake() {
-    for (int i = score; i > 0; i--) {
-      xposTotal[i] = xposTotal[i - 1];
-      yposTotal[i] = yposTotal[i - 1];
-    }
-
-    if (goingUp) {
-      yposTotal[0] -= POINT_SIZE;
-    } else if (goingDown) {
-      yposTotal[0] += POINT_SIZE;
-    } else if (goingLeft) {
-      xposTotal[0] -= POINT_SIZE;
-    } else if (goingRight) {
-      xposTotal[0] += POINT_SIZE;
-    }
-  }
-
-  private void collisionDetection() {
-    for (int i = score; i > 0; i--) {
-      if (xposTotal[0] == xposTotal[i] && yposTotal[0] == yposTotal[i]) {
-        isRunning = false;
-      }
-    }
-
-    if ((xposTotal[0] >= GRID_WIDTH) || (xposTotal[0] < 0) || (yposTotal[0] >= GRID_HEIGHT)
-        || (yposTotal[0] < 0)) {
-      isRunning = false;
-    }
   }
 
   /**
@@ -235,8 +216,8 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   public void actionPerformed(ActionEvent event) {
     if (isRunning) {
       snakeApple.foundApple();
-      collisionDetection();
-      moveSnake();
+      snake.collisionDetection();
+      snake.moveSnake();
     }
     repaint();
   }
@@ -270,6 +251,17 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
       goingRight = false;
       goingLeft = false;
       goingDown = true;
+    }
+  }
+  
+  /**
+   * Updates observer if the state has been changed.
+   */
+  public void update() {
+    state = subject.getState();
+    if (state == Arcade.SNAKE) {
+      isRunning = true;
+      newGame();
     }
   }
 }

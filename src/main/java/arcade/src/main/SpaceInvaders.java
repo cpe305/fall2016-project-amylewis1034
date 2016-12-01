@@ -1,5 +1,7 @@
 package arcade.src.main;
 
+import arcade.src.main.ArcadeConcreteSubject.Arcade;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
@@ -9,8 +11,6 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.logging.Logger;
-
-import arcade.src.main.ArcadeConcreteSubject.Arcade;
 
 /**
  * Class that runs the game, Space Invaders.
@@ -228,6 +228,9 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     }
   }
 
+  /**
+   * Method that starts the Java application.
+   */
   public synchronized void start() {
     if (isRunning) {
       return;
