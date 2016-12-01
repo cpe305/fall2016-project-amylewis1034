@@ -40,9 +40,8 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   private boolean isRunning = false;
   private Timer timer;
   private transient HighscoreManagerSnake hsManager;
+  private SnakeApple snakeApple;
 
-  private int xposApple;
-  private int yposApple;
   private int[] xposTotal = new int[TOTAL_POINTS];
   private int[] yposTotal = new int[TOTAL_POINTS];
 
@@ -94,6 +93,26 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
   public void setSnakeScore(int score) {
     this.score = score;
   }
+  
+  public int[] getXposTotal() {
+    return xposTotal;
+  }
+  
+  public int[] getYposTotal() {
+    return yposTotal;
+  }
+  
+  public int getGridWidth() {
+    return GRID_WIDTH;
+  }
+  
+  public int getGridHeight() {
+    return GRID_HEIGHT;
+  }
+  
+  public int getPointSize() {
+    return POINT_SIZE;
+  }
 
   private void loadImages() {
     BufferedImageLoader buffLoader = new BufferedImageLoader();
@@ -115,6 +134,7 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
     goingLeft = false;
     goingRight = true;
     score = 3;
+    snakeApple = new SnakeApple(this);
 
     int iter = 0;
 
@@ -123,7 +143,7 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
       yposTotal[iter++] = INITIAL_POSITIONS;
     }
 
-    appleLocator();
+    snakeApple.appleLocator();
   }
 
   private void init() {
@@ -132,13 +152,6 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
     hsManager = new HighscoreManagerSnake();
     timer = new Timer(DELAY, this);
     timer.start();
-  }
-
-  private void foundApple() {
-    if (xposTotal[0] == xposApple && yposTotal[0] == yposApple) {
-      score++;
-      appleLocator();
-    }
   }
 
   private void moveSnake() {
@@ -171,11 +184,6 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
     }
   }
 
-  private void appleLocator() {
-    xposApple = (int) (Math.random() * GRID_WIDTH / POINT_SIZE) * POINT_SIZE; // NOSONAR
-    yposApple = (int) (Math.random() * GRID_HEIGHT / POINT_SIZE) * POINT_SIZE; // NOSONAR
-  }
-
   /**
    * Draws the images for Snake.
    * 
@@ -185,7 +193,7 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
     if (isRunning) {
       graphics.setColor(Color.BLACK);
 
-      graphics.drawImage(apple, xposApple, yposApple, this);
+      graphics.drawImage(apple, snakeApple.getXposApple(), snakeApple.getYposApple(), this);
 
       ((Graphics2D) graphics).draw(mapGrid);
 
@@ -226,7 +234,7 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
    */
   public void actionPerformed(ActionEvent event) {
     if (isRunning) {
-      foundApple();
+      snakeApple.foundApple();
       collisionDetection();
       moveSnake();
     }
