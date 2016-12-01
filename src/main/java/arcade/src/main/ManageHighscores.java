@@ -21,8 +21,8 @@ public class ManageHighscores {
   private ArrayList<Score> scores;
   private String highscoreFile;
 
-  ObjectOutputStream outStream = null;
-  ObjectInputStream inStream = null;
+  private ObjectOutputStream outStream = null;
+  private ObjectInputStream inStream = null;
 
   /**
    * Constructor that initializes the score list.

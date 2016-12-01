@@ -30,7 +30,7 @@ public class Enemy extends Collidable implements EnemyCollideObjects {
   private SpaceInvaders siGame;
   private Controller controller;
 
-  Random randNum = new Random();
+  private Random randNum = new Random();
   private int enemySpeed = (randNum.nextInt(RAND_VAR) + 1);
 
   /**

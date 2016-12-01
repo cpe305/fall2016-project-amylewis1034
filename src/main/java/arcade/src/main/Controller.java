@@ -20,11 +20,11 @@ public class Controller {
       new LinkedList<FriendlyCollideObjects>();
   private LinkedList<EnemyCollideObjects> enemyList = new LinkedList<EnemyCollideObjects>();
 
-  SpaceInvaders siGame;
-  FriendlyCollideObjects friendObj;
-  EnemyCollideObjects enemyObj;
+  private SpaceInvaders siGame;
+  private FriendlyCollideObjects friendObj;
+  private EnemyCollideObjects enemyObj;
 
-  Random randNum = new Random();
+  private Random randNum = new Random();
 
   public Controller(SpaceInvaders siGame) {
     this.siGame = siGame;
