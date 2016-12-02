@@ -375,4 +375,41 @@ public class Tests {
     
     assertFalse(snakeGrid.getRunning());
   }
+  
+  @Test
+  public void isRunningSnakeTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    SnakeGrid snakeGrid = new SnakeGrid(subject, siGame);
+    snakeGrid.actionPerformed(null);
+    snakeGrid.setRunning(false);
+    
+    assertFalse(snakeGrid.getRunning());
+  }
+  
+  @Test
+  public void stateSnakeTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    SnakeGrid snakeGrid = new SnakeGrid(subject, siGame);
+    
+    Arcade state = subject.getState();
+    snakeGrid.setSubject(subject);
+    snakeGrid.update();
+    Arcade state2 = subject.getState();
+    
+    assertEquals(state, state2);
+  }
+  
+  @Test
+  public void scoreSnakeTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    SnakeGrid snakeGrid = new SnakeGrid(subject, siGame);
+    
+    snakeGrid.setSnakeScore(10);
+    int score = snakeGrid.getSnakeScore();
+    
+    assertEquals(score, 10);
+  }
 }
