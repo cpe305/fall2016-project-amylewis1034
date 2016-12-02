@@ -325,24 +325,4 @@ public class Tests {
 
     assertEquals(compared, -1);
   }
-
-
-  @Test
-  public void hsManagerSnakeTest() {
-    HighscoreManagerSnake hsSnake = new HighscoreManagerSnake();
-    ManageHighscores hsManage = hsSnake.getManageHighscores();
-    int size = hsManage.getHighscoreName().size();
-    
-    assertEquals(hsManage.getHighscoreName().size(), size);
-  }
-
-  @Test
-  public void hsManagerSpaceTest() {
-    HighscoreManagerSpace hsSpace = new HighscoreManagerSpace();
-    ManageHighscores hsManage = hsSpace.getManageHighscores();
-    int size = hsManage.getHighscoreName().size();
-    
-    assertEquals(hsManage.getHighscoreName().size(), size);
-  }
-
 }
