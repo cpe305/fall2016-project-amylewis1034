@@ -498,4 +498,11 @@ public class Tests {
     
     assertEquals(state, subject.getState());
   }
+  
+  @Test
+  public void spaceHeightTest() {
+    SpaceInvaders siGame = new SpaceInvaders();
+   
+    assertEquals(siGame.getHeight(), 1600); 
+  }
 }
