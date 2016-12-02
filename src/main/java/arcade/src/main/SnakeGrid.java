@@ -76,6 +76,10 @@ public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver 
     this.subject = subject;
   }
   
+  public boolean getRunning() {
+    return isRunning;
+  }
+  
   public void setRunning(boolean isRunning) {
     this.isRunning = isRunning;
   }
