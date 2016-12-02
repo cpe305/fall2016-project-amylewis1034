@@ -14,9 +14,12 @@ import arcade.src.main.ArcadeObserver;
 import arcade.src.main.Bullet;
 import arcade.src.main.CollisionPhysics;
 import arcade.src.main.Controller;
+import arcade.src.main.EndSnakeMenu;
+import arcade.src.main.EndSpaceGameMenu;
 import arcade.src.main.Enemy;
 import arcade.src.main.EnemyCollideObjects;
 import arcade.src.main.FriendlyCollideObjects;
+import arcade.src.main.HighscoreManagerSpace;
 import arcade.src.main.HighscoreMenu;
 import arcade.src.main.Player;
 import arcade.src.main.Score;
@@ -25,6 +28,7 @@ import arcade.src.main.Snake;
 import arcade.src.main.SnakeApple;
 import arcade.src.main.SnakeGrid;
 import arcade.src.main.SpaceInvaders;
+import arcade.src.main.StartMenu;
 
 public class Tests {
 
@@ -189,8 +193,8 @@ public class Tests {
     ArcadeObserver siGame = new SpaceInvaders();
 
     subject.registerObservers(siGame);
-    subject.setState(Arcade.HIGHSCORES);
-    if (state == Arcade.HIGHSCORES) {
+    subject.setState(Arcade.ENDSNAKEMENU);
+    if (state == Arcade.ENDSPACEGAMEMENU) {
       subject.unRegisterObservers(siGame);
     }
     
@@ -431,5 +435,67 @@ public class Tests {
     apple.foundApple();
     
     assertEquals(snakeGrid.getSnakeScore(), 11);
+  }
+  
+  @Test
+  public void numEnemyTest() {
+    SpaceInvaders siGame = new SpaceInvaders();
+    siGame.setNumEnemy(10);
+    
+    assertEquals(siGame.getNumEnemy(), 10);
+  }
+  
+  @Test
+  public void numEnemyKilledTest() {
+    SpaceInvaders siGame = new SpaceInvaders();
+    siGame.setNumEnemyKilled(10);
+    
+    assertEquals(siGame.getNumEnemyKilled(), 10);
+  }
+  
+  @Test
+  public void spaceHealthTest() {
+    SpaceInvaders siGame = new SpaceInvaders();
+    siGame.setHealth(100);
+    
+    assertEquals(siGame.getHealth(), 100);
+  }
+  
+  @Test
+  public void spaceScoreTest() {
+    SpaceInvaders siGame = new SpaceInvaders();
+    siGame.setSpaceScore(10);
+    
+    assertEquals(siGame.getSpaceScore(), 10);
+  }
+  
+  @SuppressWarnings("unused")
+  @Test
+  public void spaceInitTest() {
+    SpaceInvaders siGame = new SpaceInvaders();
+    String title = siGame.getTitle();
+    Player player = new Player(10, 10, siGame);
+    HighscoreManagerSpace hsManager = siGame.getHighscoreManagerSpace();
+    Controller controller = new Controller(siGame);
+ 
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    Arcade state = subject.getState();
+    StartMenu startMenu = new StartMenu(subject);
+    SnakeGrid snakegrid = new SnakeGrid(subject, siGame);
+    EndSpaceGameMenu endSpaceGameMenu = new EndSpaceGameMenu(subject);
+    EndSnakeMenu endSnakeMenu = new EndSnakeMenu(subject);
+    HighscoreMenu highScoreMenu = new HighscoreMenu(subject);
+    subject.registerObservers(siGame);
+    subject.registerObservers(startMenu);
+    subject.registerObservers(snakegrid);
+    subject.registerObservers(endSpaceGameMenu);
+    subject.registerObservers(endSnakeMenu);
+    subject.registerObservers(highScoreMenu);
+ 
+    controller.addFriendlyCollideObject(player);
+    LinkedList<FriendlyCollideObjects> friendlyList = controller.getFriendlyCollideObjectList();
+    LinkedList<EnemyCollideObjects> enemyList = controller.getEnemyCollideObjectList();
+    
+    assertEquals(state, subject.getState());
   }
 }
