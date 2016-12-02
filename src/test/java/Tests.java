@@ -22,6 +22,7 @@ import arcade.src.main.Player;
 import arcade.src.main.Score;
 import arcade.src.main.ScoreComparator;
 import arcade.src.main.Snake;
+import arcade.src.main.SnakeApple;
 import arcade.src.main.SnakeGrid;
 import arcade.src.main.SpaceInvaders;
 
@@ -411,5 +412,24 @@ public class Tests {
     int score = snakeGrid.getSnakeScore();
     
     assertEquals(score, 10);
+  }
+  
+  @Test
+  public void appleSnakeTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    SnakeGrid snakeGrid = new SnakeGrid(subject, siGame);
+    SnakeApple apple = new SnakeApple(snakeGrid);
+    
+    snakeGrid.setSnakeScore(10);
+    int[] xpos = snakeGrid.getXposTotal();
+    int x = apple.getXposApple();
+    xpos[0] = x;
+    int[] ypos = snakeGrid.getYposTotal();
+    int y = apple.getYposApple();
+    ypos[0] = y;
+    apple.foundApple();
+    
+    assertEquals(snakeGrid.getSnakeScore(), 11);
   }
 }
