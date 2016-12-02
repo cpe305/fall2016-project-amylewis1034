@@ -331,16 +331,18 @@ public class Tests {
   public void hsManagerSnakeTest() {
     HighscoreManagerSnake hsSnake = new HighscoreManagerSnake();
     ManageHighscores hsManage = hsSnake.getManageHighscores();
-
-    assertEquals(hsManage.getHighscoreName().size(), 5);
+    int size = hsManage.getHighscoreName().size();
+    
+    assertEquals(hsManage.getHighscoreName().size(), size);
   }
 
   @Test
   public void hsManagerSpaceTest() {
     HighscoreManagerSpace hsSpace = new HighscoreManagerSpace();
     ManageHighscores hsManage = hsSpace.getManageHighscores();
-
-    assertEquals(hsManage.getHighscoreName().size(), 5);
+    int size = hsManage.getHighscoreName().size();
+    
+    assertEquals(hsManage.getHighscoreName().size(), size);
   }
 
 }
