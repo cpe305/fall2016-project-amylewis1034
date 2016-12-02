@@ -2,6 +2,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import org.junit.Test;
+
 import arcade.src.main.ArcadeConcreteSubject;
 import arcade.src.main.ArcadeConcreteSubject.Arcade;
 import arcade.src.main.ArcadeObserver;
@@ -11,19 +17,13 @@ import arcade.src.main.Controller;
 import arcade.src.main.Enemy;
 import arcade.src.main.EnemyCollideObjects;
 import arcade.src.main.FriendlyCollideObjects;
-import arcade.src.main.HighscoreManagerSnake;
-import arcade.src.main.HighscoreManagerSpace;
 import arcade.src.main.HighscoreMenu;
-import arcade.src.main.ManageHighscores;
 import arcade.src.main.Player;
 import arcade.src.main.Score;
 import arcade.src.main.ScoreComparator;
+import arcade.src.main.Snake;
+import arcade.src.main.SnakeGrid;
 import arcade.src.main.SpaceInvaders;
-import org.junit.Test;
-
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Tests {
 
@@ -324,5 +324,24 @@ public class Tests {
     int compared = sc.compare(score1, score2);
 
     assertEquals(compared, -1);
+  }
+  
+  @Test
+  public void moveSnakeTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    SnakeGrid snakeGrid = new SnakeGrid(subject, siGame);
+    Snake snake = new Snake(snakeGrid);
+    int[] xposTotal = snakeGrid.getXposTotal();
+    int[] yposTotal = snakeGrid.getYposTotal();
+    int pointSize = snakeGrid.getPointSize();
+    
+    int cury = yposTotal[0];
+    int curx = xposTotal[0] - pointSize;
+    boolean up = snakeGrid.isGoingUp();
+    
+    snake.moveSnake();
+    
+    assertEquals(yposTotal[0], cury);
   }
 }
