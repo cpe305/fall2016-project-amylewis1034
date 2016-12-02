@@ -327,21 +327,52 @@ public class Tests {
   }
   
   @Test
-  public void moveSnakeTest() {
+  public void moveSnake1Test() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    SnakeGrid snakeGrid = new SnakeGrid(subject, siGame);
+    Snake snake = new Snake(snakeGrid);
+    int[] yposTotal = snakeGrid.getYposTotal();
+    
+    int cury = yposTotal[0];
+    
+    snake.moveSnake();
+    
+    assertEquals(yposTotal[0], cury);
+  }
+  
+  @Test
+  public void moveSnake2Test() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     SnakeGrid snakeGrid = new SnakeGrid(subject, siGame);
     Snake snake = new Snake(snakeGrid);
     int[] xposTotal = snakeGrid.getXposTotal();
     int[] yposTotal = snakeGrid.getYposTotal();
-    int pointSize = snakeGrid.getPointSize();
-    
-    int cury = yposTotal[0];
-    int curx = xposTotal[0] - pointSize;
-    boolean up = snakeGrid.isGoingUp();
+    int pointSize = snakeGrid.getPointSize();   
+    int curx = yposTotal[0] - pointSize;
     
     snake.moveSnake();
     
-    assertEquals(yposTotal[0], cury);
+    curx = xposTotal[0];
+    
+    assertEquals(xposTotal[0], curx);
+  }
+  
+  @Test
+  public void collisionDetectionTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    SnakeGrid snakeGrid = new SnakeGrid(subject, siGame);
+    Snake snake = new Snake(snakeGrid);
+    int[] xposTotal = snakeGrid.getXposTotal();
+    
+    for (int i = snakeGrid.getSnakeScore(); i > 0; i--) {
+      xposTotal[0] = xposTotal[i];
+    }
+    
+    snake.collisionDetection();
+    
+    assertFalse(snakeGrid.getRunning());
   }
 }
