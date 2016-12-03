@@ -2,12 +2,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.LinkedList;
-
-import org.junit.Test;
-
 import arcade.src.main.ArcadeConcreteSubject;
 import arcade.src.main.ArcadeConcreteSubject.Arcade;
 import arcade.src.main.ArcadeObserver;
@@ -29,6 +23,11 @@ import arcade.src.main.SnakeApple;
 import arcade.src.main.SnakeGrid;
 import arcade.src.main.SpaceInvaders;
 import arcade.src.main.StartMenu;
+import org.junit.Test;
+
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Tests {
 
@@ -171,9 +170,9 @@ public class Tests {
     SpaceInvaders siGame = new SpaceInvaders();
     Controller controller = new Controller(siGame);
     Enemy enemy = new Enemy(10, 10, siGame, controller);
-    int x = (int) enemy.getXCoord();
+    int x1 = (int) enemy.getXCoord();
     
-    assertEquals((int) enemy.getXCoord(), x);
+    assertEquals((int) enemy.getXCoord(), x1);
   }
 
   @Test
@@ -181,9 +180,9 @@ public class Tests {
     SpaceInvaders siGame = new SpaceInvaders();
     Controller controller = new Controller(siGame);
     Enemy enemy = new Enemy(10, 10, siGame, controller);
-    int y = (int) enemy.getYCoord();
+    int y1 = (int) enemy.getYCoord();
 
-    assertEquals((int) enemy.getYCoord(), y);
+    assertEquals((int) enemy.getYCoord(), y1);
   }
 
   @Test
@@ -427,11 +426,11 @@ public class Tests {
     
     snakeGrid.setSnakeScore(10);
     int[] xpos = snakeGrid.getXposTotal();
-    int x = apple.getXposApple();
-    xpos[0] = x;
+    int x1 = apple.getXposApple();
+    xpos[0] = x1;
     int[] ypos = snakeGrid.getYposTotal();
-    int y = apple.getYposApple();
-    ypos[0] = y;
+    int y1 = apple.getYposApple();
+    ypos[0] = y1;
     apple.foundApple();
     
     assertEquals(snakeGrid.getSnakeScore(), 11);
@@ -474,12 +473,9 @@ public class Tests {
   public void spaceInitTest() {
     SpaceInvaders siGame = new SpaceInvaders();
     String title = siGame.getTitle();
-    Player player = new Player(10, 10, siGame);
     HighscoreManagerSpace hsManager = siGame.getHighscoreManagerSpace();
-    Controller controller = new Controller(siGame);
  
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
-    Arcade state = subject.getState();
     StartMenu startMenu = new StartMenu(subject);
     SnakeGrid snakegrid = new SnakeGrid(subject, siGame);
     EndSpaceGameMenu endSpaceGameMenu = new EndSpaceGameMenu(subject);
@@ -492,9 +488,12 @@ public class Tests {
     subject.registerObservers(endSnakeMenu);
     subject.registerObservers(highScoreMenu);
  
+    Controller controller = new Controller(siGame);
+    Player player = new Player(10, 10, siGame);
     controller.addFriendlyCollideObject(player);
     LinkedList<FriendlyCollideObjects> friendlyList = controller.getFriendlyCollideObjectList();
     LinkedList<EnemyCollideObjects> enemyList = controller.getEnemyCollideObjectList();
+    Arcade state = subject.getState();
     
     assertEquals(state, subject.getState());
   }
