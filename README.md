@@ -15,9 +15,10 @@ Dad's Arcade is a Java application including the games Space Invaders and Snake,
 
 ### System Architecture
 The system architecture is a 3 Tier Architecture:
-1. View - everything the user can see (menus, interactive games)
-2. Business Logic - coordinates the application, runs the game algorithms/logic 
-3. Data - database where high scores are stored (file system)
+
+	1. View - everything the user can see (menus, interactive games)
+	2. Business Logic - coordinates the application, runs the game algorithms/logic 
+	3. Data - database where high scores are stored (file system)
 
 ### Design Patterns
 
