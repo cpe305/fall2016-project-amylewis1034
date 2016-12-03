@@ -20,10 +20,24 @@
 
     <section class="main-content">
       <h3>
-<a id="use" class="anchor" href="#use" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use</h3>
+<a id="dads-arcade" class="anchor" href="#dads-arcade" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dad's Arcade</h3>
 
-<p>Dad's Arcade is a Java application including the games Space Invaders and Snake.
-It was created as a gift for my dad.</p>
+<p>This project, Dad's Arcade, was developed by Amy Lewis at California Polytechnic State University, San Luis Obispo.</p>
+
+<h3>
+<a id="background" class="anchor" href="#background" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Background</h3>
+
+<p>Dad's Arcade is a Java application including the games Space Invaders and Snake, a high score page, and options to easily navigate between them. It was created as a gift for my dad.</p>
+
+<h3>
+<a id="key-features" class="anchor" href="#key-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Key Features</h3>
+
+<pre><code>1. Starting Menu
+2. Space Invaders
+3. Snake
+4. High scores for both games
+5. End Game menus to connect games back to arcade
+</code></pre>
 
 <h3>
 <a id="system-architecture" class="anchor" href="#system-architecture" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>System Architecture</h3>
@@ -34,16 +48,24 @@ It was created as a gift for my dad.</p>
 3. Data - database where high scores are stored (file system)</p>
 
 <h3>
-<a id="observer-pattern" class="anchor" href="#observer-pattern" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Observer Pattern</h3>
+<a id="class-diagram" class="anchor" href="#class-diagram" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class Diagram</h3>
+
+<p><img src="ArcadeClassDiagram.png" alt="ArcadeClassDiagram"></p>
+
+<h3>
+<a id="design-patterns" class="anchor" href="#design-patterns" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Design Patterns</h3>
+
+<h4>
+<a id="observer-pattern" class="anchor" href="#observer-pattern" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Observer Pattern</h4>
 
 <p>I'm most proud of how I implemented the Observer Pattern. The observer pattern defines a one-to-many dependency between objects so that one object changes state, all its dependents are notified and updated automatically. I used this to have my different games and menus be observers. I implemented the observer pattern before we learned about the State Pattern. The state patterns allows an object to alter its behavior when its internal state changes. The object will appear to change its class. Because I use the observer pattern to change the state of my program, I should be using the state pattern, but the observer pattern works as well.</p>
 
-<p><img src="Observer.png" alt="Observer">.</p>
+<p><img src="Observer.png" alt="Observer"></p>
 
-<h3>
-<a id="class-diagram" class="anchor" href="#class-diagram" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class Diagram</h3>
+<h4>
+<a id="singleton-pattern" class="anchor" href="#singleton-pattern" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Singleton Pattern</h4>
 
-<p><img src="ArcadeClassDiagram.png" alt="ArcadeClassDiagram">.</p>
+<p>The Singleton Pattern was implemented in making the high score aspect of the arcade. The pattern ensures that there is only one file containing the high scores for each game. It also ensures that the file does not get overwritten and the scores do not get lost.</p>
 
 <h3>
 <a id="screenshots-of-arcade" class="anchor" href="#screenshots-of-arcade" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Screenshots of Arcade</h3>
@@ -51,32 +73,32 @@ It was created as a gift for my dad.</p>
 <h4>
 <a id="start-menu" class="anchor" href="#start-menu" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start Menu</h4>
 
-<p><img src="StartMenu.png" alt="StartMenu">.</p>
+<p><img src="StartMenu.png" alt="StartMenu"></p>
 
 <h4>
 <a id="space-invaders" class="anchor" href="#space-invaders" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Space Invaders</h4>
 
-<p><img src="Space.png" alt="Space">.</p>
+<p><img src="Space.png" alt="Space"></p>
 
 <h4>
 <a id="space-invaders-end-game-menu" class="anchor" href="#space-invaders-end-game-menu" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Space Invaders End Game Menu</h4>
 
-<p><img src="SpaceEndGame.png" alt="SpaceEndGame">.</p>
+<p><img src="SpaceEndGame.png" alt="SpaceEndGame"></p>
 
 <h4>
 <a id="snake" class="anchor" href="#snake" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Snake</h4>
 
-<p><img src="Snake.png" alt="Snake">.</p>
+<p><img src="Snake.png" alt="Snake"></p>
 
 <h4>
 <a id="snake-end-game-menu" class="anchor" href="#snake-end-game-menu" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Snake End Game Menu</h4>
 
-<p><img src="SnakeEndGame.png" alt="SnakeEndGame">.</p>
+<p><img src="SnakeEndGame.png" alt="SnakeEndGame"></p>
 
 <h4>
 <a id="high-scores" class="anchor" href="#high-scores" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>High Scores</h4>
 
-<p><img src="Highscores.png" alt="Highscores">.</p>
+<p><img src="Highscores.png" alt="Highscores"></p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/cpe305/fall2016-project-amylewis1034">Fall2016-project-amylewis1034</a> is maintained by <a href="https://github.com/cpe305">cpe305</a>.</span>
