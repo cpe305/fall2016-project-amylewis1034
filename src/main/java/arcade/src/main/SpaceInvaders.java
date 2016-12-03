@@ -127,7 +127,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   public void newGame() {
     numEnemy = 1;
     numEnemyKilled = 0;
-    health = 20;
+    health = 200;
     score = 0;
 
     player.setXVel(0);
