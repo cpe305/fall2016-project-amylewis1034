@@ -5,11 +5,18 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class MinesweeperGrid {
+import arcade.src.main.ArcadeConcreteSubject.Arcade;
+
+public class MinesweeperGrid implements ArcadeObserver {
+  private static final long serialVersionUID = 1L;
+  private static final Logger LOGGER = Logger.getLogger(SpaceInvaders.class.toString());
+  private static final int GRID_WIDTH = 1200;
+  private static final int GRID_HEIGHT = 1200;
   private final int POSSIBLE_SQUARES = 13;
   private final int SQUARE_SIZE = 15;
 
@@ -36,24 +43,54 @@ public class MinesweeperGrid {
 
   private int total_squares;
   private JLabel total_complete;
+  
+  private Arcade state;
+  private ArcadeConcreteSubject subject; // NOSONAR
 
+  public SnakeGrid(ArcadeConcreteSubject subject, SpaceInvaders siGame) {
+    this.subject = subject;
+    state = subject.getState();
+    siGame.addKeyListener(new KeyInput(this));
+    loadImages();
+    init();
+    
+    this.total_complete = total_complete;
 
-  public MinesweeperGrid(JLabel total_complete) {
+    jImage = new Image[POSSIBLE_SQUARES];
 
-      this.total_complete = total_complete;
+    for (int i = 0; i < POSSIBLE_SQUARES; i++) {
+        jImage[i] = (new ImageIcon(i + ".png")).getImage();
+    }
 
-      jImage = new Image[POSSIBLE_SQUARES];
+    setDoubleBuffered(true);
 
-      for (int i = 0; i < POSSIBLE_SQUARES; i++) {
-          jImage[i] = (new ImageIcon(i + ".png")).getImage();
-      }
-
-      setDoubleBuffered(true);
-
-      addMouseListener(new MinesAdapter());
-      newGame();
+    addMouseListener(new MinesAdapter());
+    newGame();
   }
 
+  public void setSubject(ArcadeConcreteSubject subject) {
+    this.subject = subject;
+  }
+  
+  public boolean getRunning() {
+    return isRunning;
+  }
+  
+  public void setRunning(boolean isRunning) {
+    this.isRunning = isRunning;
+  }
+*/
+  /**
+   * Updates observer if the state has been changed.
+   */
+/*
+  public void update() {
+    state = subject.getState();
+    if (state == Arcade.MINESWEEPER) {
+      isRunning = true;
+      newGame();
+    }
+  }
 
   private void newGame() {
 
@@ -133,7 +170,7 @@ public class MinesweeperGrid {
   }
 
 
-  public void find_SQUARE_EMPTYs(int j) {
+  public void findEmptySquares(int j) {
 
     int cur_column = j % NUM_COLUMNS;
     int square;
@@ -144,7 +181,7 @@ public class MinesweeperGrid {
         if (mine_field[square] > SQUARE_MINE) {
           mine_field[square] -= SQUARE_COVER;
           if (mine_field[square] == SQUARE_EMPTY)
-            find_SQUARE_EMPTYs(square);
+            findEmptySquares(square);
         }
 
       square = j - 1;
@@ -152,7 +189,7 @@ public class MinesweeperGrid {
         if (mine_field[square] > SQUARE_MINE) {
           mine_field[square] -= SQUARE_COVER;
           if (mine_field[square] == SQUARE_EMPTY)
-            find_SQUARE_EMPTYs(square);
+            findEmptySquares(square);
         }
 
       square = j + NUM_COLUMNS - 1;
@@ -160,7 +197,7 @@ public class MinesweeperGrid {
         if (mine_field[square] > SQUARE_MINE) {
           mine_field[square] -= SQUARE_COVER;
           if (mine_field[square] == SQUARE_EMPTY)
-            find_SQUARE_EMPTYs(square);
+            findEmptySquares(square);
         }
     }
 
@@ -169,7 +206,7 @@ public class MinesweeperGrid {
       if (mine_field[square] > SQUARE_MINE) {
         mine_field[square] -= SQUARE_COVER;
         if (mine_field[square] == SQUARE_EMPTY)
-          find_SQUARE_EMPTYs(square);
+          findEmptySquares(square);
       }
 
     square = j + NUM_COLUMNS;
@@ -177,7 +214,7 @@ public class MinesweeperGrid {
       if (mine_field[square] > SQUARE_MINE) {
         mine_field[square] -= SQUARE_COVER;
         if (mine_field[square] == SQUARE_EMPTY)
-          find_SQUARE_EMPTYs(square);
+          findEmptySquares(square);
       }
 
     if (cur_column < (NUM_COLUMNS - 1)) {
@@ -186,7 +223,7 @@ public class MinesweeperGrid {
         if (mine_field[square] > SQUARE_MINE) {
           mine_field[square] -= SQUARE_COVER;
           if (mine_field[square] == SQUARE_EMPTY)
-            find_SQUARE_EMPTYs(square);
+            findEmptySquares(square);
         }
 
       square = j + NUM_COLUMNS + 1;
@@ -194,7 +231,7 @@ public class MinesweeperGrid {
         if (mine_field[square] > SQUARE_MINE) {
           mine_field[square] -= SQUARE_COVER;
           if (mine_field[square] == SQUARE_EMPTY)
-            find_SQUARE_EMPTYs(square);
+            findEmptySquares(square);
         }
 
       square = j + 1;
@@ -202,7 +239,7 @@ public class MinesweeperGrid {
         if (mine_field[square] > SQUARE_MINE) {
           mine_field[square] -= SQUARE_COVER;
           if (mine_field[square] == SQUARE_EMPTY)
-            find_SQUARE_EMPTYs(square);
+            findEmptySquares(square);
         }
     }
   }
@@ -311,7 +348,7 @@ public class MinesweeperGrid {
             if (mine_field[(cRow * NUM_COLUMNS) + cCol] == SQUARE_MINE)
               isRunning = false;
             if (mine_field[(cRow * NUM_COLUMNS) + cCol] == SQUARE_EMPTY)
-              find_SQUARE_EMPTYs((cRow * NUM_COLUMNS) + cCol);
+              findEmptySquares((cRow * NUM_COLUMNS) + cCol);
           }
         }
 
@@ -321,4 +358,5 @@ public class MinesweeperGrid {
       }
     }
   }
-}*/
+} 
+*/

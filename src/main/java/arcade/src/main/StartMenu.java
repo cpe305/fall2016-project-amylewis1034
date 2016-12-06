@@ -28,12 +28,14 @@ public class StartMenu implements ArcadeObserver {
       new Rectangle(X_BUTTON_POS, Y_BUTTON_POS, BUTTON_WIDTH * 3, BUTTON_HEIGHT);
   private Rectangle playSnakeButton =
       new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + BUTTON_WIDTH, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
+  private Rectangle playBreakoutButton =
+      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + 2 * BUTTON_WIDTH, BUTTON_WIDTH * 3, BUTTON_HEIGHT);
   private Rectangle helpButton =
-      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + 2 * BUTTON_WIDTH, BUTTON_WIDTH, BUTTON_HEIGHT);
+      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + 3 * BUTTON_WIDTH, BUTTON_WIDTH, BUTTON_HEIGHT);
   private Rectangle highscoreButton =
-      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + 3 * BUTTON_WIDTH, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
+      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + 4 * BUTTON_WIDTH, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
   private Rectangle exitButton =
-      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + 4 * BUTTON_WIDTH, BUTTON_WIDTH, BUTTON_HEIGHT);
+      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + 5 * BUTTON_WIDTH, BUTTON_WIDTH, BUTTON_HEIGHT);
 
   public StartMenu(ArcadeConcreteSubject subject) {
     this.subject = subject;
@@ -58,6 +60,8 @@ public class StartMenu implements ArcadeObserver {
       ((Graphics2D) graphics).draw(playSpaceButton);
       graphics.drawString("Play Snake", playSnakeButton.x + 5, playSnakeButton.y + 35);
       ((Graphics2D) graphics).draw(playSnakeButton);
+      graphics.drawString("Play Breakout", playBreakoutButton.x + 5, playBreakoutButton.y + 35);
+      ((Graphics2D) graphics).draw(playBreakoutButton);
       graphics.drawString("Help", helpButton.x + 20, helpButton.y + 35);
       ((Graphics2D) graphics).draw(helpButton);
       graphics.drawString("High Scores", highscoreButton.x + 10, highscoreButton.y + 35);

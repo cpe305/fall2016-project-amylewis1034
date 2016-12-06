@@ -41,6 +41,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   private transient BufferedImage spaceBackground = null;
   private transient BufferedImage arcadeBackground = null;
   private transient BufferedImage snakeBackground = null;
+  private transient BufferedImage breakBackground = null;
   private transient StartMenu startMenu;
   private transient EndSpaceGameMenu endSpaceGameMenu;
   private transient EndSnakeMenu endSnakeMenu;
@@ -51,7 +52,8 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
 
   private boolean isRunning = false;
   private boolean isShooting = false;
-  private SnakeGrid snakegrid;
+  private SnakeGrid snakeGrid;
+  private BreakoutGrid breakoutGrid;
   private Arcade state;
 
 
@@ -60,10 +62,10 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   private int health;
   private int score;
 
-  public static ArcadeConcreteSubject subject; //NOSONAR
+  public static ArcadeConcreteSubject subject; // NOSONAR
 
-  public LinkedList<FriendlyCollideObjects> friendlyList; //NOSONAR
-  public LinkedList<EnemyCollideObjects> enemyList; //NOSONAR
+  public LinkedList<FriendlyCollideObjects> friendlyList; // NOSONAR
+  public LinkedList<EnemyCollideObjects> enemyList; // NOSONAR
 
   public static ArcadeConcreteSubject getSubject() {
     return subject;
@@ -157,6 +159,8 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
       snakeBackground = buffLoader.loadImage("/snake_background.png");
       snakeBackground =
           buffLoader.createResizedCopy(snakeBackground, BACK_REWIDTH - 450, BACK_REHEIGHT);
+      breakBackground = buffLoader.loadImage("/break_background.png");
+      breakBackground = buffLoader.createResizedCopy(breakBackground, BACK_REWIDTH, BACK_REHEIGHT);
     } catch (Exception ex) {
       LOGGER.log(null, "Could not load images.", ex);
     }
@@ -170,13 +174,15 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     subject = new ArcadeConcreteSubject();
     state = subject.getState();
     startMenu = new StartMenu(subject);
-    snakegrid = new SnakeGrid(subject, this);
+    snakeGrid = new SnakeGrid(subject, this);
+    breakoutGrid = new BreakoutGrid(subject, this);
     endSpaceGameMenu = new EndSpaceGameMenu(subject);
     endSnakeMenu = new EndSnakeMenu(subject);
     highScoreMenu = new HighscoreMenu(subject);
     subject.registerObservers(this);
     subject.registerObservers(startMenu);
-    subject.registerObservers(snakegrid);
+    subject.registerObservers(snakeGrid);
+    subject.registerObservers(breakoutGrid);
     subject.registerObservers(endSpaceGameMenu);
     subject.registerObservers(endSnakeMenu);
     subject.registerObservers(highScoreMenu);
@@ -306,7 +312,11 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     } else if (state == Arcade.SNAKE) {
       graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);
       graphics.drawImage(snakeBackground, BACK_POSITION, 0, this);
-      snakegrid.render(graphics);
+      snakeGrid.render(graphics);
+    } else if (state == Arcade.BREAKOUT) {
+      graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);
+      graphics.drawImage(breakBackground, BACK_POSITION, 0, this);
+      breakoutGrid.render(graphics);
     } else if (state == Arcade.STARTMENU) {
       graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);
       graphics.drawImage(arcadeBackground, BACK_POSITION, 0, this);
