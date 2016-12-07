@@ -20,7 +20,8 @@ public class ArcadeConcreteSubject extends ArcadeSubject {
     BREAKOUT,
     HIGHSCORES, 
     ENDSPACEGAMEMENU,
-    ENDSNAKEMENU;
+    ENDSNAKEMENU,
+    ENDBREAKOUTMENU;
   }
 
   private Arcade state = Arcade.STARTMENU;

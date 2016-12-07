@@ -45,6 +45,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   private transient StartMenu startMenu;
   private transient EndSpaceGameMenu endSpaceGameMenu;
   private transient EndSnakeMenu endSnakeMenu;
+  private transient EndBreakoutMenu endBreakoutMenu;
   private transient HighscoreMenu highScoreMenu;
   private transient HighscoreManagerSpace hsManager;
   private transient Player player;
@@ -178,6 +179,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     breakoutGrid = new BreakoutGrid(subject, this);
     endSpaceGameMenu = new EndSpaceGameMenu(subject);
     endSnakeMenu = new EndSnakeMenu(subject);
+    endBreakoutMenu = new EndBreakoutMenu(subject);
     highScoreMenu = new HighscoreMenu(subject);
     subject.registerObservers(this);
     subject.registerObservers(startMenu);
@@ -185,6 +187,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     subject.registerObservers(breakoutGrid);
     subject.registerObservers(endSpaceGameMenu);
     subject.registerObservers(endSnakeMenu);
+    subject.registerObservers(endBreakoutMenu);
     subject.registerObservers(highScoreMenu);
 
     controller.addFriendlyCollideObject(player);
@@ -333,6 +336,10 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
       graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);
       graphics.drawImage(snakeBackground, BACK_POSITION, 0, this);
       endSnakeMenu.render(graphics);
+    } else if (state == Arcade.ENDBREAKOUTMENU) {
+      graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);
+      graphics.drawImage(breakBackground, BACK_POSITION, 0, this);
+      endBreakoutMenu.render(graphics);
     }
 
     graphics.dispose();

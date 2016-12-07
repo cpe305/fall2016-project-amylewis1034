@@ -14,6 +14,7 @@ public class BreakoutPaddle {
 
   public BreakoutPaddle(BreakoutGrid breakoutGrid) {
     this.breakoutGrid = breakoutGrid;
+    paddleVelocity = 0;
     init();
   }
 
@@ -47,7 +48,7 @@ public class BreakoutPaddle {
     }
 
     if (paddlePosX >= breakoutGrid.getWidth() - breakoutGrid.getPaddleWidth()) {
-      paddlePosX = breakoutGrid.getWidth() -breakoutGrid.getPaddleWidth();
+      paddlePosX = breakoutGrid.getWidth() - breakoutGrid.getPaddleWidth();
     }
   }
 }

@@ -1,15 +1,20 @@
 package arcade.src.main;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -26,8 +31,9 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
   private static final int BRICK_WIDTH = 50;
   private static final int BRICK_HEIGHT = 30;
   private static final int BALL_DIAMETER = 20;
-  private static final int PADDLE_WIDTH = 50;
+  private static final int PADDLE_WIDTH = 100;
   private static final int PADDLE_HEIGHT = 30;
+  private static final int SCORE_POSITION = 300;
 
   private transient BufferedImage breakBallImg = null;
   private transient BufferedImage breakPaddleImg = null;
@@ -35,7 +41,11 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
 
   private int[] xposTotal = new int[NUM_BRICKS];
   private int[] yposTotal = new int[NUM_BRICKS];
+  
+  private Rectangle breakGrid = new Rectangle(0, 0, GRID_WIDTH, GRID_HEIGHT);
 
+  private int score;
+  private transient HighscoreManagerBreakout hsManager;
   private Timer timer;
   private BreakoutBall breakBall;
   private BreakoutPaddle breakPaddle;
@@ -84,6 +94,14 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
   public int getPaddleHeight() {
     return PADDLE_HEIGHT;
   }
+  
+  public int getBreakoutScore() {
+    return score;
+  }
+
+  public void setBreakoutScore(int score) {
+    this.score = score;
+  }
 
   private void loadImages() {
     BufferedImageLoader buffLoader = new BufferedImageLoader();
@@ -102,6 +120,7 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
   private void newGame() {
     breakBall = new BreakoutBall(this);
     breakPaddle = new BreakoutPaddle(this);
+    score = 0;
 
     int iter, i, j;
     iter = i = j = 0;
@@ -120,7 +139,7 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
   private void init() {
     newGame();
 
-    // hsManager = new HighscoreManagerBreakout();
+    hsManager = new HighscoreManagerBreakout();
     timer = new Timer(DELAY, this);
     timer.start();
   }
@@ -212,6 +231,7 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
             breakBall.setBallVelocityY(-10);
           }
           breakBricks[i].setIsActive(false);
+          score++;
         }
       }
     }
@@ -219,9 +239,11 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
 
   public void render(Graphics graphics) {
     if (isRunning) {
+      ((Graphics2D) graphics).draw(breakGrid);
+      
       graphics.drawImage(breakPaddleImg, breakPaddle.getPaddlePosX(), breakPaddle.getPaddlePosY(),
           this);
-      
+
       graphics.drawImage(breakBallImg, breakBall.getBallPosX(), breakBall.getBallPosY(), this);
 
       for (int i = 0; i < NUM_BRICKS; i++) {
@@ -230,6 +252,13 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
               breakBricks[i].getBrickPosY(), this);
         }
       }
+      
+      Font fnt = new Font("arial", Font.BOLD, 50);
+      graphics.setFont(fnt);
+      graphics.setColor(Color.YELLOW);
+      graphics.drawString("Score: ", SpaceInvaders.WIDTH * 2 - SCORE_POSITION, 60);
+      graphics.drawString(((Integer) score).toString(), SpaceInvaders.WIDTH * 2 - 100, 60);
+
 
       breakBall.ballMove();
       breakPaddle.paddleMove();
@@ -237,15 +266,14 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
 
       Toolkit.getDefaultToolkit().sync();
     } else {
-      /*
-       * ArrayList<Score> highscores = hsManager.getManageHighscores().getHighscores(); if
-       * (highscores.size() < 5 || score > highscores.get(4).getScore()) {
-       * 
-       * String name = JOptionPane
-       * .showInputDialog("Congratulations! You set a new highscore! Please enter your name.");
-       * hsManager.getManageHighscores().addScore(name, score); }
-       * subject.setState(Arcade.ENDSNAKEMENU); subject.notifyObservers();
-       */
+      ArrayList<Score> highscores = hsManager.getManageHighscores().getHighscores();
+      if (highscores.size() < 5 || score > highscores.get(4).getScore()) {
+        String name = JOptionPane
+            .showInputDialog("Congratulations! You set a new highscore! Please enter your name.");
+        hsManager.getManageHighscores().addScore(name, score);
+      }
+      subject.setState(Arcade.ENDBREAKOUTMENU);
+      subject.notifyObservers();
     }
   }
 
