@@ -4,14 +4,16 @@
 This project, Dad's Arcade, was developed by Amy Lewis at California Polytechnic State University, San Luis Obispo.
 
 ### Background
-Dad's Arcade is a Java application including the games Space Invaders and Snake, a high score page, and options to easily navigate between them. It was created as a gift for my dad.
+Dad's Arcade is a Java application including the games Space Invaders, Snake, and Breakout, a high score page, and options to easily navigate between them. It was created as a gift for my dad.
 
 ### Key Features
 	1. Starting Menu
 	2. Space Invaders
 	3. Snake
-	4. High scores for both games
-	5. End Game menus to connect games back to arcade
+	4. Breakout
+	5. Help Menu
+	6. High scores for all three games
+	7. End Game menus to connect games back to arcade
 
 ### System Architecture
 The system architecture is a 3 Tier Architecture:
