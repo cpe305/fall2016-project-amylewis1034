@@ -50,13 +50,14 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
 
   private Rectangle breakGrid = new Rectangle(0, 0, GRID_WIDTH, GRID_HEIGHT);
 
-  private int score;
   private transient HighscoreManagerBreakout hsManager;
-  private Timer timer;
-  private BreakoutBall breakBall;
-  private BreakoutPaddle breakPaddle;
-  private BreakoutBrick[] breakBricks = new BreakoutBrick[NUM_BRICKS];
+  private transient BreakoutBall breakBall;
+  private transient BreakoutPaddle breakPaddle;
+  private transient BreakoutBrick[] breakBricks = new BreakoutBrick[NUM_BRICKS];
+
   private boolean isRunning = false;
+  private Timer timer;
+  private int score;
 
   private Arcade state;
   private ArcadeConcreteSubject subject; // NOSONAR
