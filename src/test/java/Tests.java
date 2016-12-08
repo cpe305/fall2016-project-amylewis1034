@@ -2,12 +2,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.LinkedList;
-
-import org.junit.Test;
-
 import arcade.src.main.ArcadeConcreteSubject;
 import arcade.src.main.ArcadeConcreteSubject.Arcade;
 import arcade.src.main.ArcadeObserver;
@@ -33,6 +27,11 @@ import arcade.src.main.SnakeApple;
 import arcade.src.main.SnakeGrid;
 import arcade.src.main.SpaceInvaders;
 import arcade.src.main.StartMenu;
+import org.junit.Test;
+
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Tests {
 
@@ -142,12 +141,12 @@ public class Tests {
     int x1Coord = (int) player.getXCoord();
     int y1Coord = (int) player.getYCoord();
 
-    Rectangle rect = new Rectangle(x1Coord, y1Coord, player.getWidth(),player.getHeight());
+    Rectangle rect = new Rectangle(x1Coord, y1Coord, player.getWidth(), player.getHeight());
     Rectangle rect2 = player.getRectBounds();
 
     assertEquals(rect, rect2);
   }
-  
+
   @Test
   public void enemyWidthTest() {
     SpaceInvaders siGame = new SpaceInvaders();
@@ -176,7 +175,7 @@ public class Tests {
     Controller controller = new Controller(siGame);
     Enemy enemy = new Enemy(10, 10, siGame, controller);
     int x1 = (int) enemy.getXCoord();
-    
+
     assertEquals((int) enemy.getXCoord(), x1);
   }
 
@@ -201,7 +200,7 @@ public class Tests {
     if (state == Arcade.ENDSPACEGAMEMENU) {
       subject.unRegisterObservers(siGame);
     }
-    
+
     ArrayList<ArcadeObserver> observers = new ArrayList<ArcadeObserver>();
 
     assertEquals(observers.size(), 0);
@@ -217,7 +216,7 @@ public class Tests {
     subject.unRegisterObservers(hsMenu);
 
     ArrayList<ArcadeObserver> observers = new ArrayList<ArcadeObserver>();
-    
+
     assertEquals(observers.size(), 0);
   }
 
@@ -334,7 +333,7 @@ public class Tests {
 
     assertEquals(compared, -1);
   }
-  
+
   @Test
   public void moveSnake1Test() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
@@ -342,14 +341,14 @@ public class Tests {
     SnakeGrid snakeGrid = new SnakeGrid(subject, siGame);
     Snake snake = new Snake(snakeGrid);
     int[] yposTotal = snakeGrid.getYposTotal();
-    
+
     int cury = yposTotal[0];
-    
+
     snake.moveSnake();
-    
+
     assertEquals(yposTotal[0], cury);
   }
-  
+
   @Test
   public void moveSnake2Test() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
@@ -358,16 +357,16 @@ public class Tests {
     Snake snake = new Snake(snakeGrid);
     int[] xposTotal = snakeGrid.getXposTotal();
     int[] yposTotal = snakeGrid.getYposTotal();
-    int pointSize = snakeGrid.getPointSize();   
+    int pointSize = snakeGrid.getPointSize();
     int curx = yposTotal[0] - pointSize;
-    
+
     snake.moveSnake();
-    
+
     curx = xposTotal[0];
-    
+
     assertEquals(xposTotal[0], curx);
   }
-  
+
   @Test
   public void collisionDetectionTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
@@ -375,16 +374,16 @@ public class Tests {
     SnakeGrid snakeGrid = new SnakeGrid(subject, siGame);
     Snake snake = new Snake(snakeGrid);
     int[] xposTotal = snakeGrid.getXposTotal();
-    
+
     for (int i = snakeGrid.getSnakeScore(); i > 0; i--) {
       xposTotal[0] = xposTotal[i];
     }
-    
+
     snake.collisionDetection();
-    
+
     assertFalse(snakeGrid.getRunning());
   }
-  
+
   @Test
   public void isRunningSnakeTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
@@ -392,43 +391,43 @@ public class Tests {
     SnakeGrid snakeGrid = new SnakeGrid(subject, siGame);
     snakeGrid.actionPerformed(null);
     snakeGrid.setRunning(false);
-    
+
     assertFalse(snakeGrid.getRunning());
   }
-  
+
   @Test
   public void stateSnakeTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     SnakeGrid snakeGrid = new SnakeGrid(subject, siGame);
-    
+
     Arcade state = subject.getState();
     snakeGrid.setSubject(subject);
     snakeGrid.update();
     Arcade state2 = subject.getState();
-    
+
     assertEquals(state, state2);
   }
-  
+
   @Test
   public void scoreSnakeTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     SnakeGrid snakeGrid = new SnakeGrid(subject, siGame);
-    
+
     snakeGrid.setSnakeScore(10);
     int score = snakeGrid.getSnakeScore();
-    
+
     assertEquals(score, 10);
   }
-  
+
   @Test
   public void appleSnakeTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     SnakeGrid snakeGrid = new SnakeGrid(subject, siGame);
     SnakeApple apple = new SnakeApple(snakeGrid);
-    
+
     snakeGrid.setSnakeScore(10);
     int[] xpos = snakeGrid.getXposTotal();
     int x1 = apple.getXposApple();
@@ -437,49 +436,49 @@ public class Tests {
     int y1 = apple.getYposApple();
     ypos[0] = y1;
     apple.foundApple();
-    
+
     assertEquals(snakeGrid.getSnakeScore(), 11);
   }
-  
+
   @Test
   public void numEnemyTest() {
     SpaceInvaders siGame = new SpaceInvaders();
     siGame.setNumEnemy(10);
-    
+
     assertEquals(siGame.getNumEnemy(), 10);
   }
-  
+
   @Test
   public void numEnemyKilledTest() {
     SpaceInvaders siGame = new SpaceInvaders();
     siGame.setNumEnemyKilled(10);
-    
+
     assertEquals(siGame.getNumEnemyKilled(), 10);
   }
-  
+
   @Test
   public void spaceHealthTest() {
     SpaceInvaders siGame = new SpaceInvaders();
     siGame.setHealth(100);
-    
+
     assertEquals(siGame.getHealth(), 100);
   }
-  
+
   @Test
   public void spaceScoreTest() {
     SpaceInvaders siGame = new SpaceInvaders();
     siGame.setSpaceScore(10);
-    
+
     assertEquals(siGame.getSpaceScore(), 10);
   }
-  
+
   @SuppressWarnings("unused")
   @Test
   public void spaceInitTest() {
     SpaceInvaders siGame = new SpaceInvaders();
     String title = siGame.getTitle();
     HighscoreManagerSpace hsManager = siGame.getHighscoreManagerSpace();
- 
+
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     StartMenu startMenu = new StartMenu(subject);
     SnakeGrid snakegrid = new SnakeGrid(subject, siGame);
@@ -492,175 +491,254 @@ public class Tests {
     subject.registerObservers(endSpaceGameMenu);
     subject.registerObservers(endSnakeMenu);
     subject.registerObservers(highScoreMenu);
- 
+
     Controller controller = new Controller(siGame);
     Player player = new Player(10, 10, siGame);
     controller.addFriendlyCollideObject(player);
     LinkedList<FriendlyCollideObjects> friendlyList = controller.getFriendlyCollideObjectList();
     LinkedList<EnemyCollideObjects> enemyList = controller.getEnemyCollideObjectList();
     Arcade state = subject.getState();
-    
+
     assertEquals(state, subject.getState());
   }
-  
+
   @Test
   public void spaceHeightTest() {
     SpaceInvaders siGame = new SpaceInvaders();
-   
-    assertEquals(siGame.getHeight(), 1600); 
+
+    assertEquals(siGame.getHeight(), 1600);
   }
-  
+
   @Test
   public void breakBallPosXTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     BreakoutGrid grid = new BreakoutGrid(subject, siGame);
     BreakoutBall ball = new BreakoutBall(grid);
-    
+
     assertEquals(ball.getBallPosX(), 590);
   }
-  
+
   @Test
   public void breakBallPosYTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     BreakoutGrid grid = new BreakoutGrid(subject, siGame);
     BreakoutBall ball = new BreakoutBall(grid);
-    
+
     assertEquals(ball.getBallPosY(), 990);
   }
-  
+
   @Test
   public void breakBallVelXTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     BreakoutGrid grid = new BreakoutGrid(subject, siGame);
     BreakoutBall ball = new BreakoutBall(grid);
-    
+
     assertEquals(ball.getBallVelocityX(), 0);
   }
-  
+
   @Test
   public void breakBallVelYTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     BreakoutGrid grid = new BreakoutGrid(subject, siGame);
     BreakoutBall ball = new BreakoutBall(grid);
-    
+
     assertEquals(ball.getBallVelocityY(), 0);
   }
-  
+
   @Test
-  public void ballMoveXZTest() {
+  public void ballMoveZTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     BreakoutGrid grid = new BreakoutGrid(subject, siGame);
     BreakoutBall ball = new BreakoutBall(grid);
-    
+
     ball.setBallPosX(0);
     ball.ballMove();
     assertEquals(ball.getBallVelocityX(), 10);
   }
-  
+
   @Test
-  public void ballMoveXWTest() {
+  public void ballMoveWTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     BreakoutGrid grid = new BreakoutGrid(subject, siGame);
     BreakoutBall ball = new BreakoutBall(grid);
-    
-    ball.setBallPosX( grid.getGridWidth() - grid.getBallDiameter());
+
+    ball.setBallPosX(grid.getGridWidth() - grid.getBallDiameter());
     ball.ballMove();
     assertEquals(ball.getBallVelocityX(), -10);
   }
-  
+
   @Test
   public void ballMoveYTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     BreakoutGrid grid = new BreakoutGrid(subject, siGame);
     BreakoutBall ball = new BreakoutBall(grid);
-    
+
     ball.setBallPosY(0);
     ball.ballMove();
     assertEquals(ball.getBallVelocityY(), 10);
   }
-  
+
   @Test
   public void breakPaddlePosXTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     BreakoutGrid grid = new BreakoutGrid(subject, siGame);
     BreakoutPaddle paddle = new BreakoutPaddle(grid);
-    
+
     assertEquals(paddle.getPaddlePosX(), 550);
   }
-  
+
   @Test
   public void breakPaddlePosYTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     BreakoutGrid grid = new BreakoutGrid(subject, siGame);
     BreakoutPaddle paddle = new BreakoutPaddle(grid);
-    
+
     assertEquals(paddle.getPaddlePosY(), 1010);
   }
-  
+
   @Test
   public void paddleMoveZTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     BreakoutGrid grid = new BreakoutGrid(subject, siGame);
     BreakoutPaddle paddle = new BreakoutPaddle(grid);
-    
+
     paddle.setPaddlePosX(0);
     paddle.paddleMove();
-    
+
     assertEquals(paddle.getPaddlePosX(), 0);
   }
-  
+
   @Test
   public void paddleMoveWTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     BreakoutGrid grid = new BreakoutGrid(subject, siGame);
     BreakoutPaddle paddle = new BreakoutPaddle(grid);
-    
+
     paddle.setPaddlePosX(grid.getGridWidth() - grid.getPaddleWidth());
     paddle.paddleMove();
-    
+
     assertEquals(paddle.getPaddlePosX(), grid.getGridWidth() - grid.getPaddleWidth());
   }
-  
+
   @Test
   public void breakBrickPosXTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     BreakoutGrid grid = new BreakoutGrid(subject, siGame);
     BreakoutBrick brick = new BreakoutBrick(grid, 10, 10);
-    
+
     assertEquals(brick.getBrickPosX(), 10);
   }
-  
+
   @Test
   public void breakBrickPosYTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     BreakoutGrid grid = new BreakoutGrid(subject, siGame);
     BreakoutBrick brick = new BreakoutBrick(grid, 10, 10);
-    
+
     assertEquals(brick.getBrickPosY(), 10);
   }
-  
+
   @Test
   public void breakBrickActiveTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     BreakoutGrid grid = new BreakoutGrid(subject, siGame);
     BreakoutBrick brick = new BreakoutBrick(grid, 10, 10);
-    
+
     brick.setIsActive(false);
-    
+
     assertFalse(brick.getIsActive());
+  }
+
+  @Test
+  public void breakPosXTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    BreakoutGrid grid = new BreakoutGrid(subject, siGame);
+
+    int[] temp = new int[120];
+    int[] posX = grid.getXposTotal();
+
+    assertEquals(temp.length, posX.length);
+  }
+
+  @Test
+  public void breakPosYTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    BreakoutGrid grid = new BreakoutGrid(subject, siGame);
+
+    int[] temp = new int[120];
+    int[] posY = grid.getYposTotal();
+
+    assertEquals(temp.length, posY.length);
+  }
+
+  @Test
+  public void breakBrickWidthTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    BreakoutGrid grid = new BreakoutGrid(subject, siGame);
+
+    int width = grid.getBrickWidth();
+
+    assertEquals(width, 50);
+  }
+
+  @Test
+  public void breakBrickHeightTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    BreakoutGrid grid = new BreakoutGrid(subject, siGame);
+
+    int height = grid.getBrickHeight();
+
+    assertEquals(height, 30);
+  }
+
+  @Test
+  public void breakPaddleWidthTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    BreakoutGrid grid = new BreakoutGrid(subject, siGame);
+
+    int width = grid.getPaddleWidth();
+
+    assertEquals(width, 100);
+  }
+
+  @Test
+  public void breakPaddleHeightTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    BreakoutGrid grid = new BreakoutGrid(subject, siGame);
+
+    int height = grid.getPaddleHeight();
+
+    assertEquals(height, 30);
+  }
+
+  @Test
+  public void breakScoreTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    BreakoutGrid grid = new BreakoutGrid(subject, siGame);
+
+    grid.setBreakoutScore(10);
+
+    assertEquals(grid.getBreakoutScore(), 10);
   }
 }
