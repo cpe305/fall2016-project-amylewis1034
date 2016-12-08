@@ -9,8 +9,8 @@ import java.awt.Rectangle;
  * @version 11/28/16
  */
 public class BreakoutPaddle {
-  private static final int PADDLE_INIT_X = 600;
-  private static final int PADDLE_INIT_Y = 1000;
+  private static final int PADDLE_INIT_X = 550;
+  private static final int PADDLE_INIT_Y = 1010;
 
   private BreakoutGrid breakoutGrid;
   private int paddlePosX;
@@ -61,8 +61,8 @@ public class BreakoutPaddle {
       paddlePosX = 0;
     }
 
-    if (paddlePosX >= breakoutGrid.getWidth() - breakoutGrid.getPaddleWidth()) {
-      paddlePosX = breakoutGrid.getWidth() - breakoutGrid.getPaddleWidth();
+    if (paddlePosX >= breakoutGrid.getGridWidth() - breakoutGrid.getPaddleWidth()) {
+      paddlePosX = breakoutGrid.getGridWidth() - breakoutGrid.getPaddleWidth();
     }
   }
 }

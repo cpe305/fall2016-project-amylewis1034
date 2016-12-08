@@ -18,6 +18,7 @@ public class ArcadeConcreteSubject extends ArcadeSubject {
     SPACEINVADERS, 
     SNAKE,
     BREAKOUT,
+    HELP,
     HIGHSCORES, 
     ENDSPACEGAMEMENU,
     ENDSNAKEMENU,

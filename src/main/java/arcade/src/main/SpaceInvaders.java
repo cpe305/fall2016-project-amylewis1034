@@ -29,10 +29,12 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   public static final int BACK_POSITION = -50;
   public static final int BACK_REWIDTH = 2500;
   public static final int BACK_REHEIGHT = 1600;
+  public static final int BACK_SHIFT = 450;
   public static final int X_PLAYER_POSITION = 1000;
   public static final int Y_PLAYER_POSITION = 1200;
   public static final int X_BULLET_POSITION = 19;
   public static final int Y_BULLET_POSITION = 5;
+  private static final int SCORE_POSITION = 300;
   public static final double TICKS = 60.0;
 
   private transient Thread thread;
@@ -48,6 +50,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   private transient EndSnakeMenu endSnakeMenu;
   private transient EndBreakoutMenu endBreakoutMenu;
   private transient HighscoreMenu highScoreMenu;
+  private transient HelpMenu helpMenu;
   private transient HighscoreManagerSpace hsManager;
   private transient Player player;
   private transient Controller controller;
@@ -159,9 +162,10 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
           buffLoader.createResizedCopy(arcadeBackground, BACK_REWIDTH, BACK_REHEIGHT);
       snakeBackground = buffLoader.loadImage("/snake_background.png");
       snakeBackground =
-          buffLoader.createResizedCopy(snakeBackground, BACK_REWIDTH - 450, BACK_REHEIGHT);
+          buffLoader.createResizedCopy(snakeBackground, BACK_REWIDTH - BACK_SHIFT, BACK_REHEIGHT);
       breakBackground = buffLoader.loadImage("/break_background.png");
-      breakBackground = buffLoader.createResizedCopy(breakBackground, BACK_REWIDTH, BACK_REHEIGHT);
+      breakBackground =
+          buffLoader.createResizedCopy(breakBackground, BACK_REWIDTH + BACK_SHIFT, BACK_REHEIGHT);
       highscoreBackground = buffLoader.loadImage("/highscore_background.png");
       highscoreBackground =
           buffLoader.createResizedCopy(highscoreBackground, BACK_REWIDTH, BACK_REHEIGHT);
@@ -184,6 +188,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     endSnakeMenu = new EndSnakeMenu(subject);
     endBreakoutMenu = new EndBreakoutMenu(subject);
     highScoreMenu = new HighscoreMenu(subject);
+    helpMenu = new HelpMenu(subject);
     subject.registerObservers(this);
     subject.registerObservers(startMenu);
     subject.registerObservers(snakeGrid);
@@ -192,6 +197,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
     subject.registerObservers(endSnakeMenu);
     subject.registerObservers(endBreakoutMenu);
     subject.registerObservers(highScoreMenu);
+    subject.registerObservers(helpMenu);
 
     controller.addFriendlyCollideObject(player);
     friendlyList = controller.getFriendlyCollideObjectList();
@@ -311,6 +317,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
       Font fnt = new Font("arial", Font.BOLD, 50);
       graphics.setFont(fnt);
       graphics.setColor(Color.YELLOW);
+      graphics.drawString("Score: ", SpaceInvaders.WIDTH * 2 - SCORE_POSITION, 60);
       graphics.drawString(((Integer) score).toString(), SpaceInvaders.WIDTH * 2 - 100, 60);
 
       player.render(graphics);
@@ -343,6 +350,10 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
       graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);
       graphics.drawImage(breakBackground, BACK_POSITION, 0, this);
       endBreakoutMenu.render(graphics);
+    } else if (state == Arcade.HELP) {
+      graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);
+      graphics.drawImage(highscoreBackground, BACK_POSITION, 0, this);
+      helpMenu.render(graphics);
     }
 
     graphics.dispose();

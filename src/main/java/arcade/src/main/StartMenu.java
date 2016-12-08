@@ -66,7 +66,7 @@ public class StartMenu implements ArcadeObserver {
       ((Graphics2D) graphics).draw(playBreakoutButton);
       fntButton = new Font("arial", Font.BOLD, 30);
       graphics.setFont(fntButton);
-      graphics.drawString("Help", helpButton.x + 20, helpButton.y + 35);
+      graphics.drawString("Help", helpButton.x + 15, helpButton.y + 35);
       ((Graphics2D) graphics).draw(helpButton);
       graphics.drawString("High Scores", highscoreButton.x + 10, highscoreButton.y + 35);
       ((Graphics2D) graphics).draw(highscoreButton);

@@ -52,7 +52,7 @@ public class KeyInput extends KeyAdapter {
       siGame.keyReleased(event);
     }
     if (breakoutGame != null) {
-      breakoutGame.keyPressed(event);
+      breakoutGame.keyReleased(event);
     }
   }
 }

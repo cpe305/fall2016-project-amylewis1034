@@ -2,8 +2,14 @@ package arcade.src.main;
 
 import java.awt.Rectangle;
 
+/**
+ * Class that creates the ball for the game, Breakout.
+ * 
+ * @author Amy Lewis.
+ * @version 11/28/16
+ */
 public class BreakoutBall {
-  private static final int BALL_INIT_X = 600;
+  private static final int BALL_INIT_X = 590;
   private static final int BALL_INIT_Y = 990;
 
   private BreakoutGrid breakoutGrid;

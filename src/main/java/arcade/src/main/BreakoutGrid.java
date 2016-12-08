@@ -37,6 +37,8 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
   private static final int BRICK_WIDTH = 50;
   private static final int BRICK_HEIGHT = 30;
   private static final int BALL_DIAMETER = 20;
+  private static final int BALL_VELOCITY = 10;
+  private static final int PADDLE_VELOCITY = 9;
   private static final int PADDLE_WIDTH = 100;
   private static final int PADDLE_HEIGHT = 30;
   private static final int SCORE_POSITION = 300;
@@ -165,11 +167,6 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
    * @param event is the action performed by the class
    */
   public void actionPerformed(ActionEvent event) {
-    if (isRunning) {
-      breakBall.ballMove();
-      breakPaddle.paddleMove();
-      checkCollision();
-    }
     repaint();
   }
 
@@ -192,38 +189,38 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
 
     if ((breakBall.getRectBounds()).intersects(breakPaddle.getRectBounds())) {
 
-      int paddleLPos = (int) breakPaddle.getRectBounds().getMinX();
-      int ballLPos = (int) breakBall.getRectBounds().getMinX();
+      int curPosPaddle = (int) breakPaddle.getRectBounds().getMinX();
+      int curPosBall = (int) breakBall.getRectBounds().getMinX();
 
-      int first = paddleLPos + 25;
-      int second = paddleLPos + 50;
+      int firstQuarter = curPosPaddle + 25;
+      int secondQuarter = curPosPaddle + 50;
 
-      if (ballLPos < first) {
-        breakBall.setBallVelocityX(-10);
-        breakBall.setBallVelocityY(-10);
+      if (curPosBall < firstQuarter) {
+        breakBall.setBallVelocityX(-BALL_VELOCITY);
+        breakBall.setBallVelocityY(-BALL_VELOCITY);
       }
 
-      if (ballLPos >= first && ballLPos < second) {
-        breakBall.setBallVelocityX(-10);
+      if (curPosBall >= firstQuarter && curPosBall < secondQuarter) {
+        breakBall.setBallVelocityX(-BALL_VELOCITY);
         breakBall.setBallVelocityY(-1 * breakBall.getBallVelocityY());
       }
 
-      int third = paddleLPos + 75;
-      int fourth = paddleLPos + 100;
+      int thirdQuarter = curPosPaddle + 75;
+      int fourthQuarter = curPosPaddle + 100;
 
-      if (ballLPos >= second && ballLPos < third) {
+      if (curPosBall >= secondQuarter && curPosBall < thirdQuarter) {
         breakBall.setBallVelocityX(0);
-        breakBall.setBallVelocityY(-10);
+        breakBall.setBallVelocityY(-BALL_VELOCITY);
       }
 
-      if (ballLPos >= third && ballLPos < fourth) {
+      if (curPosBall >= thirdQuarter && curPosBall < fourthQuarter) {
         breakBall.setBallVelocityX(0);
         breakBall.setBallVelocityY(-1 * breakBall.getBallVelocityY());
       }
 
-      if (ballLPos > fourth) {
-        breakBall.setBallVelocityX(10);
-        breakBall.setBallVelocityY(-10);
+      if (curPosBall > fourthQuarter) {
+        breakBall.setBallVelocityX(BALL_VELOCITY);
+        breakBall.setBallVelocityY(-BALL_VELOCITY);
       }
     }
 
@@ -234,23 +231,24 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
         int ballLeft = (int) breakBall.getRectBounds().getMinX();
         int ballTop = (int) breakBall.getRectBounds().getMinY();
 
-        Point pointRight = new Point(ballLeft + BALL_DIAMETER + 1, ballTop);
-        Point pointLeft = new Point(ballLeft - 1, ballTop);
-        Point pointTop = new Point(ballLeft, ballTop - 1);
-        Point pointBottom = new Point(ballLeft, ballTop + BALL_DIAMETER + 1);
+        Point rightContactPoint = new Point(ballLeft + BALL_DIAMETER + 1, ballTop);
+        Point leftContactPoint = new Point(ballLeft - 1, ballTop);
+        Point topContactPoint = new Point(ballLeft, ballTop - 1);
+        Point bottomContactPoint = new Point(ballLeft, ballTop + BALL_DIAMETER + 1);
 
         if (breakBricks[i].getIsActive()) {
-          if (breakBricks[i].getRectBounds().contains(pointRight)) {
-            breakBall.setBallVelocityX(-10);
-          } else if (breakBricks[i].getRectBounds().contains(pointLeft)) {
-            breakBall.setBallVelocityX(10);
+          if (breakBricks[i].getRectBounds().contains(rightContactPoint)) {
+            breakBall.setBallVelocityX(-BALL_VELOCITY);
+          } else if (breakBricks[i].getRectBounds().contains(leftContactPoint)) {
+            breakBall.setBallVelocityX(BALL_VELOCITY);
           }
 
-          if (breakBricks[i].getRectBounds().contains(pointTop)) {
-            breakBall.setBallVelocityY(10);
-          } else if (breakBricks[i].getRectBounds().contains(pointBottom)) {
-            breakBall.setBallVelocityY(-10);
+          if (breakBricks[i].getRectBounds().contains(topContactPoint)) {
+            breakBall.setBallVelocityY(BALL_VELOCITY);
+          } else if (breakBricks[i].getRectBounds().contains(bottomContactPoint)) {
+            breakBall.setBallVelocityY(-BALL_VELOCITY);
           }
+          
           breakBricks[i].setIsActive(false);
           score++;
         }
@@ -278,17 +276,16 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
               breakBricks[i].getBrickPosY(), this);
         }
       }
+      
+      breakBall.ballMove();
+      breakPaddle.paddleMove();
+      checkCollision();
 
       Font fnt = new Font("arial", Font.BOLD, 50);
       graphics.setFont(fnt);
       graphics.setColor(Color.YELLOW);
       graphics.drawString("Score: ", SpaceInvaders.WIDTH * 2 - SCORE_POSITION, 60);
       graphics.drawString(((Integer) score).toString(), SpaceInvaders.WIDTH * 2 - 100, 60);
-
-
-      breakBall.ballMove();
-      breakPaddle.paddleMove();
-      checkCollision();
 
       Toolkit.getDefaultToolkit().sync();
     } else {
@@ -312,15 +309,15 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
     int key = event.getKeyCode();
 
     if (key == KeyEvent.VK_LEFT) {
-      breakPaddle.setPaddleVelocity(-10);
+      breakPaddle.setPaddleVelocity(-PADDLE_VELOCITY);
     }
 
     if (key == KeyEvent.VK_RIGHT) {
-      breakPaddle.setPaddleVelocity(10);
+      breakPaddle.setPaddleVelocity(PADDLE_VELOCITY);
     }
 
     if (key == KeyEvent.VK_UP && breakBall.getBallVelocityY() == 0) {
-      breakBall.setBallVelocityY(-10);
+      breakBall.setBallVelocityY(-BALL_VELOCITY);
     }
   }
 
