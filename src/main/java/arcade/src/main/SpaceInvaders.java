@@ -42,6 +42,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   private transient BufferedImage arcadeBackground = null;
   private transient BufferedImage snakeBackground = null;
   private transient BufferedImage breakBackground = null;
+  private transient BufferedImage highscoreBackground = null;
   private transient StartMenu startMenu;
   private transient EndSpaceGameMenu endSpaceGameMenu;
   private transient EndSnakeMenu endSnakeMenu;
@@ -56,7 +57,6 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
   private SnakeGrid snakeGrid;
   private BreakoutGrid breakoutGrid;
   private Arcade state;
-
 
   private int numEnemy;
   private int numEnemyKilled;
@@ -162,6 +162,9 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
           buffLoader.createResizedCopy(snakeBackground, BACK_REWIDTH - 450, BACK_REHEIGHT);
       breakBackground = buffLoader.loadImage("/break_background.png");
       breakBackground = buffLoader.createResizedCopy(breakBackground, BACK_REWIDTH, BACK_REHEIGHT);
+      highscoreBackground = buffLoader.loadImage("/highscore_background.png");
+      highscoreBackground =
+          buffLoader.createResizedCopy(highscoreBackground, BACK_REWIDTH, BACK_REHEIGHT);
     } catch (Exception ex) {
       LOGGER.log(null, "Could not load images.", ex);
     }
@@ -326,7 +329,7 @@ public class SpaceInvaders extends Canvas implements Runnable, ArcadeObserver {
       startMenu.render(graphics);
     } else if (state == Arcade.HIGHSCORES) {
       graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);
-      graphics.drawImage(arcadeBackground, BACK_POSITION, 0, this);
+      graphics.drawImage(highscoreBackground, BACK_POSITION, 0, this);
       highScoreMenu.render(graphics);
     } else if (state == Arcade.ENDSPACEGAMEMENU) {
       graphics.drawImage(imageBuffer, 0, 0, getWidth(), getHeight(), this);

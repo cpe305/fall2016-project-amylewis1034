@@ -131,7 +131,7 @@ public class ManageHighscores {
     }
     for (int i = 0; i < numScores; i++) {
       highscore =
-          (i + 1) + ".    " + scores.get(i).getScoreName() + "      " + scores.get(i).getScore();
+          (i + 1) + ".    " + scores.get(i).getScoreName() + "       " + scores.get(i).getScore();
       output.add(highscore);
     }
     return output;

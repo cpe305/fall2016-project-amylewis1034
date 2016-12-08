@@ -29,7 +29,7 @@ public class StartMenu implements ArcadeObserver {
   private Rectangle playSnakeButton =
       new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + BUTTON_WIDTH, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
   private Rectangle playBreakoutButton =
-      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + 2 * BUTTON_WIDTH, BUTTON_WIDTH * 3, BUTTON_HEIGHT);
+      new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + 2 * BUTTON_WIDTH, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
   private Rectangle helpButton =
       new Rectangle(X_BUTTON_POS, Y_BUTTON_POS + 3 * BUTTON_WIDTH, BUTTON_WIDTH, BUTTON_HEIGHT);
   private Rectangle highscoreButton =
@@ -58,10 +58,14 @@ public class StartMenu implements ArcadeObserver {
       graphics.setFont(fntButton);
       graphics.drawString("Play Space Invaders", playSpaceButton.x + 5, playSpaceButton.y + 35);
       ((Graphics2D) graphics).draw(playSpaceButton);
-      graphics.drawString("Play Snake", playSnakeButton.x + 5, playSnakeButton.y + 35);
+      graphics.drawString("Play Snake", playSnakeButton.x + 15, playSnakeButton.y + 35);
       ((Graphics2D) graphics).draw(playSnakeButton);
+      fntButton = new Font("arial", Font.BOLD, 28);
+      graphics.setFont(fntButton);
       graphics.drawString("Play Breakout", playBreakoutButton.x + 5, playBreakoutButton.y + 35);
       ((Graphics2D) graphics).draw(playBreakoutButton);
+      fntButton = new Font("arial", Font.BOLD, 30);
+      graphics.setFont(fntButton);
       graphics.drawString("Help", helpButton.x + 20, helpButton.y + 35);
       ((Graphics2D) graphics).draw(helpButton);
       graphics.drawString("High Scores", highscoreButton.x + 10, highscoreButton.y + 35);

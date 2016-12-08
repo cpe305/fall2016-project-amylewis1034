@@ -20,6 +20,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+/**
+ * Class that runs the game, Snake.
+ * 
+ * @author Amy Lewis.
+ * @version 12/7/16
+ */
 public class SnakeGrid extends JPanel implements ActionListener, ArcadeObserver {
   private static final long serialVersionUID = 1L;
   private static final Logger LOGGER = Logger.getLogger(SpaceInvaders.class.toString());

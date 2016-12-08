@@ -1,9 +1,9 @@
 package arcade.src.main;
 
+import arcade.src.main.ArcadeConcreteSubject.Arcade;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import arcade.src.main.ArcadeConcreteSubject.Arcade;
 
 /**
  * Class that handles mouse clicks by the user.
@@ -126,7 +126,7 @@ public class MouseClickInput implements MouseListener {
     } else if (SpaceInvaders.getSubject().getState() == Arcade.ENDBREAKOUTMENU) {
       // Buttons for End Breakout Menu
       // Play Snake Again Button
-      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 3) {
+      if (mouseX >= X_BUTTON_POS && mouseX <= X_BUTTON_POS + BUTTON_WIDTH * 2) {
         if (mouseY >= Y_BUTTON_POS && mouseY <= Y_BUTTON_POS + BUTTON_HEIGHT) {
           SpaceInvaders.getSubject().setState(Arcade.BREAKOUT);
           SpaceInvaders.getSubject().notifyObservers();

@@ -5,13 +5,18 @@ import java.awt.Rectangle;
 public class BreakoutBall {
   private static final int BALL_INIT_X = 600;
   private static final int BALL_INIT_Y = 990;
-  
+
   private BreakoutGrid breakoutGrid;
   private int ballPosX;
   private int ballPosY;
   private int ballVelocityX;
   private int ballVelocityY;
 
+  /**
+   * Constructor for the ball to be used in the game Breakout.
+   * 
+   * @param breakoutGrid represents the game Breakout
+   */
   public BreakoutBall(BreakoutGrid breakoutGrid) {
     this.breakoutGrid = breakoutGrid;
     ballVelocityX = 0;
@@ -27,19 +32,19 @@ public class BreakoutBall {
   public int getBallPosX() {
     return ballPosX;
   }
-  
+
   public int getBallPosY() {
     return ballPosY;
   }
-  
+
   public int getBallVelocityX() {
     return ballVelocityX;
   }
-  
+
   public void setBallVelocityX(int ballVelocityX) {
     this.ballVelocityX = ballVelocityX;
   }
-  
+
   public int getBallVelocityY() {
     return ballVelocityY;
   }
@@ -47,11 +52,15 @@ public class BreakoutBall {
   public void setBallVelocityY(int ballVelocityY) {
     this.ballVelocityY = ballVelocityY;
   }
-  
+
   public Rectangle getRectBounds() {
-    return new Rectangle(ballPosX, ballPosY, breakoutGrid.getBallDiameter(), breakoutGrid.getBallDiameter());
+    return new Rectangle(ballPosX, ballPosY, breakoutGrid.getBallDiameter(),
+        breakoutGrid.getBallDiameter());
   }
 
+  /**
+   * Method that controls how the ball moves in the game Breakout.
+   */
   public void ballMove() {
     ballPosX += ballVelocityX;
     ballPosY += ballVelocityY;

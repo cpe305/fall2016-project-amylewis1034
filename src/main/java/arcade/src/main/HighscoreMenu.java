@@ -58,27 +58,28 @@ public class HighscoreMenu implements ArcadeObserver {
     if (state == Arcade.HIGHSCORES) {
       Font fnt = new Font("arial", Font.BOLD, 200);
       graphics.setFont(fnt);
-      graphics.setColor(Color.MAGENTA);
+      graphics.setColor(Color.WHITE);
       graphics.drawString("High Scores", SpaceInvaders.WIDTH / 2, 200);
 
       Font fntButton = new Font("arial", Font.BOLD, 30);
       graphics.setFont(fntButton);
-      graphics.drawString("SPACE INVADERS", X_BUTTON_POS + BUTTON_HEIGHT, 360);
-      graphics.drawString("Name    Score", X_BUTTON_POS + BUTTON_WIDTH, 400);
-      for (int i = 0; i < highscoresSpace.size(); i++) {
-        graphics.drawString(highscoresSpace.get(i), X_BUTTON_POS + 50, 440 + i * 40);
-      }
       
-      graphics.drawString("SNAKE", X_BUTTON_POS  + BUTTON_HEIGHT, 700);
-      graphics.drawString("Name    Score", X_BUTTON_POS  + BUTTON_WIDTH, 740);
-      for (int j = 0; j < highscoresSnake.size(); j++) {
-        graphics.drawString(highscoresSnake.get(j), X_BUTTON_POS + 50, 780 + j * 40);
+      graphics.drawString("SPACE INVADERS", 250, 700);
+      graphics.drawString("Name      Score", 300, 740);
+      for (int j = 0; j < highscoresSpace.size(); j++) {
+        graphics.drawString(highscoresSpace.get(j), 250, 780 + j * 40);
       }  
       
-      graphics.drawString("BREAKOUT", X_BUTTON_POS  + BUTTON_HEIGHT, 1040);
-      graphics.drawString("Name    Score", X_BUTTON_POS  + BUTTON_WIDTH, 1080);
+      graphics.drawString("SNAKE", 850, 700);
+      graphics.drawString("Name      Score", 900, 740);
+      for (int i = 0; i < highscoresSnake.size(); i++) {
+        graphics.drawString(highscoresSnake.get(i), 850, 780 + i * 40);
+      }
+      
+      graphics.drawString("BREAKOUT", 1450, 700);
+      graphics.drawString("Name      Score", 1500, 740);
       for (int k = 0; k < highscoresBreakout.size(); k++) {
-        graphics.drawString(highscoresBreakout.get(k), X_BUTTON_POS + 50, 1120 + k * 40);
+        graphics.drawString(highscoresBreakout.get(k), 1450, 780 + k * 40);
       }  
       
       graphics.drawString("Go To Start Menu", startMenuButton.x + 10, startMenuButton.y + 35);

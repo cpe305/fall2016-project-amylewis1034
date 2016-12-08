@@ -1,5 +1,7 @@
 package arcade.src.main;
 
+import arcade.src.main.ArcadeConcreteSubject.Arcade;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -18,8 +20,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import arcade.src.main.ArcadeConcreteSubject.Arcade;
-
+/**
+ * Class that runs the game, Breakout.
+ * 
+ * @author Amy Lewis.
+ * @version 12/7/16
+ */
 public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserver {
   private static final long serialVersionUID = 1L;
   private static final Logger LOGGER = Logger.getLogger(SpaceInvaders.class.toString());
@@ -41,7 +47,7 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
 
   private int[] xposTotal = new int[NUM_BRICKS];
   private int[] yposTotal = new int[NUM_BRICKS];
-  
+
   private Rectangle breakGrid = new Rectangle(0, 0, GRID_WIDTH, GRID_HEIGHT);
 
   private int score;
@@ -55,6 +61,12 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
   private Arcade state;
   private ArcadeConcreteSubject subject; // NOSONAR
 
+  /**
+   * Constructor for Breakout game.
+   * 
+   * @param subject is a reference to the subject for the observer Breakout
+   * @param siGame is a reference to Space Invaders to add a Key Listener
+   */
   public BreakoutGrid(ArcadeConcreteSubject subject, SpaceInvaders siGame) {
     this.subject = subject;
     state = subject.getState();
@@ -94,7 +106,7 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
   public int getPaddleHeight() {
     return PADDLE_HEIGHT;
   }
-  
+
   public int getBreakoutScore() {
     return score;
   }
@@ -122,16 +134,17 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
     breakPaddle = new BreakoutPaddle(this);
     score = 0;
 
-    int iter, i, j;
-    iter = i = j = 0;
+    int iter = 0;
+    int x1Pos = 0;
+    int y1Pos = 0;
     while (iter < NUM_BRICKS) {
-      xposTotal[iter] = i * 50;
-      yposTotal[iter] = j * 30;
+      xposTotal[iter] = x1Pos * 50;
+      yposTotal[iter] = y1Pos * 30;
       breakBricks[iter] = new BreakoutBrick(this, xposTotal[iter], yposTotal[iter++]);
-      i++;
-      if (i == 24) {
-        i = 0;
-        j++;
+      x1Pos++;
+      if (x1Pos == 24) {
+        x1Pos = 0;
+        y1Pos++;
       }
     }
   }
@@ -143,7 +156,13 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
     timer = new Timer(DELAY, this);
     timer.start();
   }
-
+  
+  /**
+   * If Breakout is running the apple should be randomly placed, collision detection should be
+   * activated, and the snake should be able to move.
+   * 
+   * @param event is the action performed by the class
+   */
   public void actionPerformed(ActionEvent event) {
     if (isRunning) {
       breakBall.ballMove();
@@ -175,10 +194,8 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
       int paddleLPos = (int) breakPaddle.getRectBounds().getMinX();
       int ballLPos = (int) breakBall.getRectBounds().getMinX();
 
-      int first = paddleLPos + 8;
-      int second = paddleLPos + 16;
-      int third = paddleLPos + 24;
-      int fourth = paddleLPos + 32;
+      int first = paddleLPos + 25;
+      int second = paddleLPos + 50;
 
       if (ballLPos < first) {
         breakBall.setBallVelocityX(-10);
@@ -189,6 +206,9 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
         breakBall.setBallVelocityX(-10);
         breakBall.setBallVelocityY(-1 * breakBall.getBallVelocityY());
       }
+
+      int third = paddleLPos + 75;
+      int fourth = paddleLPos + 100;
 
       if (ballLPos >= second && ballLPos < third) {
         breakBall.setBallVelocityX(0);
@@ -237,10 +257,15 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
     }
   }
 
+  /**
+   * Draws the images for Breakout.
+   * 
+   * @param graphics is a reference to the Java graphics class
+   */
   public void render(Graphics graphics) {
     if (isRunning) {
       ((Graphics2D) graphics).draw(breakGrid);
-      
+
       graphics.drawImage(breakPaddleImg, breakPaddle.getPaddlePosX(), breakPaddle.getPaddlePosY(),
           this);
 
@@ -252,7 +277,7 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
               breakBricks[i].getBrickPosY(), this);
         }
       }
-      
+
       Font fnt = new Font("arial", Font.BOLD, 50);
       graphics.setFont(fnt);
       graphics.setColor(Color.YELLOW);
@@ -277,8 +302,12 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
     }
   }
 
+  /**
+   * Allows the user to control the player with certain keys on the keyboard.
+   * 
+   * @param event the key that was pressed
+   */
   public void keyPressed(KeyEvent event) {
-
     int key = event.getKeyCode();
 
     if (key == KeyEvent.VK_LEFT) {
@@ -294,8 +323,12 @@ public class BreakoutGrid extends JPanel implements ActionListener, ArcadeObserv
     }
   }
 
+  /**
+   * Makes it so when a key is released, it no longer has an effect on the game.
+   * 
+   * @param event the key that was released
+   */
   public void keyReleased(KeyEvent event) {
-
     int key = event.getKeyCode();
 
     if (key == KeyEvent.VK_LEFT) {
