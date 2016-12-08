@@ -38,9 +38,17 @@ public class BreakoutBall {
   public int getBallPosX() {
     return ballPosX;
   }
+  
+  public void setBallPosX(int ballPosX) {
+    this.ballPosX = ballPosX;
+  }
 
   public int getBallPosY() {
     return ballPosY;
+  }
+  
+  public void setBallPosY(int ballPosY) {
+    this.ballPosY = ballPosY;
   }
 
   public int getBallVelocityX() {
