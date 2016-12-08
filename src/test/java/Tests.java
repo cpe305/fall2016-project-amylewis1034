@@ -12,6 +12,7 @@ import arcade.src.main.ArcadeConcreteSubject;
 import arcade.src.main.ArcadeConcreteSubject.Arcade;
 import arcade.src.main.ArcadeObserver;
 import arcade.src.main.BreakoutBall;
+import arcade.src.main.BreakoutBrick;
 import arcade.src.main.BreakoutGrid;
 import arcade.src.main.Bullet;
 import arcade.src.main.CollisionPhysics;
@@ -549,7 +550,7 @@ public class Tests {
   }
   
   @Test
-  public void ballMoveXTest() {
+  public void ballMoveXZTest() {
     ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
     SpaceInvaders siGame = new SpaceInvaders();
     BreakoutGrid grid = new BreakoutGrid(subject, siGame);
@@ -558,6 +559,18 @@ public class Tests {
     ball.setBallPosX(0);
     ball.ballMove();
     assertEquals(ball.getBallVelocityX(), 10);
+  }
+  
+  @Test
+  public void ballMoveXWTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    BreakoutGrid grid = new BreakoutGrid(subject, siGame);
+    BreakoutBall ball = new BreakoutBall(grid);
+    
+    ball.setBallPosX( grid.getGridWidth() - grid.getBallDiameter());
+    ball.ballMove();
+    assertEquals(ball.getBallVelocityX(), -10);
   }
   
   @Test
@@ -570,5 +583,37 @@ public class Tests {
     ball.setBallPosY(0);
     ball.ballMove();
     assertEquals(ball.getBallVelocityY(), 10);
+  }
+  
+  @Test
+  public void breakBrickPosXTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    BreakoutGrid grid = new BreakoutGrid(subject, siGame);
+    BreakoutBrick brick = new BreakoutBrick(grid, 10, 10);
+    
+    assertEquals(brick.getBrickPosX(), 10);
+  }
+  
+  @Test
+  public void breakBrickPosYTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    BreakoutGrid grid = new BreakoutGrid(subject, siGame);
+    BreakoutBrick brick = new BreakoutBrick(grid, 10, 10);
+    
+    assertEquals(brick.getBrickPosY(), 10);
+  }
+  
+  @Test
+  public void breakBrickActiveTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    BreakoutGrid grid = new BreakoutGrid(subject, siGame);
+    BreakoutBrick brick = new BreakoutBrick(grid, 10, 10);
+    
+    brick.setIsActive(false);
+    
+    assertFalse(brick.getIsActive());
   }
 }
