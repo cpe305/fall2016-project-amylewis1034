@@ -48,13 +48,13 @@ public class EndBreakoutMenu implements ArcadeObserver {
       graphics.drawString("Game Over", 500, BUTTON_WIDTH * 3);
       Font fntButton = new Font("arial", Font.BOLD, 30);
       graphics.setFont(fntButton);
-      graphics.drawString("Go To Start Menu", startMenuButton.x + 10, startMenuButton.y + 35);
-      ((Graphics2D) graphics).draw(startMenuButton);
       graphics.drawString("Exit", exitButton.x + 15, exitButton.y + 35);
       ((Graphics2D) graphics).draw(exitButton);
       graphics.drawString("Play Breakout Again", playBreakoutAgainButton.x + 5,
           playBreakoutAgainButton.y + 35);
       ((Graphics2D) graphics).draw(playBreakoutAgainButton);
+      graphics.drawString("Go To Start Menu", startMenuButton.x + 10, startMenuButton.y + 35);
+      ((Graphics2D) graphics).draw(startMenuButton);
     }
   }
 
