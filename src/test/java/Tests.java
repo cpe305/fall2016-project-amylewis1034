@@ -14,6 +14,7 @@ import arcade.src.main.ArcadeObserver;
 import arcade.src.main.BreakoutBall;
 import arcade.src.main.BreakoutBrick;
 import arcade.src.main.BreakoutGrid;
+import arcade.src.main.BreakoutPaddle;
 import arcade.src.main.Bullet;
 import arcade.src.main.CollisionPhysics;
 import arcade.src.main.Controller;
@@ -583,6 +584,52 @@ public class Tests {
     ball.setBallPosY(0);
     ball.ballMove();
     assertEquals(ball.getBallVelocityY(), 10);
+  }
+  
+  @Test
+  public void breakPaddlePosXTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    BreakoutGrid grid = new BreakoutGrid(subject, siGame);
+    BreakoutPaddle paddle = new BreakoutPaddle(grid);
+    
+    assertEquals(paddle.getPaddlePosX(), 550);
+  }
+  
+  @Test
+  public void breakPaddlePosYTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    BreakoutGrid grid = new BreakoutGrid(subject, siGame);
+    BreakoutPaddle paddle = new BreakoutPaddle(grid);
+    
+    assertEquals(paddle.getPaddlePosY(), 1010);
+  }
+  
+  @Test
+  public void paddleMoveZTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    BreakoutGrid grid = new BreakoutGrid(subject, siGame);
+    BreakoutPaddle paddle = new BreakoutPaddle(grid);
+    
+    paddle.setPaddlePosX(0);
+    paddle.paddleMove();
+    
+    assertEquals(paddle.getPaddlePosX(), 0);
+  }
+  
+  @Test
+  public void paddleMoveWTest() {
+    ArcadeConcreteSubject subject = new ArcadeConcreteSubject();
+    SpaceInvaders siGame = new SpaceInvaders();
+    BreakoutGrid grid = new BreakoutGrid(subject, siGame);
+    BreakoutPaddle paddle = new BreakoutPaddle(grid);
+    
+    paddle.setPaddlePosX(grid.getGridWidth() - grid.getPaddleWidth());
+    paddle.paddleMove();
+    
+    assertEquals(paddle.getPaddlePosX(), grid.getGridWidth() - grid.getPaddleWidth());
   }
   
   @Test
