@@ -37,6 +37,10 @@ public class BreakoutPaddle {
     return paddlePosX;
   }
 
+  public void setPaddlePosX(int paddlePosX) {
+    this.paddlePosX = paddlePosX;
+  }
+  
   public int getPaddlePosY() {
     return paddlePosY;
   }
